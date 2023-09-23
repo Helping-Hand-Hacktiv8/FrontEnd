@@ -5,11 +5,21 @@ const Stack = createStackNavigator();
 
 export default function ProfileStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator >
       <Stack.Screen
-        name="ProfilePage"
+        name="ProfileStack"
         component={ProfilePage}
-        options={{ title: 'Profile' }}
+        options={{ title: 'Profile',
+      headerStyle:{
+        height:300,
+      },
+    headerTitleAlign:'left',
+  headerTitleAllowFontScaling:true,
+headerTitleStyle:{
+  fontWeight:'bold',
+  fontSize:30
+},
+ }}
       />
     </Stack.Navigator>
   );
