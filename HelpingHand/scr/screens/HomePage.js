@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, Button} from "react-native";
+import { View, Text, Button } from "react-native";
 import Register from "../components/Register";
 
 export default function Home({}) {
@@ -14,21 +14,24 @@ export default function Home({}) {
   } else {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <View style={{flexDirection:'row', }}>
-        <View style={{marginHorizontal:10}}>
-        <Button title='Login' style={{marginHorizontal:10}}
-       
-        /> 
-        </View>   
-        <View style={{marginHorizontal:10}}>
-        <Button title='Register'
-         onPress={()=> {
-            navigation.navigate('Register')
-        }}/> 
-        </View>
-
-      
-       
+        <View style={{ flexDirection: "row" }}>
+          <View style={{ marginHorizontal: 10 }}>
+            <Button
+              title="Login"
+              style={{ marginHorizontal: 10 }}
+              onPress={() => {
+                navigation.navigate("Login");
+              }}
+            />
+          </View>
+          <View style={{ marginHorizontal: 10 }}>
+            <Button
+              title="Register"
+              onPress={() => {
+                navigation.navigate("Register");
+              }}
+            />
+          </View>
         </View>
       </View>
     );
