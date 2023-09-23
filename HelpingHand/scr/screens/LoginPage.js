@@ -9,7 +9,9 @@ export default function Login() {
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <TextInput style={styles.input} placeholder="email" onChangeText={onChangeText} value={text} />
 
-      <TextInput style={styles.input} placeholder="password" onChangeText={onChangePass} value={pass} />
+      <TextInput style={styles.input} placeholder="password" onChangeText={onChangePass} value={pass} 
+      secureTextEntry={true}
+      />
       <Button title="submitLogin" />
     </View>
   );

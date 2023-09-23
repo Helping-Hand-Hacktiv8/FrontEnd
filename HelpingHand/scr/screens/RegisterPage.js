@@ -19,6 +19,7 @@ export default function Register(){
       style={styles.input}
       onChangeText={onChangeNumber}
       value={pass}
+      secureTextEntry={true}
       placeholder="password"
     />
     <Button title='submitRegister'></Button>
