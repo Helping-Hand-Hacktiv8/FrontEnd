@@ -1,6 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../screens/HomePage";
 import Register from "../screens/RegisterPage";
+import Login from "../screens/LoginPage";
+
 
 
 
@@ -13,6 +15,7 @@ export default function HomeStack(){
     }} >
         <Stack.Screen name='Home' component={Home}/>
         <Stack.Screen name="Register" component={Register}/>
+        <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
     )
 
