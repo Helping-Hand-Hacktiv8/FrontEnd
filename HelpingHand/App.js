@@ -2,11 +2,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import HomeStack from "./scr/routes/HomeStack";
 import ProfileStack from "./scr/routes/ProfileStack";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons'; 
 import { FontAwesome5 } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { StyleSheet, Text } from "react-native";
 import { useTheme } from 'react-native-paper';
+import MyActivityStack from "./scr/routes/MyActivityStack";
+import { Entypo } from '@expo/vector-icons'; 
+
 
 
 
@@ -17,7 +20,7 @@ theme.colors.secondaryContainer = "transperent"
   return (
     <NavigationContainer>
       <Tab.Navigator
-        activeColor="#dc6c3c"
+        activeColor="#dc6c3c"d
         barStyle={{
           backgroundColor: "white",
           height: 70,
@@ -35,31 +38,28 @@ theme.colors.secondaryContainer = "transperent"
           options={{
             title: "Home",
             tabBarIcon: ({ color }) => (
-              <Feather name="home" size={24} color={color} />
+              <Entypo name="home" size={24} color={color} />
+
             ),
             
           }}
         />
         <Tab.Screen
           name="MyActivity"
-          component={HomeStack}
+          component={MyActivityStack}
           options={{
+            title:"My Activity",
             tabBarIcon: ({ color }) => (
-              <MaterialIcons
-                name="pending-actions"
-                size={24}
-                color={color}
-              />
+              <Entypo name="clipboard" size={24} color={color} />
             ),
-            tabBarLabel: <Text style={styles.tabBarLabel}>Home</Text>
           }}
         />
         <Tab.Screen
-          name="MyRewards"
+          name="My Rewards"
           component={HomeStack}
           options={{
             tabBarIcon: ({ color }) => (
-              <Feather name="gift" size={24} color={color} />
+              <Ionicons name="ios-gift-sharp" size={24} color={color} />
             ),
           }}
         />
@@ -69,7 +69,18 @@ theme.colors.secondaryContainer = "transperent"
           options={{
             title: "My Profile",
             tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="user" size={24} color={color} />
+              <FontAwesome5 name="user-alt" size={24} color={color} />
+            ),
+          }}
+        />
+         <Tab.Screen
+          name="Chat"
+          component={HomeStack}
+          options={{
+            title: "Chat",
+            tabBarIcon: ({ color }) => (
+              <Entypo name="chat" size={24} color={color} />
+
             ),
           }}
         />
