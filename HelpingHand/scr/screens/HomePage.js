@@ -3,16 +3,48 @@ import { View, Text, ScrollView, TextInput, TouchableOpacity, Image, ActivityInd
 import { Button, SearchBar } from "@rneui/base";
 import { useState } from "react";
 import CardComp from "../components/CardComp";
-import searchIcon from "../../assets/search.png"
+import searchIcon from "../../assets/search.png";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home({ searchTerms, setSearchTerms, handleClick }) {
   const navigation = useNavigation();
   const [search, setSearch] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const isLoading = true
-  let isLogin = true;
+  const isLogin = true
+
+  const data = [
+    {
+      id: 1,
+      name: "Mencuri hatinya",
+      description: "biasalah cinta itu buta",
+      fromDate: "2023-10-29",
+      toDate: "2023-12-25",
+      participant: 2,
+      reward: 5,
+      location: "none",
+      lat: 0,
+      status: "Pending",
+      lon: 0,
+      photoAct: "https://thumbs.dreamstime.com/z/beautiful-exterior-home-pictures-new-home-design-images-modern-best-house-design-images-best-house-images-images-latest-172194515.jpg",
+      UserActivity: [
+        {
+          id: 1,
+          UserId: 1,
+          ActivityId: 1,
+          role: "Author",
+        },
+      ],
+    },
+  ];
+
+  
   if (isLogin) {
     return (
+      <SafeAreaView style={{
+        flex: 1
+      }}>
+
       <View style={{ backgroundColor: "white", flex: 1 }}>
         <Text
           style={{
@@ -22,7 +54,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
             fontSize: 25,
             padding: 10,
           }}
-        >
+          >
           Welcome "User"
         </Text>
         <Text
@@ -47,7 +79,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
             borderRadius: 16,
             overflow: "hidden",
           }}
-        >
+          >
           <View
             style={{
               flex: 1,
@@ -59,7 +91,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
               paddingHorizontal: 10,
               height: "100%",
             }}
-          >
+            >
             <TextInput
               style={{
                 flex: 1,
@@ -82,59 +114,65 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
             onPress={handleClick}
             >
             <Image
-            source={searchIcon}
-            resizeMode='contain'
-            style={{
-              width: "50%",
-              height: "50%",
-              tintColor: "#F3F4F8"
-            }}
-          />
+              source={searchIcon}
+              resizeMode="contain"
+              style={{
+                width: "50%",
+                height: "50%",
+                tintColor: "#F3F4F8",
+              }}
+              />
           </TouchableOpacity>
         </View>
 
         <View>
-        <TouchableOpacity
-        style={{
-          
-        }}
-        >
-
-        </TouchableOpacity>
+          <TouchableOpacity style={{}}></TouchableOpacity>
         </View>
 
-        <View style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: 2
-        }}>
-
-        <Text style={{
-          fontSize: 20,
-          color: "#312651",
-        }}>Nearby Helps</Text>
-        <TouchableOpacity>
-          <Text style={{
-          fontSize: 20,
-          color: "#312651",
-        }}>Show all</Text>
-        </TouchableOpacity>
-      </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: 2,
+          }}
+          >
+          <Text
+            style={{
+              fontSize: 20,
+              color: "#312651",
+            }}
+            >
+            Nearby Helps
+          </Text>
+          <TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 20,
+                color: "#312651",
+              }}
+              >
+              Show all
+            </Text>
+          </TouchableOpacity>
+        </View>
 
         <ScrollView style={{ flex: 1 }}>
           <View style={{ flex: 1, marginVertical: 15, alignItems: "center", justifyContent: "center", marginTop: 16 }}>
-          {isLoading ? (
+            {/* {isLoading ? (
           <ActivityIndicator size="large" color={"#312651"} />
         ) : error ? (
-          <Text>Something went wrong</Text>
-          ) : (
-            data?.map((data) => <CardComp data={data} key={`nearby-data-${data.id}`} handleNavigate={() => {}} />)
-            )}
-            <CardComp />
+          <Text>Something went wrong</Text> */}
+            {/* ) : ( */}
+            {data?.map((data) => (
+              <CardComp data={data} key={`nearby-data-${data.id}`} handleNavigate={() => {}} />
+              ))}
+            {/* )} */}
+
           </View>
         </ScrollView>
       </View>
+              </SafeAreaView>
     );
   } else {
     return (
@@ -147,7 +185,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
               onPress={() => {
                 navigation.navigate("Login");
               }}
-            />
+              />
           </View>
           <View style={{ marginHorizontal: 10 }}>
             <Button
@@ -155,7 +193,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
               onPress={() => {
                 navigation.navigate("Register");
               }}
-            />
+              />
           </View>
         </View>
       </View>
@@ -163,6 +201,4 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
   }
 }
 
-const styles = StyleSheet.create({
-
-})
+const styles = StyleSheet.create({});

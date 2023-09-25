@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
-export default function CardComp({ handleNavigation }) {
+export default function CardComp({data, handleNavigation }) {
   return (
     <TouchableOpacity style={styles.cardContainer}>
       <TouchableOpacity style={styles.containerLogo}>
@@ -29,13 +29,13 @@ export default function CardComp({ handleNavigation }) {
       >
         <View style={styles.topRow}>
         {/* Title */}
-        <Text style={styles.cardTittle} numberOfLines={3}>
-          Tolong cari kucing saya yang hilang
+        <Text style={styles.cardTittle} numberOfLines={2}>
+          {data.name}
         </Text>
 
         <View style={styles.rewardContainer}>
             <Text style={styles.rewardText}>reward:</Text>
-            <Text style={styles.rewardValue}>200</Text>
+            <Text style={styles.rewardValue}>{data.reward}</Text>
             <FontAwesome name="star" size={16} color="gold" />
           </View>
         </View>
@@ -44,12 +44,12 @@ export default function CardComp({ handleNavigation }) {
 
         {/* Description */}
         <Text style={styles.descriptionText} numberOfLines={3}>
-          Saya butuh seorang untuk bantu saya mencari kucing saya yang hilang di sekitar rumah saya. kalau ketemu nanti saya kasih hadiah tanda tangan dari hatsune miku
+          {data.description}
         </Text>
 
         {/* Location */}
         <Text style={styles.locationText} numberOfLines={1}>
-          Jl. Radio Dalam nomor 36B Gandaria Utara
+         {data.location}
         </Text>
 
         <View style={styles.bottomRow}>
@@ -59,7 +59,7 @@ export default function CardComp({ handleNavigation }) {
           <View style={styles.participantContainer}>
             <Text style={styles.participantText}>Participant</Text>
           </View>
-          <Text style={styles.participantValue}>5/6</Text>
+          <Text style={styles.participantValue}>{data.participant}/{data.participant}</Text>
         </View>
         </View>
       </View>
