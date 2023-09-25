@@ -10,44 +10,37 @@ import { asyncFetchActSuccess, asyncFetchSingleUser } from "../store/actions/act
 import * as SecureStore from "expo-secure-store";
 
 export default function Home({ searchTerms, setSearchTerms, handleClick }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const { user } = useSelector((state)=>{
-    return state.user
-  })
+  const { user } = useSelector((state) => {
+    return state.user;
+  });
 
-  const { activities } = useSelector((state)=>{
-    return state.activity
-  })
+  const { activities } = useSelector((state) => {
+    return state.activity;
+  });
 
-  useEffect(()=>{
-    
-    const fetchId = async()=>{
-      let getId = await SecureStore.getItemAsync('user_id')
-      return getId
-    }
-    if(isLoading){
+  useEffect(() => {
+    const fetchId = async () => {
+      let getId = await SecureStore.getItemAsync("user_id");
+      return getId;
+    };
+    if (isLoading) {
       dispatch(asyncFetchActSuccess())
-      .then(data=>{
-        return fetchId()
-      })
-      .then((data)=>{
-        dispatch(asyncFetchSingleUser(data))
-        setIsLoading(false)
-      })
-      .catch(err=>{
-        console.log(err)
-      })
-      
-      
-      
+        .then((data) => {
+          return fetchId();
+        })
+        .then((data) => {
+          dispatch(asyncFetchSingleUser(data));
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-    
-  },[])
-
-
+  }, []);
 
   // const data = [
   //   {
@@ -74,9 +67,13 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
   //   },
   // ];
 
-  if(isLoading){
-    return(<ActivityIndicator size="large" color={"#312651"} />)
-  } else{
+  if (isLoading) {
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <ActivityIndicator size="large" color={"#312651"} />
+      </SafeAreaView>
+    );
+  } else {
     return (
       <SafeAreaView
         style={{
@@ -163,6 +160,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
             </TouchableOpacity>
           </View>
 
+          {/* flat list */}
           <View>
             <TouchableOpacity style={{}}></TouchableOpacity>
           </View>
