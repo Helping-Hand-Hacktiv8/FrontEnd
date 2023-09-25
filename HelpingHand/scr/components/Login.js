@@ -1,9 +1,12 @@
 import * as React from "react";
-import { SafeAreaView, TextInput, StyleSheet, Button } from "react-native";
+import { SafeAreaView, TextInput, StyleSheet, } from "react-native";
 import { useState } from "react";
 
 export default function LoginComp({}) {
   return (<SafeAreaView>
+
+
+      
     <TextInput 
     style={styles.input}
     placeholder="email"

@@ -1,7 +1,9 @@
 import {  ACTIVITIES_FETCH_SUCCESS, USER_EDIT_ON_CHANGE, USER_SET_EMPTY_DATA, USER_GET_ACCESS_TOKEN } from "./actionType"
 import axios from 'axios'
 import * as SecureStore from "expo-secure-store";
-const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
+// const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
+// masukin punya sendiri
+const baseUrl = 'https://d65c-180-252-171-208.ngrok-free.app'
 
 
 // export const setEmptyDataUserSuccess = (data) =>{

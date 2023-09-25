@@ -27,11 +27,21 @@ export default function CardComp({data, handleNavigation }) {
           padding: 10,
         }}
       >
+
+      
+
         <View style={styles.topRow}>
         {/* Title */}
-        <Text style={styles.cardTittle} numberOfLines={2}>
+        <View
+        style={{
+          flex: 4
+        }}
+        >
+
+        <Text style={styles.cardTittle} numberOfLines={1}>
           {data.name}
         </Text>
+        </View>
 
         <View style={styles.rewardContainer}>
             <Text style={styles.rewardText}>reward:</Text>
@@ -39,7 +49,7 @@ export default function CardComp({data, handleNavigation }) {
             <FontAwesome name="star" size={16} color="gold" />
           </View>
         </View>
-
+    
        
 
         {/* Description */}
@@ -128,6 +138,7 @@ const styles = StyleSheet.create({
   rewardContainer: {
     flexDirection: "row",
     alignItems: "center",
+    flex: 2,
   },
 
   participantContainer: {
@@ -150,6 +161,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    flex: 1
   },
 
   bottomRow: {
