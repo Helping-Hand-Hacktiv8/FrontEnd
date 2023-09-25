@@ -9,85 +9,28 @@ import { StyleSheet, Text } from "react-native";
 import { useTheme } from 'react-native-paper';
 import MyActivityStack from "./scr/routes/MyActivityStack";
 import { Entypo } from '@expo/vector-icons'; 
-import MyRewardsStack from "./scr/routes/MyRewardStack";
 
+import { Provider, useSelector } from 'react-redux'
+import store from './scr/store/index.js'
+import FrontStack from "./scr/navigators/MainStack";
+import MainStack from "./scr/navigators/FrontStack";
+import { useEffect, useState } from "react";
+import * as SecureStore from 'expo-secure-store';
+import ControlNav from "./scr/navigators/ControlNav";
 
 
 
 export default function App() {
   const theme = useTheme();
-theme.colors.secondaryContainer = "transperent"
+  theme.colors.secondaryContainer = "transperent"
   const Tab = createMaterialBottomTabNavigator();
+
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        activeColor="#dc6c3c"d
-        barStyle={{
-          backgroundColor: "white",
-          height: 70,
-          
-        }}
-        screenOptions={{
-          headerShown: false,
-          tabBarActiveTintColor: "#175d8c",
-          
-        }}
-      >
-        <Tab.Screen
-          name="HomeStack"
-          component={HomeStack}
-          options={{
-            title: "Home",
-            tabBarIcon: ({ color }) => (
-              <Entypo name="home" size={24} color={color} />
-
-            ),
-            
-          }}
-        />
-        <Tab.Screen
-          name="MyActivityStack"
-          component={MyActivityStack}
-          options={{
-            title:"My Activity",
-            tabBarIcon: ({ color }) => (
-              <Entypo name="clipboard" size={24} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="MyRewardsStack"
-          component={MyRewardsStack}
-          options={{
-            title:'MyReward',
-            tabBarIcon: ({ color }) => (
-              <Ionicons name="ios-gift-sharp" size={24} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="ProfilePage"
-          component={ProfileStack}
-          options={{
-            title: "My Profile",
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="user-alt" size={24} color={color} />
-            ),
-          }}
-        />
-         <Tab.Screen
-          name="Chat"
-          component={HomeStack}
-          options={{
-            title: "Chat",
-            tabBarIcon: ({ color }) => (
-              <Entypo name="chat" size={24} color={color} />
-
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <ControlNav />
+      
+    </Provider>
   );
 }
 
