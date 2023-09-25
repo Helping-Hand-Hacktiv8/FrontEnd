@@ -11,7 +11,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const isLogin = true
+  const isLogin = true;
 
   const data = [
     {
@@ -38,141 +38,140 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
     },
   ];
 
-  
   if (isLogin) {
     return (
-      <SafeAreaView style={{
-        flex: 1
-      }}>
-
-      <View style={{ backgroundColor: "white", flex: 1 }}>
-        <Text
-          style={{
-            textAlign: "left",
-            fontWeight: "600",
-            marginBottom: 1,
-            fontSize: 25,
-            padding: 10,
-          }}
-          >
-          Welcome "User"
-        </Text>
-        <Text
-          style={{
-            textAlign: "left",
-            fontWeight: "300",
-            fontSize: 14,
-            padding: 10,
-          }}
-        >
-          Which good deeds you want to do today?
-        </Text>
-
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginTop: 20,
-            height: 50,
-            borderColor: "gray",
-            borderWidth: 1,
-            borderRadius: 16,
-            overflow: "hidden",
-          }}
-          >
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: "white",
-              marginRight: 2,
-              borderRadius: 16,
-              flexDirection: "row",
-              alignItems: "center",
-              paddingHorizontal: 10,
-              height: "100%",
-            }}
-            >
-            <TextInput
-              style={{
-                flex: 1,
-                height: "100%",
-              }}
-              value={searchTerms}
-              onChangeText={(text) => setSearchTerms(text)}
-              placeholder="What kind of deeds you want to have?"
-            />
-          </View>
-
-          <TouchableOpacity
-            style={{
-              width: 50,
-              height: "100%",
-              backgroundColor: "#FF7754",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onPress={handleClick}
-            >
-            <Image
-              source={searchIcon}
-              resizeMode="contain"
-              style={{
-                width: "50%",
-                height: "50%",
-                tintColor: "#F3F4F8",
-              }}
-              />
-          </TouchableOpacity>
-        </View>
-
-        <View>
-          <TouchableOpacity style={{}}></TouchableOpacity>
-        </View>
-
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginTop: 2,
-          }}
-          >
+      <SafeAreaView
+        style={{
+          flex: 1,
+        }}
+      >
+        <View style={{ backgroundColor: "white", flex: 1 }}>
           <Text
             style={{
-              fontSize: 20,
-              color: "#312651",
+              textAlign: "left",
+              fontWeight: "600",
+              marginBottom: 1,
+              fontSize: 25,
+              padding: 10,
             }}
-            >
-            Nearby Helps
+          >
+            Welcome "User"
           </Text>
-          <TouchableOpacity>
+          <Text
+            style={{
+              textAlign: "left",
+              fontWeight: "300",
+              fontSize: 14,
+              padding: 10,
+            }}
+          >
+            Which good deeds you want to do today?
+          </Text>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginTop: 20,
+              height: 50,
+              borderColor: "gray",
+              borderWidth: 1,
+              borderRadius: 16,
+              overflow: "hidden",
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: "white",
+                marginRight: 2,
+                borderRadius: 16,
+                flexDirection: "row",
+                alignItems: "center",
+                paddingHorizontal: 10,
+                height: "100%",
+              }}
+            >
+              <TextInput
+                style={{
+                  flex: 1,
+                  height: "100%",
+                }}
+                value={searchTerms}
+                onChangeText={(text) => setSearchTerms(text)}
+                placeholder="What kind of deeds you want to have?"
+              />
+            </View>
+
+            <TouchableOpacity
+              style={{
+                width: 50,
+                height: "100%",
+                backgroundColor: "#FF7754",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={handleClick}
+            >
+              <Image
+                source={searchIcon}
+                resizeMode="contain"
+                style={{
+                  width: "50%",
+                  height: "50%",
+                  tintColor: "#F3F4F8",
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View>
+            <TouchableOpacity style={{}}></TouchableOpacity>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: 2,
+            }}
+          >
             <Text
               style={{
                 fontSize: 20,
                 color: "#312651",
               }}
-              >
-              Show all
+            >
+              Nearby Helps
             </Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  fontSize: 20,
+                  color: "#312651",
+                }}
+              >
+                Show all
+              </Text>
+            </TouchableOpacity>
+          </View>
 
-        <ScrollView style={{ flex: 1 }}>
-          <View style={{ flex: 1, marginVertical: 15, alignItems: "center", justifyContent: "center", marginTop: 16 }}>
-            {/* {isLoading ? (
+          <ScrollView style={{ flex: 1 }}>
+            <View style={{ flex: 1, marginVertical: 15, alignItems: "center", justifyContent: "center", marginTop: 16 }}>
+              {/* {isLoading ? (
           <ActivityIndicator size="large" color={"#312651"} />
         ) : error ? (
           <Text>Something went wrong</Text> */}
-            {/* ) : ( */}
-            {data?.map((data) => (
-              <CardComp data={data} key={`nearby-data-${data.id}`} handleNavigate={() => {}} />
+              {/* ) : ( */}
+              {data?.map((data) => (
+                <CardComp data={data} key={`nearby-data-${data.id}`} handleNavigate={() => {}} />
               ))}
-            {/* )} */}
-
-          </View>
-        </ScrollView>
-      </View>
-              </SafeAreaView>
+              {/* )} */}
+            </View>
+          </ScrollView>
+        </View>
+      </SafeAreaView>
     );
   } else {
     return (
@@ -185,7 +184,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
               onPress={() => {
                 navigation.navigate("Login");
               }}
-              />
+            />
           </View>
           <View style={{ marginHorizontal: 10 }}>
             <Button
@@ -193,7 +192,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
               onPress={() => {
                 navigation.navigate("Register");
               }}
-              />
+            />
           </View>
         </View>
       </View>
