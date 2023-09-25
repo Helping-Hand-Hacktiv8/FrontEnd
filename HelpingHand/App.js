@@ -9,6 +9,7 @@ import { StyleSheet, Text } from "react-native";
 import { useTheme } from 'react-native-paper';
 import MyActivityStack from "./scr/routes/MyActivityStack";
 import { Entypo } from '@expo/vector-icons'; 
+import MyRewardsStack from "./scr/routes/MyRewardStack";
 
 
 
@@ -45,7 +46,7 @@ theme.colors.secondaryContainer = "transperent"
           }}
         />
         <Tab.Screen
-          name="MyActivity"
+          name="MyActivityStack"
           component={MyActivityStack}
           options={{
             title:"My Activity",
@@ -55,9 +56,10 @@ theme.colors.secondaryContainer = "transperent"
           }}
         />
         <Tab.Screen
-          name="My Rewards"
-          component={HomeStack}
+          name="MyRewardsStack"
+          component={MyRewardsStack}
           options={{
+            title:'MyReward',
             tabBarIcon: ({ color }) => (
               <Ionicons name="ios-gift-sharp" size={24} color={color} />
             ),

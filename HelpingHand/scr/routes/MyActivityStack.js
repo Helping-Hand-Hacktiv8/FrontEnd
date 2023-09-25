@@ -1,9 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "../screens/HomePage";
-import Register from "../screens/RegisterPage";
-import Login from "../screens/LoginPage";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
 import MyActivty from "../screens/MyActivityPage";
 import MyRequest from "../screens/MyRequest";
 import AddRequest from "../screens/AddRequest";
@@ -19,27 +15,31 @@ export default function MyActivityStack() {
     >
       <Stack.Screen name="MyActivity" component={MyActivty} options={{
         headerShown:true,
+        headerTitleStyle:{color:'white'},
         headerStyle:{
             backgroundColor:'#175d8c'
         },
-        title:'',
-        headerStatusBarHeight:10
+        title:'My Activity',
+        headerStatusBarHeight:25
       }}/>
       <Stack.Screen name="MyRequest" component={MyRequest} options={{
         headerShown:true,
+        headerTitleStyle:{color:'white'},
         headerStyle:{
             backgroundColor:'#175d8c'
         },
-        title:'',
-        headerStatusBarHeight:10
+        title:'My Request',
+        headerStatusBarHeight:25
       }}/>
       <Stack.Screen name="AddRequest" component={AddRequest} options={{
         headerShown:true,
+        headerTitleStyle:{color:'white'},
         headerStyle:{
-            backgroundColor:'#175d8c'
+            backgroundColor:'#175d8c',
+            
         },
         title:'',
-        headerStatusBarHeight:10
+        headerStatusBarHeight:25
       }}/>
     </Stack.Navigator>
   );
