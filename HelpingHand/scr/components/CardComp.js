@@ -1,57 +1,160 @@
-import { View, Text, StyleSheet, TouchableOpacity} from "react-native"
-import { Card, Button} from '@rneui/themed';
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 
-export default function CardComp(){
+export default function CardComp({data, handleNavigation }) {
   return (
-      <View>
-       <Card containerStyle={{
-        borderRadius:20,
-        width:300,
-        backgroundColor:'#ffffff',
-        borderColor:'transparent',
-        elevation:5
-      }}>
-       <Card.Title style={{fontSize:22}}>Activity Title</Card.Title>
-          <Card.Divider/>
-          <View style={{borderRadius:10, backgroundColor:'#cdd8ee', padding:10}}>
-        <Text style={styles.cardText}>Activity ID : 1</Text>
-        <Text style={styles.cardText}>Descriptions:</Text>
-        <Text style={styles.cardText}>Help Paint My House</Text>
-        <Text style={styles.cardText}>Location</Text>
-          </View>
-
-          <View style={{ flexDirection:'row'}}>
-            <View style={{flexGrow:1}}/>
-
-            
-
-          <Button title="Join Activity" buttonStyle={{
-            borderRadius:10,
-            backgroundColor:'#175d8c'
-          }} 
-          containerStyle={{
-            flexDirection:'row',
-            width:100,
-            justifyContent:'flex-end',
-            marginTop:10
-           
+    <TouchableOpacity style={styles.cardContainer}>
+      <TouchableOpacity style={styles.containerLogo}>
+        <Image
+          source={
+            "" //ambil dari props
+          }
+          resizeMode="contain"
+          style={{
+            width: "100%",
+            height: "100%",
           }}
-          />
-           
+        />
+      </TouchableOpacity>
 
+      <View
+        style={{
+          flex: 1,
+          marginHorizontal: 14,
+          borderRadius: 10,
+          backgroundColor: "#cdd8ee",
+          padding: 10,
+        }}
+      >
+        <View style={styles.topRow}>
+        {/* Title */}
+        <Text style={styles.cardTittle} numberOfLines={2}>
+          {data.name}
+        </Text>
+
+        <View style={styles.rewardContainer}>
+            <Text style={styles.rewardText}>reward:</Text>
+            <Text style={styles.rewardValue}>{data.reward}</Text>
+            <FontAwesome name="star" size={16} color="gold" />
           </View>
+        </View>
 
-          
-       </Card>
+       
 
+        {/* Description */}
+        <Text style={styles.descriptionText} numberOfLines={3}>
+          {data.description}
+        </Text>
+
+        {/* Location */}
+        <Text style={styles.locationText} numberOfLines={1}>
+         {data.location}
+        </Text>
+
+        <View style={styles.bottomRow}>
+          <Text style={styles.clickForDetail}>Click For Details</Text>
+           {/* Participant */}
+        <View style={styles.participantRow}>
+          <View style={styles.participantContainer}>
+            <Text style={styles.participantText}>Participant</Text>
+          </View>
+          <Text style={styles.participantValue}>{data.participant}/{data.participant}</Text>
+        </View>
+        </View>
       </View>
-  )
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({
-  cardText:{
-    fontWeight:'bold',
-    fontSize:16,
-    marginVertical:6
-  }
-})
+  cardTittle: {
+    fontWeight: "bold",
+    fontSize: 16,
+    marginVertical: 6,
+  },
+
+  clickForDetail: {
+    fontWeight: "light",
+    fontSize: 10,
+    marginVertical: 6,
+  },
+
+  descriptionText: {
+    fontWeight: "normal",
+    fontSize: 12,
+    marginVertical: 6,
+  },
+
+  locationText: {
+    fontWeight: "normal",
+    fontSize: 14,
+    marginVertical: 6,
+  },
+
+  cardContainer: {
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    padding: 16,
+    borderRadius: 12,
+    backgroundColor: "#FFF",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 5.84,
+    elevation: 5,
+    shadowColor: "#F3F4F8",
+  },
+
+  containerLogo: {
+    width: 50,
+    height: 50,
+    backgroundColor: "#F3F4F8",
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  participantRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  rewardContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  participantContainer: {
+    backgroundColor: "#175D8C",
+    borderRadius: 8,
+    paddingHorizontal: 5,
+    marginRight: 10,
+  },
+
+  participantText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+
+  participantValue: {
+    fontWeight: "bold",
+  },
+
+  topRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  bottomRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+});
