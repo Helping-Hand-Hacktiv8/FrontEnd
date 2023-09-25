@@ -1,13 +1,15 @@
-import { COMPANIES_EDIT_ON_CHANGE, COMPANIES_FETCH_SUCCESS, COMPANIES_SET_EMPTY_DATA, COMPANIES_SINGLE_FETCH_SUCCESS, JOBS_EDIT_ON_CHANGE, JOBS_FETCH_SUCCESS, JOBS_SET_EMPTY_DATA, JOBS_SINGLE_FETCH_SUCCESS, USER_EDIT_ON_CHANGE, USER_SET_EMPTY_DATA, USER_GET_ACCESS_TOKEN } from "./actionType"
-const baseUrl = 'https://31b7-114-122-110-8.ngrok-free.app'
+import {  ACTIVITIES_FETCH_SUCCESS, USER_EDIT_ON_CHANGE, USER_SET_EMPTY_DATA, USER_GET_ACCESS_TOKEN } from "./actionType"
+import axios from 'axios'
+import * as SecureStore from "expo-secure-store";
+const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 
 
-export const setEmptyDataUserSuccess = (data) =>{
-    return{
-        type:USER_SET_EMPTY_DATA,
-        payload:data
-    }
-}
+// export const setEmptyDataUserSuccess = (data) =>{
+//     return{
+//         type:USER_SET_EMPTY_DATA,
+//         payload:data
+//     }
+// }
 
 export const editUserOnChange = (data) =>{
     return{
@@ -23,62 +25,143 @@ export const editUserToken = (data) =>{
     }
 }
 
-export const fetchJobSuccess = (data) =>{
+export const fetchActivitiesSuccess = (data) =>{
     return{
-        type:JOBS_FETCH_SUCCESS,
+        type:ACTIVITIES_FETCH_SUCCESS,
         payload:data
     }
 }
 
+// export const fetchJobSuccess = (data) =>{
+//     return{
+//         type:JOBS_FETCH_SUCCESS,
+//         payload:data
+//     }
+// }
 
 
-export const fetchSingleJobSuccess = (data) =>{
-    return{
-        type:JOBS_SINGLE_FETCH_SUCCESS,
-        payload:data
+
+// export const fetchSingleJobSuccess = (data) =>{
+//     return{
+//         type:JOBS_SINGLE_FETCH_SUCCESS,
+//         payload:data
+//     }
+// }
+
+// export const setEmptyDataJobSuccess = (data) =>{
+//     return{
+//         type:JOBS_SET_EMPTY_DATA,
+//         payload:data
+//     }
+// }
+
+// export const editJobsOnChange = (data) =>{
+//     return{
+//         type:JOBS_EDIT_ON_CHANGE,
+//         payload:data
+//     }
+// }
+
+// export const editCompaniesOnChange = (data) =>{
+//     return{
+//         type:COMPANIES_EDIT_ON_CHANGE,
+//         payload:data
+//     }
+// }
+
+
+// export const fetchCompanySuccess = (data) =>{
+//     return{
+//         type:COMPANIES_FETCH_SUCCESS,
+//         payload:data
+//     }
+// }
+
+// export const fetchSingleCompanySuccess = (data) =>{
+//     return{
+//         type:COMPANIES_SINGLE_FETCH_SUCCESS,
+//         payload:data
+//     }
+// }
+
+// export const setEmptyDataCompanySuccess = (data) =>{
+//     return{
+//         type:COMPANIES_SET_EMPTY_DATA,
+//         payload:data
+//     }
+// }
+
+export const registerUser = (registerForm) =>{
+    return async () =>{
+        try{
+            // console.log(registerForm)
+            const { data } = await axios({
+                method:'post',
+                url:baseUrl+'/register',
+                data:registerForm
+            })
+            return data
+        }
+        catch(err){
+            throw err.response.data
+        }
     }
 }
 
-export const setEmptyDataJobSuccess = (data) =>{
-    return{
-        type:JOBS_SET_EMPTY_DATA,
-        payload:data
+export const loginUser = (loginForm) =>{
+    return async (dispatch) =>{
+        try{
+            console.log(loginForm)
+            const { data } = await axios({
+                method:'post',
+                url:baseUrl+'/login',
+                data:loginForm
+            })
+            dispatch(editUserToken(data.access_token))
+            await SecureStore.setItemAsync('access_token',data.access_token)
+            await SecureStore.setItemAsync('user_id',String(data.dataUser.id))
+            dispatch(editUserOnChange(data.dataUser))
+            return data.dataUser
+        }
+        catch(err){
+            console.log(err)
+            throw err.response.data
+        }
     }
 }
 
-export const editJobsOnChange = (data) =>{
-    return{
-        type:JOBS_EDIT_ON_CHANGE,
-        payload:data
+export const asyncFetchActSuccess = () =>{
+    return async (dispatch) =>{
+       try {
+        const access_token = await SecureStore.getItemAsync('access_token')
+        const { data } = await axios({
+            method:'GET',
+            url:baseUrl+'/activities',
+            headers:{access_token}
+        })
+        dispatch(fetchActivitiesSuccess(data))
+        return data
+       } catch (error) {
+            throw error.response.data
+       }
     }
 }
 
-export const editCompaniesOnChange = (data) =>{
-    return{
-        type:COMPANIES_EDIT_ON_CHANGE,
-        payload:data
-    }
-}
-
-
-export const fetchCompanySuccess = (data) =>{
-    return{
-        type:COMPANIES_FETCH_SUCCESS,
-        payload:data
-    }
-}
-
-export const fetchSingleCompanySuccess = (data) =>{
-    return{
-        type:COMPANIES_SINGLE_FETCH_SUCCESS,
-        payload:data
-    }
-}
-
-export const setEmptyDataCompanySuccess = (data) =>{
-    return{
-        type:COMPANIES_SET_EMPTY_DATA,
-        payload:data
+export const asyncFetchSingleUser = (id) =>{
+    return async (dispatch) =>{
+       try {
+        const access_token = await SecureStore.getItemAsync('access_token')
+        const { data } = await axios({
+            method:'GET',
+            url:baseUrl+'/users/profile/'+id,
+            headers:{access_token}
+        })
+        dispatch(editUserOnChange(data))
+        console.log(data)
+        return data
+       } catch (error) {
+            throw error.response.data
+       }
     }
 }
 

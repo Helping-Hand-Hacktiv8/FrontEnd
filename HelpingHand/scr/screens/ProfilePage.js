@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet, Alert} from "react-native";
+import * as SecureStore from "expo-secure-store";
+import { useDispatch, useSelector } from "react-redux";
+import { editUserToken } from "../store/actions/actionCreator";
 
-export default function ProfilePage() {
-  const [user, setUser] = useState({
-    username: "JohnDoe",
-    email: "johndoe@example.com",
-    points: 100,
-    contributionHistory: "Lorem ipsum...",
-  });
+export default function ProfilePage({navigation}) {
+  const dispatch = useDispatch()
+  const { user } = useSelector((state)=>{
+    return state.user
+  })
 
   const [editingPassword, setEditingPassword] = useState(false);
   const [newPassword, setNewPassword] = useState("");
+
 
   const togglePasswordEditing = () => {
     setEditingPassword(!editingPassword);
@@ -32,15 +34,21 @@ export default function ProfilePage() {
     console.log("Chat button clicked");
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try{
+      await SecureStore.deleteItemAsync('access_token')
+      dispatch(editUserToken(''))
 
-    console.log("Logout button clicked");
+    } catch(err){
+      console.log(err)
+    }
+    
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Profile Page</Text>
-      <Text>Username: {user.username}</Text>
+      <Text>Username: {user.name}</Text>
       <Text>Email: {user.email}</Text>
 
       {editingPassword ? (
@@ -59,7 +67,7 @@ export default function ProfilePage() {
         <Button title="Change Password" onPress={togglePasswordEditing} />
       )}
 
-      <Text>Your Points: {user.points}</Text>
+      <Text>Your Points: {user.token}</Text>
       <Text>Contribution History: {user.contributionHistory}</Text>
 
       <Button title="Chat" onPress={handleChat} />

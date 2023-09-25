@@ -1,9 +1,8 @@
-import { View, TextInput, StyleSheet, Button } from "react-native";
-import { useState } from "react";
+import { View, TextInput, StyleSheet, Button, Alert } from "react-native";
+import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
-import axios from "axios";
 import { useDispatch } from "react-redux";
-import { editUserToken } from "../store/actions/actionCreator";
+import { editUserToken, loginUser } from "../store/actions/actionCreator";
 const baseUrl = "https://31b7-114-122-110-8.ngrok-free.app";
 
 export default function Login({ navigation }) {
@@ -12,24 +11,47 @@ export default function Login({ navigation }) {
   const [text, onChangeText] = useState("");
   const [pass, onChangePass] = useState("");
 
-  const toLogin = async () => {
-    try {
-      console.log(text, pass);
-      const { data } = await axios({
-        method: "POST",
-        url: baseUrl + "/login",
-        data: {
-          email: text,
-          password: pass,
-        },
-      });
-      const currToken = await SecureStore.getItemAsync("access_token");
-      if (!currToken || currToken == "") await SecureStore.setItemAsync("access_token", data.access_token);
-      dispatch(editUserToken(data.access_token));
-    } catch (err) {
-      console.log("toLogin", err);
+  const toLogin = () => {
+    const loginForm = {
+      email: text,
+      password: pass
     }
+    dispatch(loginUser(loginForm))
+    .then(data=>{
+      console.log(data)
+      Alert.alert('Login Success',`Welcome ${data.name}`, [
+        {
+          text: 'OK',
+          style:'OK'
+        }
+      ])
+    })
+    .catch(err=>{
+      console.log(err)
+      Alert.alert('Login Failed',err.message, [
+        {
+          text: 'OK',
+          style:'cancel'
+        }
+      ])
+      console.log(err)
+    })
   };
+
+  useEffect(()=>{
+    const checkToken = async() =>{
+      try {
+        const currToken = await SecureStore.getItemAsync('access_token')
+        console.log(currToken)
+        if(currToken.length > 0 || !currToken===false){
+          dispatch(editUserToken(currToken))
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    checkToken()
+  },[])
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>

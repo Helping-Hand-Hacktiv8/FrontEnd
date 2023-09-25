@@ -2,11 +2,11 @@ import { combineReducers } from "redux";
 import jobsReducer from './jobsReducer'
 import companiesReducer from './companiesReducer'
 import usersReducer from './usersReducer'
+import activitiesReducer from './activitiesReducer'
 
 const rootReducer = combineReducers({
-    jobs: jobsReducer,
-    companies: companiesReducer,
-    user: usersReducer
+    user: usersReducer,
+    activity: activitiesReducer
 })
 
 
