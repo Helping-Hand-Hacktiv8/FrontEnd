@@ -256,22 +256,7 @@ export const asyncFetchUserActivitiesSuccess = () =>{
 }
 
 // ===================================USERACTIVITIES=====================================
-export const asyncFetchRewardsSuccess = () =>{
-    return async (dispatch) =>{
-       try {
-        const access_token = await SecureStore.getItemAsync('access_token')
-        const { data } = await axios({
-            method:'GET',
-            url:baseUrl+'/rewards',
-            headers:{access_token}
-        })
-        dispatch(fetchRewardsSuccess(data))
-        return data
-       } catch (error) {
-            throw error.response.data
-       }
-    }
-}
+
 
 export const asyncFetchActAuthorParticipantSuccess = () =>{
     return async (dispatch) =>{

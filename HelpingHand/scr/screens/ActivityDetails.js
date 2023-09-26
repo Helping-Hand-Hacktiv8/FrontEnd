@@ -2,11 +2,12 @@ import { View, Text, Image } from "react-native";
 import { Divider } from "@rneui/themed";
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function ActivityDetails({route}) {
+export default function ActivityDetails({route, navigation}) {
+    const { ActId, role} = route.params
     const Participant = true
     const Author = false
 
-    if(Author) {
+    if(role == "Author") {
         return (
           <View>
             <Text
@@ -141,7 +142,7 @@ export default function ActivityDetails({route}) {
             </View>
           </View>
         );
-    } else if (Participant) {
+    } else if (role =="Participant") {
         return (
             <View>
             <Text

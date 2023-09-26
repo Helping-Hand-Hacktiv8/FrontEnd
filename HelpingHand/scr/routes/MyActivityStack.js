@@ -43,6 +43,16 @@ export default function MyActivityStack() {
         title:'',
         headerStatusBarHeight:25
       }}/>
+      <Stack.Screen name="ActivityDetail" component={ActivityDetails} options={{
+        headerShown:true,
+        headerTitleStyle:{color:'white'},
+        headerStyle:{
+            backgroundColor:'#175d8c',
+            
+        },
+        title:'',
+        headerStatusBarHeight:25
+      }}/>
     </Stack.Navigator>
   );
 }

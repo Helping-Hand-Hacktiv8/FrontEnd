@@ -1,11 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-
-export default function CardComp({data, handleNavigation }) {
+import { useNavigation } from "@react-navigation/native";
+export default function CardComp({data}) {
+  const navigation = useNavigation()
+  const toDetails = () =>{
+       return navigation.navigate('ActivityDetail',{ActId:data.id, role:'Participant'})
+  }
   return (
-    <TouchableOpacity style={styles.cardContainer}>
-      <TouchableOpacity style={styles.containerLogo}>
+    <TouchableOpacity style={styles.cardContainer} onPress={toDetails}>
+      <TouchableOpacity style={styles.containerLogo} onPress={toDetails}>
         <Image
           source={
             {uri:data.photoAct} 
