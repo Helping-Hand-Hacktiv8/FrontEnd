@@ -25,7 +25,7 @@ export default function ProfilePage({ navigation }) {
       await SecureStore.deleteItemAsync("access_token");
       dispatch(editUserToken(""));
     } catch (err) {
-      console.log(err);
+      console.log(err); 
     }
   }
 
