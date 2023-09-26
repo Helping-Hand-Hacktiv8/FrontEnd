@@ -1,68 +1,82 @@
 import React, { useState } from "react";
-import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function EditProfile({ navigation }) {
   const [newUsername, setNewUsername] = useState("");
-  const [newProfileImage, setNewProfileImage] = useState(null); // Gunakan null atau URL gambar profil yang ada
 
-  // Fungsi untuk mengganti gambar profil
-  const handleChooseProfileImage = () => {
-    // Implementasikan logika pemilihan gambar profil di sini
-    // Anda dapat menggunakan library seperti 'react-native-image-picker' atau lainnya
-  };
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => {
+    return state.user;
+  });
 
-  // Fungsi untuk menyimpan perubahan profil
+  const [formData, setFormData] = useState({
+    newUsername: "",
+    newProfileImage: null,
+    newEmail: "",
+    newPassword: "",
+    newPhoneNumber: "",
+  });
+
   const handleSaveProfile = () => {
-    // Implementasikan logika penyimpanan perubahan profil di sini
-    // Misalnya, mengirim data perubahan ke server atau penyimpanan lokal
-    // Setelah berhasil disimpan, Anda dapat mengubah state dan kembali ke halaman profil
-    // navigation.navigate("ProfilePage");
-  };
-
+    console.log(formData)
+  }
+  
+  const deleteAccountHandler = () => {
+    console.log(`akun kedelete hehe`);
+  }
   return (
-    <View style={styles.container}>
-      {/* Profile Image */}
-      <TouchableOpacity onPress={handleChooseProfileImage}>
-        <Image
-          source={{ uri: newProfileImage || user.profileImg }} // Gunakan gambar profil baru jika ada, jika tidak gunakan yang lama
-          style={{
-            width: 150,
-            height: 150,
-            paddingTop: 5,
-            marginBottom: 5,
-            marginTop: 10,
-            borderRadius: 100,
-            borderColor: "black",
-          }}
-        />
-      </TouchableOpacity>
+    <ScrollView>
+      <View style={styles.container}>
+        {/* Profile Image */}
+        <TouchableOpacity >
+          <Image
+            source={user.profileImg } // Gunakan gambar profil baru jika ada, jika tidak gunakan yang lama
+            style={{
+              width: 150,
+              height: 150,
+              paddingTop: 5,
+              marginBottom: 5,
+              marginTop: 10,
+              borderRadius: 100,
+              borderColor: "black",
+            }}
+          />
+        </TouchableOpacity>
 
-      {/* Edit Username */}
-      <Text style={styles.textTitle}>Edit Username</Text>
-      <TextInput
-        style={styles.textContainer}
-        onChangeText={setNewUsername}
-        placeholder="New Username"
-        value={newUsername}
-      />
+        {/* Edit Profile Image */}
+        <Text style={styles.textTitle}>Edit Profile Image</Text>
+        <TouchableOpacity style={styles.buttonContainer} >
+          <Text style={{ textAlign: "center" }}>Choose Image</Text>
+        </TouchableOpacity>
 
-      {/* Edit Profile Image */}
-      <Text style={styles.textTitle}>Edit Profile Image</Text>
-      <TouchableOpacity
-        style={styles.buttonContainer}
-        onPress={handleChooseProfileImage}
-      >
-        <Text style={{ textAlign: "center" }}>Choose Image</Text>
-      </TouchableOpacity>
+        {/* Edit Username */}
+        <Text style={styles.textTitle}>Edit Username</Text>
+        <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newUsername: text })} placeholder={user.name} value={formData.newUsername} />
 
-      {/* Save Button */}
-      <TouchableOpacity
-        style={styles.buttonContainer}
-        onPress={handleSaveProfile}
-      >
-        <Text style={{ textAlign: "center" }}>Save</Text>
-      </TouchableOpacity>
-    </View>
+        {/* Edit Email */}
+        <Text style={styles.textTitle}>Edit Email</Text>
+        <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newEmail: text })} placeholder={user.email} value={formData.newEmail} />
+
+        {/* Edit Pasword */}
+        <Text style={styles.textTitle}>Edit Password</Text>
+        <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newPassword: text })} placeholder="**********" value={formData.newPassword} secureTextEntry={true}/>
+
+            {/* Edit Phone Number */}
+        <Text style={styles.textTitle}>Edit Phone Number</Text>
+        <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newPhoneNumber: text })} placeholder={user.phoneNumber} value={formData.newPhoneNumber} />
+
+        {/* Save Button */}
+        <TouchableOpacity style={styles.buttonContainer} onPress={handleSaveProfile}>
+          <Text style={{ textAlign: "center" }}>Save</Text>
+        </TouchableOpacity>
+
+         {/* Delete My Account */}
+         <TouchableOpacity style={styles.buttonContainer} onPress={deleteAccountHandler}>
+          <Text style={{ textAlign: "center" }}>Delete My Account</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 

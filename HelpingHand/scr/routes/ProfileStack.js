@@ -2,6 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ProfilePage from "../screens/ProfilePage";
 import TopUpScreen from "../screens/TopUpScreen";
 import PaymentScreen from "../screens/PaymentScreen";
+import EditProfile from "../screens/EditProfile";
 
 const Stack = createStackNavigator();
 
@@ -51,7 +52,7 @@ export default function ProfileStack() {
 
       <Stack.Screen 
       name="EditProfile"
-      component={PaymentScreen}
+      component={EditProfile}
       options={{
         title: "Edit Profile",
         headerTitleAlign: "center",
