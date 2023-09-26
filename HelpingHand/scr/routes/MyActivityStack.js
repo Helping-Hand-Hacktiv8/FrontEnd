@@ -24,10 +24,10 @@ export default function MyActivityStack() {
         title:'My Activity',
         headerStatusBarHeight:25
       }}/>
-      <Stack.Screen name="MyRequest" component={AddRequest} options={{
+      <Stack.Screen name="MyRequest" component={MyRequest} options={{
         headerShown:true,
         headerTitleStyle:{color:'white'},
-        headerStyle:{
+        headerStyle:{ 
             backgroundColor:'#175d8c'
         },
         title:'My Request',
