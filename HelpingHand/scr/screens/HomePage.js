@@ -42,12 +42,14 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
         for (const item of json.results) {
           coords.push({
             name:item.name,
-            lattitude: item.geometry.location.lat,
+            latitude: item.geometry.location.lat,
             longitude: item.geometry.location.lng,
           })
         }
         setResult(coords)
+        dispatch(asyncFetchActSuccess(coords[0].latitude,coords[0].longitude))
       }
+
     } catch (error) {
       console.log(error)
       
@@ -59,7 +61,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
       return getId;
     };
     if (isLoading) {
-      dispatch(asyncFetchActSuccess())
+      dispatch(asyncFetchActSuccess('all','all'))
         .then((data) => {
           return fetchId();
         })
@@ -73,8 +75,14 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
     }
   }, []);
 
-  console.log(search, '<<<<ini searchText')
-  console.log(result, '<<<<<<<ini hasil search')
+
+  // console.log(search, '<<<<ini searchText')
+  // console.log(result, '<<<<<<<ini hasil search')
+
+  
+  
+
+
   // const data = [ 
   //   {
   //     id: 1,
@@ -235,15 +243,11 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
 
           <ScrollView style={{ flex: 1 }}>
             <View style={{ flex: 1, marginVertical: 15, alignItems: "center", justifyContent: "center", marginTop: 16 }}>
-              {/* {isLoading ? (
-          <ActivityIndicator size="large" color={"#312651"} />
-        ) : error ? (
-          <Text>Something went wrong</Text> */}
-              {/* ) : ( */}
+            
               {activities?.map((data) => (
                 <CardComp data={data} key={`nearby-data-${data.id}`} handleNavigate={() => {}} />
               ))}
-              {/* )} */}
+
             </View>
           </ScrollView>
         </View>

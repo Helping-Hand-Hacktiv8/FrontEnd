@@ -83,7 +83,10 @@ export default function ProfilePage({ navigation }) {
           <Text style={styles.textContainer}>*************</Text>
 
           {/* edit button */}
-          <TouchableOpacity style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => {
+            return navigation.navigate("EditProfile")
+          }} >
+
             <Text style={{ textAlign: 'center' }}>Edit Profile</Text>
           </TouchableOpacity>
 
@@ -101,13 +104,11 @@ export default function ProfilePage({ navigation }) {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity style={styles.chatButton}>
-            <Text style={{ textAlign: 'center' }}>Chat</Text>
-          </TouchableOpacity>
 
           <TouchableOpacity style={styles.chatButton} onPress={handleLogout}>
             <Text style={{ textAlign: 'center' }}>Logout</Text>
           </TouchableOpacity>
+
 
 
         </View>
