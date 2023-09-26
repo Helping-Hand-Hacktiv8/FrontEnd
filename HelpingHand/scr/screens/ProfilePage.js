@@ -25,7 +25,7 @@ export default function ProfilePage({ navigation }) {
       await SecureStore.deleteItemAsync("access_token");
       dispatch(editUserToken(""));
     } catch (err) {
-      console.log(err);
+      console.log(err); 
     }
   }
 
@@ -108,6 +108,11 @@ export default function ProfilePage({ navigation }) {
           </View>
 
 
+          <TouchableOpacity style={styles.chatButton}>
+            <Text style={{ textAlign: 'center' }}>Chat</Text>
+          </TouchableOpacity>
+
+
           <TouchableOpacity style={styles.chatButton} onPress={handleLogout}>
             <Text style={{ textAlign: 'center' }}>Logout</Text>
           </TouchableOpacity>
@@ -181,6 +186,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#DC6C3C",
     padding: 10,
     borderRadius: 20,
-    width: 100,
+    width: 120,
   }
 });

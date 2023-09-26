@@ -2,7 +2,7 @@ import { View, Text, Image } from "react-native";
 import { Divider } from "@rneui/themed";
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function ActivityDetails() {
+export default function ActivityDetails({route}) {
     const Participant = true
     const Author = false
 

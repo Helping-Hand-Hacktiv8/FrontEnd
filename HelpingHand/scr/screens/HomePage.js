@@ -58,7 +58,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
   useEffect(() => {
     const fetchId = async () => {
       let getId = await SecureStore.getItemAsync("user_id");
-      return getId;
+      return getId; 
     };
     if (isLoading) {
       dispatch(asyncFetchActSuccess('all','all'))

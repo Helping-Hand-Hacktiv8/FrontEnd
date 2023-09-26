@@ -70,7 +70,7 @@ export default function CardComp({data, handleNavigation }) {
           <View style={styles.participantContainer}>
             <Text style={styles.participantText}>Participant</Text>
           </View>
-          <Text style={styles.participantValue}>{data.participant}/{data.participant}</Text>
+          <Text style={styles.participantValue}>{data.participant}/6</Text>
         </View>
         </View>
       </View>
