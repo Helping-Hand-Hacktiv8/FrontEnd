@@ -27,9 +27,11 @@ export default function ProfilePage({ navigation }) {
   };
 
 
+
   console.log(user,"<<<<<<di profile"); 
   
   if (user) return (
+
     <ScrollView>
       <View style={styles.container}>
         {/* untuk profile photo */}
@@ -68,7 +70,9 @@ export default function ProfilePage({ navigation }) {
         {/* points group */}
         <View style={styles.pointsContainer}>
           
-          <TouchableOpacity style={styles.pointsButtons}>
+          <TouchableOpacity style={styles.pointsButtons} onPress={() => {
+            return navigation.navigate("TopUpScreen")
+          }}>
             <Text style={{textAlign: 'center'}}>Add Points</Text>
           </TouchableOpacity>
 

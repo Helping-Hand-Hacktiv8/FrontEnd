@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { SafeAreaView, ActivityIndicator } from "react-native";
 
+
 export default function RewardDetails({route}) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
@@ -32,12 +33,14 @@ export default function RewardDetails({route}) {
           <SafeAreaView>
             <Text
               style={{
+                fontSize: 30,
                 textAlign: "center",
-                fontSize: 15,
+                alignSelf: "center",
+                color: "white",
                 fontWeight: "bold",
-                marginTop: 10,
               }}
             >
+
             </Text>
             <View
               style={{
@@ -147,4 +150,5 @@ export default function RewardDetails({route}) {
             </View>
           </SafeAreaView>
         );
+
 }
