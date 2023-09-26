@@ -5,6 +5,7 @@ import * as SecureStore from "expo-secure-store";
 // const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 // masukin punya sendiri
 const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
+const baseUrlMid = 'https://19a6-182-253-163-163.ngrok-free.app'
 
 
 // export const setEmptyDataUserSuccess = (data) =>{
@@ -163,42 +164,12 @@ export const asyncFetchSingleUser = (id) => {
 
 // ===================================ACTIVITIES=====================================
 
-<<<<<<< HEAD
-export const asyncFetchActSuccess = () => {
-    return async (dispatch) => {
-        try {
-            const access_token = await SecureStore.getItemAsync('access_token')
-            const { data } = await axios({
-                method: 'GET',
-                url: baseUrl + '/activities',
-                headers: { access_token }
-            })
-            dispatch(fetchActivitiesSuccess(data))
-            return data
-        } catch (error) {
-            throw error.response.data
-        }
-    }
-}
-
-
-// ===================================REWARDS=====================================
-export const asyncFetchRewardsSuccess = () =>{
-=======
 export const asyncFetchActSuccess = (lat, lon) =>{
->>>>>>> cafc8ad (feat: filter by area name)
     return async (dispatch) =>{
        try {
         console.log(lat, lon)
         const access_token = await SecureStore.getItemAsync('access_token')
         const { data } = await axios({
-<<<<<<< HEAD
-            method:'GET',
-            url:baseUrl+'/rewards',
-            headers:{access_token}
-        })
-        dispatch(fetchRewardsSuccess(data))
-=======
             method:'POST',
             url:baseUrl+'/activities/all',
             headers:{access_token},
@@ -222,7 +193,6 @@ export const asyncFetchActSuccess = (lat, lon) =>{
         }
         // console.log("filter>>>",res)
         dispatch(fetchActivitiesSuccess(res))
->>>>>>> cafc8ad (feat: filter by area name)
         return data
        } catch (error) {
             throw error.response.data
@@ -426,7 +396,7 @@ export const handleMidtrans = (input) => {
         try {
             const access_token = await SecureStore.getItemAsync('access_token')
             const { data } = await axios({
-                url: baseUrl + '/users/generate-midtrans-token',
+                url: baseUrlMid + '/users/generate-midtrans-token',
                 method: 'POST',
                 data: {
                     amount: input * 20000
