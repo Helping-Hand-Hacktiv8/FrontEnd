@@ -38,6 +38,9 @@ export default function ProfilePage({ navigation }) {
           .then(() => {
             setIsLoading(false)
           })
+          .catch(err=>{
+            console.log('ERR',err)
+          })
       }
 
       getUser()
@@ -57,7 +60,7 @@ export default function ProfilePage({ navigation }) {
           {/* untuk profile photo */}
           <View style={{ flex: 1 }}>
             <Image
-              source={{ uri: user.profileImg }}
+              source={{ uri:'https://e04e-114-122-106-150.ngrok-free.app'+'/static/'+ user.profileImg }}
               style={{
                 width: 150,
                 height: 150,
@@ -86,6 +89,7 @@ export default function ProfilePage({ navigation }) {
           <TouchableOpacity style={styles.buttonContainer} onPress={() => {
             return navigation.navigate("EditProfile")
           }} >
+
             <Text style={{ textAlign: 'center' }}>Edit Profile</Text>
           </TouchableOpacity>
 
@@ -103,13 +107,16 @@ export default function ProfilePage({ navigation }) {
             </TouchableOpacity>
           </View>
 
+
           <TouchableOpacity style={styles.chatButton}>
             <Text style={{ textAlign: 'center' }}>Chat</Text>
           </TouchableOpacity>
 
+
           <TouchableOpacity style={styles.chatButton} onPress={handleLogout}>
             <Text style={{ textAlign: 'center' }}>Logout</Text>
           </TouchableOpacity>
+
 
 
         </View>

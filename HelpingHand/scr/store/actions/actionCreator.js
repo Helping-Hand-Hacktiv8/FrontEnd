@@ -1,10 +1,13 @@
 
+
 import {  ACTIVITIES_FETCH_SUCCESS, USER_EDIT_ON_CHANGE, USER_SET_EMPTY_DATA, USER_GET_ACCESS_TOKEN, REWARDS_FETCH_SUCCESS, USERACTIVITIES_FETCH_SUCCESS, AUTHOR_ACTIVITIES_FETCH_SUCCESS, PARTICIPANT_ACTIVITIES_FETCH_SUCCESS } from "./actionType"
 import axios from 'axios'
 import * as SecureStore from "expo-secure-store";
 // const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 // masukin punya sendiri
+
 const baseUrl = 'https://25f0-36-71-27-144.ngrok.io'
+
 
 
 // export const setEmptyDataUserSuccess = (data) =>{
@@ -42,12 +45,15 @@ export const fetchRewardsSuccess = (data) =>{
     }
 }
 
+
 export const fetchAuthorActivitiesSuccess = (data) =>{
     return{
         type:AUTHOR_ACTIVITIES_FETCH_SUCCESS,
+
         payload:data
     }
 }
+
 
 export const fetchParticipantActivitiesSuccess = (data) =>{
     return{
@@ -55,6 +61,7 @@ export const fetchParticipantActivitiesSuccess = (data) =>{
         payload:data
     }
 }
+
 // export const fetchJobSuccess = (data) =>{
 //     return{
 //         type:JOBS_FETCH_SUCCESS,
@@ -173,6 +180,27 @@ export const asyncFetchSingleUser = (id) => {
     }
 }
 
+export const asyncPutUserProfile = (form) => {
+    return async () => {
+        try {
+            const getId = await SecureStore.getItemAsync('user_id')
+            const access_token = await SecureStore.getItemAsync('access_token')
+            const { data } = await axios({
+                method: 'PUT',
+                url: baseUrl + '/users/profile/' + getId,
+                headers: { 
+                    access_token, 
+                    'Content-Type': 'multipart/form-data'
+                 },
+                data:form
+            })
+          
+        } catch (error) {
+            throw error.response.data
+        }
+    }
+}
+
 
 // ===================================ACTIVITIES=====================================
 
@@ -204,6 +232,40 @@ export const asyncFetchActSuccess = (lat, lon) =>{
             if (!stat.includes(true)) res.push(arr)
         }
         // console.log("filter>>>",res)
+        return data
+       } catch (error) {
+            throw error.response.data
+       }
+    }
+}
+export const asyncFetchUserActivitiesSuccess = () =>{
+    return async (dispatch) =>{
+       try {
+        const access_token = await SecureStore.getItemAsync('access_token')
+        const { data } = await axios({
+            method:'GET',
+            url:baseUrl+'/user-activities',
+            headers:{access_token}
+        })
+        dispatch(fetchUserActivitiesSuccess(data))
+        return data
+       } catch (error) {
+            throw error.response.data
+       }
+    }
+}
+
+// ===================================USERACTIVITIES=====================================
+export const asyncFetchRewardsSuccess = () =>{
+    return async (dispatch) =>{
+       try {
+        const access_token = await SecureStore.getItemAsync('access_token')
+        const { data } = await axios({
+            method:'GET',
+            url:baseUrl+'/rewards',
+            headers:{access_token}
+        })
+        dispatch(fetchRewardsSuccess(data))
         return data
        } catch (error) {
             throw error.response.data
@@ -346,7 +408,7 @@ export const submitEdit = (target, id, data) => {
 }
 
 
-//tes aja
+
 export const submitNew = (target, data) => {
     return () => {
         return fetch(baseUrl + '/' + target,

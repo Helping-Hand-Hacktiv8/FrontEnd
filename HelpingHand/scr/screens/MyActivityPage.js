@@ -4,32 +4,40 @@ import CardComp from "../components/CardComp";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+
 import { asyncFetchActAuthorParticipantSuccess,  } from "../store/actions/actionCreator";
+
 
 
 export default function MyActivty() {
   const dispatch = useDispatch();
   const navigation = useNavigation()
   const [isLoading, setIsLoading] = useState(true);
+
   
   const participantActivities  = useSelector((state) => {
     return state.activity.activitiesParticipant;
+
   });
 
   useEffect(()=> { 
     if(isLoading) {
+
       dispatch(asyncFetchActAuthorParticipantSuccess())
       .then((data)=> {
         console.log(data)
+
         setIsLoading(false)
       })
       .catch((err)=> {
         console.log(err)
+
       }) 
     }
   }, [])
 
   // console.log(participantActivities[0].Activity.photoAct,"diMyActivity")
+
 
   
   
@@ -67,6 +75,7 @@ export default function MyActivty() {
         />
       </View>
       <View style={{flex:1, marginVertical:15,alignItems:'center', justifyContent:'center'}}>
+
       {participantActivities?.map((data) => (
                 <CardComp data={data.Activity} key={`nearby-data-${data.Activity.id}`} handleNavigate={() => {}} />
               ))}

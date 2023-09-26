@@ -44,9 +44,11 @@ export default function MyRequest() {
         />
       </View>
       <View style={{flex:1, marginVertical:15,alignItems:'center', justifyContent:'center'}}>
+
       {authorActivities?.map((data) => (
                 <CardComp data={data.Activity} key={`nearby-data-${data.Activity.id}`} handleNavigate={() => {}} />
               ))}
+
       </View>
       <Divider width={3} color="#175d8c" inset={true} insetType="middle" style={{marginTop:20}}/>
       <View

@@ -75,6 +75,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
     }
   }, []);
 
+
   // console.log(search, '<<<<ini searchText')
   // console.log(result, '<<<<<<<ini hasil search')
 
