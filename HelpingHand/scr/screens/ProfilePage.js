@@ -63,7 +63,9 @@ export default function ProfilePage({ navigation }) {
         <Text style={styles.textContainer}>*************</Text>
 
         {/* edit button */}
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => {
+          return navigation.navigate("EditProfile")
+        }} >
           <Text style={{textAlign: 'center'}}>Edit Profile</Text>
         </TouchableOpacity>
 
