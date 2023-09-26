@@ -3,7 +3,7 @@ import React from "react";
 import MyActivty from "../screens/MyActivityPage";
 import MyRequest from "../screens/MyRequest";
 import AddRequest from "../screens/AddRequest";
-import ActivityDetails from "../screens/ActivityDetails";
+import ActivityDetails from "../screens/HomeActivityDetails";
 
 export default function MyActivityStack() {
   

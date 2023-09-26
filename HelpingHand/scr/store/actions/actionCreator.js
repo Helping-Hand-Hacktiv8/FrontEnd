@@ -1,12 +1,12 @@
 
 
-import {  ACTIVITIES_FETCH_SUCCESS, USER_EDIT_ON_CHANGE, USER_SET_EMPTY_DATA, USER_GET_ACCESS_TOKEN, REWARDS_FETCH_SUCCESS, USERACTIVITIES_FETCH_SUCCESS, AUTHOR_ACTIVITIES_FETCH_SUCCESS, PARTICIPANT_ACTIVITIES_FETCH_SUCCESS } from "./actionType"
+import {  ACTIVITIES_FETCH_SUCCESS, USER_EDIT_ON_CHANGE, USER_SET_EMPTY_DATA, USER_GET_ACCESS_TOKEN, REWARDS_FETCH_SUCCESS, USERACTIVITIES_FETCH_SUCCESS, AUTHOR_ACTIVITIES_FETCH_SUCCESS, PARTICIPANT_ACTIVITIES_FETCH_SUCCESS,ACTIVITY_FETCH_SUCCESS } from "./actionType"
 import axios from 'axios'
 import * as SecureStore from "expo-secure-store";
 // const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 // masukin punya sendiri
-
-const baseUrl = 'https://25f0-36-71-27-144.ngrok.io'
+const baseUrlMid ='https://19a6-182-253-163-163.ngrok-free.app'
+const baseUrl = 'https://e04e-114-122-106-150.ngrok-free.app'
 
 
 
@@ -34,6 +34,13 @@ export const editUserToken = (data) => {
 export const fetchActivitiesSuccess = (data) => {
     return {
         type: ACTIVITIES_FETCH_SUCCESS,
+        payload: data
+    }
+}
+
+export const fetchActivitySuccess = (data) => {
+    return {
+        type: ACTIVITY_FETCH_SUCCESS,
         payload: data
     }
 }
@@ -149,9 +156,13 @@ export const loginUser = (loginForm) => {
                 url: baseUrl + '/login',
                 data: loginForm
             })
-            dispatch(editUserToken(data.access_token))
+           
+            // console.log('GET>>',data)
             await SecureStore.setItemAsync('access_token', data.access_token)
             await SecureStore.setItemAsync('user_id', String(data.dataUser.id))
+            // const token = await SecureStore.getItemAsync('access_token')
+            // console.log("TOKEN>>>",token)
+            dispatch(editUserToken(data.access_token))
             dispatch(editUserOnChange(data.dataUser))
             return data.dataUser
         }
@@ -209,6 +220,7 @@ export const asyncFetchActSuccess = (lat, lon) =>{
        try {
         console.log(lat, lon)
         const access_token = await SecureStore.getItemAsync('access_token')
+        console.log(access_token)
         const { data } = await axios({
             method:'POST',
             url:baseUrl+'/activities/all',
@@ -231,13 +243,35 @@ export const asyncFetchActSuccess = (lat, lon) =>{
             // console.log(stat)
             if (!stat.includes(true)) res.push(arr)
         }
-        // console.log("filter>>>",res)
+        console.log("filter>>>",res)
+        dispatch(fetchActivitiesSuccess(res))
+        
+        
+       } catch (error) {
+            throw error.response.data
+       }
+    }
+}
+
+export const asyncFetchActSingleSuccess = (id) =>{
+    return async (dispatch) =>{
+       try {
+        const access_token = await SecureStore.getItemAsync('access_token')
+        const { data } = await axios({
+            method:'GET',
+            url:baseUrl+'/activities/'+id,
+            headers:{access_token}
+        })
+        
+        dispatch(fetchActivitySuccess(data))
         return data
        } catch (error) {
             throw error.response.data
        }
     }
 }
+
+
 export const asyncFetchUserActivitiesSuccess = () =>{
     return async (dispatch) =>{
        try {

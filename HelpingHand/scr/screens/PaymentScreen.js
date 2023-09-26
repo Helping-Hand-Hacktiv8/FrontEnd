@@ -1,13 +1,20 @@
 import { WebView } from 'react-native-webview'
 import { StyleSheet } from "react-native";
 
-export default function PaymentScreen({ route }) {
+export default function PaymentScreen({ route, navigation }) {
     const { url, token } = route.params
-    
+
     return (
         <WebView
             style={styles.container}
             source={{ uri: url }}
+            onNavigationStateChange={(navState) => {
+                const status = navState.url.split("/").includes("success")
+                console.log(status, '-> ini status');
+                if (status == true) {
+                    navigation.navigate("ProfileStack")
+                }
+            }}
         />
     )
 }

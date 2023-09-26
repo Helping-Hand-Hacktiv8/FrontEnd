@@ -1,10 +1,11 @@
 
-import { ACTIVITIES_FETCH_SUCCESS, AUTHOR_ACTIVITIES_FETCH_SUCCESS, PARTICIPANT_ACTIVITIES_FETCH_SUCCESS  } from "../actions/actionType"
+import { ACTIVITIES_FETCH_SUCCESS, ACTIVITY_FETCH_SUCCESS, AUTHOR_ACTIVITIES_FETCH_SUCCESS, PARTICIPANT_ACTIVITIES_FETCH_SUCCESS  } from "../actions/actionType"
 
 const initialState = {
     activities:[],
     activitiesAuthor:[],
-    activitiesParticipant:[]
+    activitiesParticipant:[],
+    activity:{}
 
 }
 
@@ -14,6 +15,11 @@ export default function rootReducer(state = initialState, action){
             return{
                 ...state,
                 activities:action.payload
+            }
+        case ACTIVITY_FETCH_SUCCESS:
+            return{
+                ...state,
+                activity:action.payload
             }
 
         case AUTHOR_ACTIVITIES_FETCH_SUCCESS:

@@ -26,7 +26,7 @@ export default function FrontStack(){
       >
         <Tab.Screen
           name="HomeStack"
-          component={Home}
+          component={HomeStack}
           options={{
             title: "Home",
             tabBarIcon: ({ color }) => (

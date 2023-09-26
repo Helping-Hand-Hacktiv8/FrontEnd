@@ -5,7 +5,7 @@ import Login from "../screens/LoginPage";
 import { setStatusBarBackgroundColor } from "expo-status-bar";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import ActivityDetails from "../screens/ActivityDetails";
+import HomeActivityDetails from "../screens/HomeActivityDetails";
 
 export default function HomeStack() {
   const Stack = createStackNavigator();
@@ -24,7 +24,7 @@ export default function HomeStack() {
         title:'',
         headerStatusBarHeight:10
       }}/>
-      <Stack.Screen name="ActivityDetail" component={ActivityDetails} options={{
+      <Stack.Screen name="HomeActivityDetail" component={HomeActivityDetails} options={{
         headerShown:true,
         headerTitleStyle:{color:'white'},
         headerStyle:{
