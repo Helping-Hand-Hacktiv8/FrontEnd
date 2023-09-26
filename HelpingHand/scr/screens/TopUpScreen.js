@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator } from "react-native";
 import { useDispatch } from "react-redux";
 import { handleMidtrans, topUpToken } from "../store/actions/actionCreator";
 
@@ -15,7 +15,11 @@ export default function TopUpScreen({ navigation }) {
           token: data.token
         })
       })
+      .then(() => {
+        setInput(0)
+      })
   }
+
 
   return (
     <View
@@ -32,7 +36,7 @@ export default function TopUpScreen({ navigation }) {
         <Text style={{ textAlign: "center" }}>1 token = Rp20,000</Text>
       </View>
       <View style={styles.textContainer}>
-        <TextInput style={{ textAlign: "center" }} keyboardType="numeric" value={input} onChangeText={setInput} />
+        <TextInput style={{ textAlign: "center" }} keyboardType="numeric" value={input} onChangeText={setInput} placeholder="Input token" />
       </View>
 
       {/* Submit and Cancle */}
@@ -40,11 +44,11 @@ export default function TopUpScreen({ navigation }) {
         <TouchableOpacity style={styles.submitButton} onPress={() => {
           submitToken()
         }}>
-          <Text style={{textAlign: 'center'}}>Submit</Text>
+          <Text style={{ textAlign: 'center' }}>Submit</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.cancelButton, {marginLeft: 10}]}>
-          <Text style={{textAlign: 'center'}}>Cancel</Text>
+        <TouchableOpacity style={[styles.cancelButton, { marginLeft: 10 }]}>
+          <Text style={{ textAlign: 'center' }}>Cancel</Text>
         </TouchableOpacity>
       </View>
     </View>

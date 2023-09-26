@@ -4,7 +4,7 @@ import axios from 'axios'
 import * as SecureStore from "expo-secure-store";
 // const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 // masukin punya sendiri
-const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
+const baseUrl = 'https://4a26-180-252-171-208.ngrok-free.app'
 const baseUrlMid = 'https://19a6-182-253-163-163.ngrok-free.app'
 
 
@@ -410,5 +410,31 @@ export const handleMidtrans = (input) => {
         } catch (error) {
             console.log(error);
         }
+    }
+}
+
+export const submitEditProfile = (target, id, data) => {
+    return () => {
+        return fetch(baseUrl + '/' + target + '/' + id,
+            {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json",
+                    "access_token": localStorage.access_token
+                },
+                body: JSON.stringify(data)
+            }
+        )
+            .then(res => {
+                if (res.ok) {
+                    return res.json()
+                }
+            })
+            .then(data => {
+                return data
+            })
+            .catch(err => {
+                throw err
+            })
     }
 }
