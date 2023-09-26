@@ -4,10 +4,7 @@ import axios from 'axios'
 import * as SecureStore from "expo-secure-store";
 // const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 // masukin punya sendiri
-
-// const baseUrl = 'https://abdf-180-252-171-208.ngrok-free.app'
-const baseUrl = 'https://19a6-182-253-163-163.ngrok-free.app'
-
+const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 
 
 // export const setEmptyDataUserSuccess = (data) =>{
@@ -166,6 +163,7 @@ export const asyncFetchSingleUser = (id) => {
 
 // ===================================ACTIVITIES=====================================
 
+<<<<<<< HEAD
 export const asyncFetchActSuccess = () => {
     return async (dispatch) => {
         try {
@@ -186,15 +184,45 @@ export const asyncFetchActSuccess = () => {
 
 // ===================================REWARDS=====================================
 export const asyncFetchRewardsSuccess = () =>{
+=======
+export const asyncFetchActSuccess = (lat, lon) =>{
+>>>>>>> cafc8ad (feat: filter by area name)
     return async (dispatch) =>{
        try {
+        console.log(lat, lon)
         const access_token = await SecureStore.getItemAsync('access_token')
         const { data } = await axios({
+<<<<<<< HEAD
             method:'GET',
             url:baseUrl+'/rewards',
             headers:{access_token}
         })
         dispatch(fetchRewardsSuccess(data))
+=======
+            method:'POST',
+            url:baseUrl+'/activities/all',
+            headers:{access_token},
+            data:{
+                latitude:lat,
+                longitude:lon
+            }
+        })
+        
+        const getId = await SecureStore.getItemAsync('user_id')
+        let res = []
+        for(let arr of data){
+            // console.log("HASIL>>>",arr.UserActivities)
+            let stat = arr.UserActivities.map(el=>{
+                if(el.UserId == +getId ){
+                    return true
+                } else{return false}
+            })
+            // console.log(stat)
+            if (!stat.includes(true)) res.push(arr)
+        }
+        // console.log("filter>>>",res)
+        dispatch(fetchActivitiesSuccess(res))
+>>>>>>> cafc8ad (feat: filter by area name)
         return data
        } catch (error) {
             throw error.response.data
