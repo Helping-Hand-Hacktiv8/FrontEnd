@@ -3,7 +3,7 @@ import {   USER_EDIT_ON_CHANGE, USER_SET_EMPTY_DATA, USER_GET_ACCESS_TOKEN } fro
 const initialState = {
     user:{},
     access_token:''
-}
+} 
 
 export default function rootReducer(state = initialState, action){
     switch (action.type){

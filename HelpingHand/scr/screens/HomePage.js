@@ -80,7 +80,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
   
 
 
-  // const data = [
+  // const data = [ 
   //   {
   //     id: 1,
   //     name: "Mencuri hatinya",
