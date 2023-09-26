@@ -51,7 +51,6 @@ export default function CardReward({data}){
             }} >
             <View>
                 <Text 
-                
                 style={{fontSize:15, color:'white'}}>Click For Details</Text>
             </View>
             </TouchableOpacity>

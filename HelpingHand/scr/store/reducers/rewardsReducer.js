@@ -4,7 +4,7 @@ const initialState = {
     rewards:[],
 }
 
-export default function rewardsReducer(state = initialState, action){
+export default function rootReducer(state = initialState, action){
     switch (action.type){
         case REWARDS_FETCH_SUCCESS:
             return{
