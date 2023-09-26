@@ -1,25 +1,23 @@
-import { createStackNavigator } from '@react-navigation/stack';
-import ProfilePage from '../screens/ProfilePage';
+import { createStackNavigator } from "@react-navigation/stack";
+import ProfilePage from "../screens/ProfilePage";
 
 const Stack = createStackNavigator();
 
 export default function ProfileStack() {
   return (
-    <Stack.Navigator >
+    <Stack.Navigator>
       <Stack.Screen
         name="ProfileStack"
         component={ProfilePage}
-        options={{ title: 'Profile',
-      headerStyle:{
-        height:300,
-      },
-    headerTitleAlign:'left',
-  headerTitleAllowFontScaling:true,
-headerTitleStyle:{
-  fontWeight:'bold',
-  fontSize:30
-},
- }}
+        options={{
+          title: "Profile",
+          headerTitleAlign: "center",
+          headerTitleAllowFontScaling: true,
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 30,
+          },
+        }}
       />
     </Stack.Navigator>
   );

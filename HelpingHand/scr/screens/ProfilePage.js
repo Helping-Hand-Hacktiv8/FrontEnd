@@ -1,78 +1,82 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet, Alert} from "react-native";
+import { View, Text, Button, StyleSheet, Alert, ScrollView, Image, TouchableOpacity } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import { useDispatch, useSelector } from "react-redux";
 import { editUserToken } from "../store/actions/actionCreator";
 
-export default function ProfilePage({navigation}) {
-  const dispatch = useDispatch()
-  const { user } = useSelector((state)=>{
-    return state.user
-  })
+export default function ProfilePage({ navigation }) {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => {
+    return state.user;
+  });
 
   const [editingPassword, setEditingPassword] = useState(false);
   const [newPassword, setNewPassword] = useState("");
 
-
-  const togglePasswordEditing = () => {
-    setEditingPassword(!editingPassword);
-  };
-
-  const handleChangePassword = () => {
-
-    if (newPassword) {
-
-      console.log("Password updated");
-      setEditingPassword(false);
-    } else {
-      console.log("New password cannot be empty");
-    }
-  };
-
   const handleChat = () => {
-
     console.log("Chat button clicked");
   };
 
   const handleLogout = async () => {
-    try{
-      await SecureStore.deleteItemAsync('access_token')
-      dispatch(editUserToken(''))
-
-    } catch(err){
-      console.log(err)
+    try {
+      await SecureStore.deleteItemAsync("access_token");
+      dispatch(editUserToken(""));
+    } catch (err) {
+      console.log(err);
     }
-    
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Profile Page</Text>
-      <Text>Username: {user.name}</Text>
-      <Text>Email: {user.email}</Text>
-
-      {editingPassword ? (
+    <ScrollView>
+      <View style={styles.container}>
+        {/* untuk profile photo */}
         <View>
-          <Text>New Password:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter new password"
-            secureTextEntry={true}
-            onChangeText={(text) => setNewPassword(text)}
-            value={newPassword}
+          <Image
+            source={user.profileImg}
+            style={{
+              width: 200,
+              height: 200,
+              borderColor: "black",
+            }}
           />
-          <Button title="Save Password" onPress={handleChangePassword} />
         </View>
-      ) : (
-        <Button title="Change Password" onPress={togglePasswordEditing} />
-      )}
 
-      <Text>Your Points: {user.token}</Text>
-      <Text>Contribution History: {user.contributionHistory}</Text>
+        {/* username */}
+        <Text style={styles.textTittle}>Username</Text>
+        <Text style={styles.textContainer}>{user.name}</Text>
 
-      <Button title="Chat" onPress={handleChat} />
-      <Button title="Logout" onPress={handleLogout} />
-    </View>
+        {/* Email */}
+        <Text style={styles.textTittle}>Email</Text>
+        <Text style={styles.textContainer}>{user.email}</Text>
+
+        {/* password */}
+        <Text style={styles.textTittle}>Password</Text>
+        <Text style={styles.textContainer}>*************</Text>
+
+        {/* edit button */}
+        <TouchableOpacity style={styles.buttonContainer}>
+          <Text>Edit Profile</Text>
+        </TouchableOpacity>
+
+        {/* points group */}
+        <View style={styles.pointsContainer}>
+          
+          <TouchableOpacity style={styles.pointsButtons}>
+            <Text style={{textAlign: 'center'}}>Add Points</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.pointsButtons}>
+            <Text style={{textAlign: 'center'}}>Points: {user.token}</Text>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity style={styles.chatButton}>
+          <Text style={{textAlign: 'center'}}>Chat</Text>
+        </TouchableOpacity>
+
+
+      </View>
+    </ScrollView>
   );
 }
 
@@ -82,11 +86,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  title: {
-    fontSize: 20,
+
+  textContainer: {
+    fontSize: 18,
+    marginBottom: 10,
     fontWeight: "bold",
-    marginBottom: 20,
+    textAlign: "center",
+    backgroundColor: "#9C8F8E",
+    padding: 10,
+    borderRadius: 30,
+    width: 300,
   },
+
+  textTittle: {
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 24,
+  },
+
   input: {
     height: 40,
     margin: 12,
@@ -94,4 +111,36 @@ const styles = StyleSheet.create({
     padding: 10,
     width: 200,
   },
+
+  buttonContainer: {
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    backgroundColor: "#DDA343",
+    padding: 10,
+    borderRadius: 30,
+    width: 100,
+  },
+
+  pointsContainer: {
+    flexDirection: "row", // Menjadikan dua kolom dengan mengatur arah flex menjadi 'row'
+    justifyContent: "space-between", // kasih ruang diantara dua button
+    alignItems: "center", // Menengahkan vertikal
+  },
+
+  pointsButtons: {
+    marginTop: 20,
+    backgroundColor: "#FADB5E",
+    padding: 10,
+    borderRadius: 20,
+    width: 100,
+  },
+
+  chatButton: {
+    marginTop: 20,
+    backgroundColor: "#DC6C3C",
+    padding: 10,
+    borderRadius: 20,
+    width: 100,
+  }
 });
