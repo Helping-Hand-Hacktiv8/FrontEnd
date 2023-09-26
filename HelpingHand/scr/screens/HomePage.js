@@ -8,6 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncFetchActSuccess, asyncFetchSingleUser } from "../store/actions/actionCreator";
 import * as SecureStore from "expo-secure-store";
+import CardCompHome from "../components/CardCompHome";
 
 const initialLat = -6.200000
 const initialLng = 106.816666
@@ -56,16 +57,19 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
     }
   }
   useEffect(() => {
+    console.log('MASUK SINI')
     const fetchId = async () => {
       let getId = await SecureStore.getItemAsync("user_id");
+      console.log(getId)
       return getId; 
     };
     if (isLoading) {
       dispatch(asyncFetchActSuccess('all','all'))
-        .then((data) => {
+        .then(() => {
           return fetchId();
         })
         .then((data) => {
+          console.log('DATA>>>',data)
           dispatch(asyncFetchSingleUser(data));
           setIsLoading(false);
         })
@@ -245,7 +249,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
             <View style={{ flex: 1, marginVertical: 15, alignItems: "center", justifyContent: "center", marginTop: 16 }}>
             
               {activities?.map((data) => (
-                <CardComp data={data} key={`nearby-data-${data.id}`} handleNavigate={() => {}} />
+                <CardCompHome data={data} key={`nearby-data-${data.id}`} handleNavigate={() => {}} />
               ))}
 
             </View>

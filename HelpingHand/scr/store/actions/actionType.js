@@ -10,6 +10,7 @@ export const USER_SET_EMPTY_DATA = "user/setSuccess"
 export const USER_EDIT_ON_CHANGE= "user/editSuccess"
 export const USER_GET_ACCESS_TOKEN = "user/editToken"
 export const ACTIVITIES_FETCH_SUCCESS = "activities/fetchSuccess"
+export const ACTIVITY_FETCH_SUCCESS = "activity/fetchSuccess"
 export const REWARDS_FETCH_SUCCESS = 'rewards/fetchSuccess'
 
 export const AUTHOR_ACTIVITIES_FETCH_SUCCESS = 'authorActivities/fetchSuccess'
