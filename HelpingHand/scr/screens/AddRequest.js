@@ -4,10 +4,13 @@ import DateTimePicker from "@react-native-community/datetimepicker"; //https://g
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; //https://github.com/react-native-maps/react-native-maps
 import {enableLatestRenderer} from 'react-native-maps';
 import { Button } from "@rneui/base";
+import { useNavigation } from "@react-navigation/native";
+
 
 
 enableLatestRenderer();
 export default function AddRequest() {
+  const navigation = useNavigation()
   const [FromDate, setFromDate] = useState(new Date());
   const [ToDate, setToDate] = useState(new Date ());
 
@@ -205,8 +208,13 @@ export default function AddRequest() {
           <Text>Search</Text>
         </TouchableOpacity>
       </View>
-      <View style={{flex:1, justifyContent:'center', alignItems:'center', marginVertical:15}}>
+      <View style={{flex:1,flexDirection:'row', justifyContent:'center', alignItems:'center', marginVertical:15}}>
       <Button title="Submit" buttonStyle={{borderRadius:10}}/>
+      <View style={{width:80}}/>
+      <Button title="Cancel" color={'maroon'} buttonStyle={{borderRadius:10}}
+      onPress={()=>{
+        navigation.goBack()
+      }}/>
 
       </View>
     </View>
