@@ -34,10 +34,10 @@ export default function MyActivty() {
         />
       </View>
       <View style={{flex:1, marginVertical:15,alignItems:'center', justifyContent:'center'}}>
+        {/* <CardComp/>
         <CardComp/>
         <CardComp/>
-        <CardComp/>
-        <CardComp/>
+        <CardComp/> */}
       </View>
 
 

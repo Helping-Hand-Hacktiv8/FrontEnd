@@ -3,7 +3,7 @@ import axios from 'axios'
 import * as SecureStore from "expo-secure-store";
 // const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 // masukin punya sendiri
-const baseUrl = 'https://e2a3-36-71-27-144.ngrok.io'
+const baseUrl = 'https://abdf-180-252-171-208.ngrok-free.app'
 
 
 // export const setEmptyDataUserSuccess = (data) =>{

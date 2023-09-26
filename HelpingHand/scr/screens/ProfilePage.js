@@ -26,16 +26,21 @@ export default function ProfilePage({ navigation }) {
     }
   };
 
+  console.log(user);
   return (
     <ScrollView>
       <View style={styles.container}>
         {/* untuk profile photo */}
-        <View>
+        <View style={{flex: 1}}>
           <Image
-            source={user.profileImg}
+            source={{uri: user.profileImg}}
             style={{
-              width: 200,
-              height: 200,
+              width: 150,
+              height: 150,
+              paddingTop: 5,
+              marginBottom: 5,
+              marginTop: 10,
+              borderRadius: 100,
               borderColor: "black",
             }}
           />
@@ -55,7 +60,7 @@ export default function ProfilePage({ navigation }) {
 
         {/* edit button */}
         <TouchableOpacity style={styles.buttonContainer}>
-          <Text>Edit Profile</Text>
+          <Text style={{textAlign: 'center'}}>Edit Profile</Text>
         </TouchableOpacity>
 
         {/* points group */}
@@ -72,6 +77,10 @@ export default function ProfilePage({ navigation }) {
 
         <TouchableOpacity style={styles.chatButton}>
           <Text style={{textAlign: 'center'}}>Chat</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.chatButton} onPress={handleLogout}>
+          <Text style={{textAlign: 'center'}}>Logout</Text>
         </TouchableOpacity>
 
 

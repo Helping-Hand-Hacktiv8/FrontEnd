@@ -245,9 +245,9 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
         ) : error ? (
           <Text>Something went wrong</Text> */}
               {/* ) : ( */}
-              {/* {activities?.map((data) => (
+              {activities?.map((data) => (
                 <CardComp data={data} key={`nearby-data-${data.id}`} handleNavigate={() => {}} />
-              ))} */}
+              ))}
               {/* )} */}
             </View>
           </ScrollView>
