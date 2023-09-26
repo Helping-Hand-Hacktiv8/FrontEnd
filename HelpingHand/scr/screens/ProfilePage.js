@@ -26,6 +26,14 @@ export default function ProfilePage({ navigation }) {
     }
   };
 
+  const midTrans = async () => {
+    try {
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   console.log(user);
   return (
     <ScrollView>
@@ -66,7 +74,9 @@ export default function ProfilePage({ navigation }) {
         {/* points group */}
         <View style={styles.pointsContainer}>
           
-          <TouchableOpacity style={styles.pointsButtons}>
+          <TouchableOpacity style={styles.pointsButtons} onPress={() => {
+            return navigation.navigate("TopUpScreen")
+          }}>
             <Text style={{textAlign: 'center'}}>Add Points</Text>
           </TouchableOpacity>
 
