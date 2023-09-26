@@ -4,7 +4,7 @@ const initialState = {
     activities:[],
 }
 
-export default function rootReducer(state = initialState, action){
+export default function activitiesReducer(state = initialState, action){
     switch (action.type){
         case ACTIVITIES_FETCH_SUCCESS:
             return{

@@ -5,7 +5,7 @@ const initialState = {
     access_token:''
 }
 
-export default function rootReducer(state = initialState, action){
+export default function usersReducer(state = initialState, action){
     switch (action.type){
         case USER_SET_EMPTY_DATA:
             return{

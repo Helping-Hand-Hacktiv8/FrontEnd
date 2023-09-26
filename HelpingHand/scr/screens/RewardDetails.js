@@ -1,10 +1,35 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, SafeAreaViewComponent } from "react-native";
 import { Divider } from "@rneui/themed";
 import { FontAwesome } from '@expo/vector-icons';
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { SafeAreaView, ActivityIndicator } from "react-native";
 
-export default function RewardDetails() {
-        return (
-          <View>
+export default function RewardDetails({route}) {
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
+  const [reward, setReward] = useState('')
+  const data = route.params.data
+   
+  useEffect(()=> {
+    if(isLoading){
+      if(data) {
+        setIsLoading(false)
+      }
+    }
+  },[])  
+  
+
+  console.log(data)
+  
+  if(isLoading) {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent:'center' }}>
+        <ActivityIndicator size="large" color={"#312651"} />
+      </SafeAreaView>
+    );
+  } else return (
+          <SafeAreaView>
             <Text
               style={{
                 textAlign: "center",
@@ -13,13 +38,10 @@ export default function RewardDetails() {
                 marginTop: 10,
               }}
             >
-              The purpose of human life is to serve and to show compassion and the
-              will to help others." - Albert Schweitzer
             </Text>
             <View
               style={{
                 width: 350,
-                height: 500,
                 elevation: 5,
                 borderRadius: 10,
                 backgroundColor: "#dc6c3c",
@@ -36,21 +58,20 @@ export default function RewardDetails() {
                     height: 130,
                     alignSelf: "center",
                     borderRadius: 10,
-                    padding: 10,
                     marginLeft: 10,
                     marginTop: 10,
                   }}
                 >
                   <Image
                     source={{
-                      uri: "https://cdn.discordapp.com/attachments/1029609092358090842/1155684708328415262/worrysnore.png",
+                      uri: data.photoProduct,
                     }}
-                    width={120}
-                    height={120}
-                    style={{ alignSelf: "center", borderRadius: 10 }}
+                    style={{ width: "100%",
+                    borderRadius:10,
+                    height: "100%"}} 
                   />
                 </View>
-                <View style={{ flexGrow: 1, width: 10, justifyContent: "center" }}>
+                <View style={{ flexGrow: 1, width: 10, justifyContent: "center", padding:10 }}>
                   <Text
                     style={{
                       fontSize: 30,
@@ -60,7 +81,7 @@ export default function RewardDetails() {
                       fontWeight: "bold",
                     }}
                   >
-                    Help Me Paint My House
+                    {data.name}
                   </Text>
                 </View>
               </View>
@@ -75,35 +96,24 @@ export default function RewardDetails() {
                     borderRadius: 10,
                   }}
                 >
-                  <Text style={{ textAlign: "center", color: "white" }}>Author:</Text>
+                  <Text style={{ textAlign: "center", color: "white" }}>Company:</Text>
                 </View>
-                <View style={{ marginTop: 10, width: 80, alignSelf: "center" }}>
-                  <Text style={{ textAlign: "center", color: "white" }}>Damara</Text>
+                <View style={{ marginTop: 10, alignSelf: "center" }}>
+                  <Text style={{marginLeft:10 , color: "white", fontWeight:'bold' }}>{data.companyName}</Text>
                 </View>
               </View>
       
               {/* =============TOPSECTION======== */}
-              <Divider width={2} color="black" style={{ marginTop: 10 }} />
+              <Divider width={2} color="transparent" style={{ marginTop: 10 }} />
               <View style={{padding:10}}>
-              <Text style={{color:'white', fontWeight:'bold'}}>Description:</Text>
-              <Text style={{color:'white', fontWeight:'bold'}}>
-                I'm looking for some helping hands to paint my house. This project
-                involves revitalizing the look and feel of our home by giving it a new
-                paint job, both inside and outside. It's a task that's too big for one
-                person to handle alone, so I'm reaching out for support.
+              <Text style={{color:'white'}}>Description:</Text>
+              <Text style={{color:'white'}}>
+               {data.description}
               </Text>
               </View>
-              <Divider width={2} color="black" style={{ marginTop: 10 }} />
-              <View style={{padding:10}}>
-              <Text style={{color:'white', fontWeight:'bold'}}>Place/Destination:</Text>
-              <Text style={{color:'white', fontWeight:'bold'}}>
-              South Jakarta, Radio Dalam. Antena 6. RT RW 03/02.(Near Masjid Nurul Iman)
-              </Text>
-              </View>
-              {/* =============MIDSECTION======== */}
-              <Divider width={2} color="black" style={{ marginTop: 10 }} />
-              <View style={{ flexDirection: "row" }}>
-                <View
+              <Divider width={2} color="transparent" style={{ marginTop: 10 }} />
+              <View style={{ flexDirection: "row", marginBottom:15  }}>
+                {/* <View
                   style={{
                     backgroundColor: "#175D8C",
                     marginTop: 10,
@@ -114,28 +124,27 @@ export default function RewardDetails() {
                   }}
                 >
                   <Text style={{ textAlign: "center", color: "white" }}>Participants:</Text>
-                </View>
-                <View style={{ marginTop: 10, alignSelf: "center", marginLeft:8 }}>
+                </View> */}
+                {/* <View style={{ marginTop: 10, alignSelf: "center", marginLeft:8 }}>
                   <Text style={{ textAlign: "center", color: "white" }}>5/6</Text>
-                </View>
-                <View style={{width:90, marginHorizontal:-20}}/>
+                </View> */}
+                <View style={{ marginHorizontal:5 }}/>
                 <View
                   style={{
                     marginTop: 10,
                     alignSelf: "center",
-                    paddingLeft:30
                   }}
                 >
-                  <Text style={{ textAlign: "center", color: "white" }}>Rewards:</Text>
+                  <Text style={{ textAlign: "center", color: "white" }}>Price:</Text>
                 </View>
                 <View style={{ marginTop: 10, alignSelf: "center", marginLeft:8, flexDirection:'row', alignItems:'center'}}>
-                  <Text style={{ textAlign: "center", color: "white" }}>200</Text>
+                  <Text style={{ textAlign: "center", color: "white" }}>{data.price}</Text>
                   <FontAwesome name="star" size={24} color="yellow"  style={{marginLeft:5}}/>
       
                 </View>
               </View>
       
             </View>
-          </View>
+          </SafeAreaView>
         );
 }

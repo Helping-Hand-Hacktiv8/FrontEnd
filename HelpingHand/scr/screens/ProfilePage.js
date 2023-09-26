@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Button, StyleSheet, Alert, ScrollView, Image, TouchableOpacity } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,8 +26,10 @@ export default function ProfilePage({ navigation }) {
     }
   };
 
-  console.log(user);
-  return (
+
+  console.log(user,"<<<<<<di profile"); 
+  
+  if (user) return (
     <ScrollView>
       <View style={styles.container}>
         {/* untuk profile photo */}

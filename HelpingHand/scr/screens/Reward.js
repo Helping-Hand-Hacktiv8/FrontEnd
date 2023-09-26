@@ -1,9 +1,39 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView ,SafeAreaView,ActivityIndicator } from "react-native";
 import { Card, Button } from "@rneui/themed";
 import CardReward from "../components/CardReward";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { asyncFetchRewardsSuccess } from "../store/actions/actionCreator";
 
 export default function Reward() {
-  return (
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
+  const {rewards}  = useSelector((state) => {
+    return state.rewards;
+  });
+ 
+  useEffect(()=> {
+    if(isLoading) {
+      dispatch(asyncFetchRewardsSuccess())
+      .then((data)=> {
+        setIsLoading(false)
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
+    }
+  }, []) 
+
+
+  if(isLoading) {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent:'center' }}>
+        <ActivityIndicator size="large" color={"#312651"} />
+      </SafeAreaView>
+    );   
+  } else return (
+    <SafeAreaView>
+
     <ScrollView>
       <Text
         style={{
@@ -48,11 +78,12 @@ export default function Reward() {
         Claim Your Reward Below
       </Text>
       <View style={{alignItems:'center', marginVertical:15}}>
-      <CardReward/>
-      <CardReward/>
-      <CardReward/>
+      {rewards?.map((data)=> {
+      return <CardReward data={data} key={`nearby-data-${data.id}`} handleNavigate={() => {}}/>
+    })}
 
       </View>
     </ScrollView>
+    </SafeAreaView>
   );
 }
