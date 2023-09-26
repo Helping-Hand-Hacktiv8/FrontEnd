@@ -12,25 +12,33 @@ export default function MyRewardsStack() {
         headerShown: true,
       }}
     >
-      <Stack.Screen name="Reward" component={Reward} options={{
-        headerShown:true,
-        headerTitleStyle:{color:'white'},
-        headerStyle:{
-            backgroundColor:'#175d8c'
-        },
-        title:'Reward',
-        headerStatusBarHeight:25
-      }}/>
-      <Stack.Screen name="RewardDetails" component={RewardDetails} options={{
-        headerShown:true,
-        headerTitleStyle:{color:'white'},
-        headerStyle:{
-            backgroundColor:'#175d8c'
-        },
-        title:'Reward Details',
-        headerStatusBarHeight:25
-      }}/> 
-      
+      <Stack.Screen
+        name="Reward"
+        component={Reward}
+        options={{
+          title: "Reward",
+          headerTitleAlign: "center",
+          headerTitleAllowFontScaling: true,
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 30,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="RewardDetails"
+        component={RewardDetails}
+        options={{
+          headerShown: true,
+          headerTitleStyle: { color: "white" },
+          headerStyle: {
+            backgroundColor: "#175d8c",
+          },
+          title: "Reward Details",
+          headerStatusBarHeight: 25,
+        }}
+      />
     </Stack.Navigator>
   );
 }

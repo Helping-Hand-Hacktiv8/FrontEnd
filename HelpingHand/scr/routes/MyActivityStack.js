@@ -15,15 +15,19 @@ export default function MyActivityStack() {
         headerShown: true,
       }}
     >
-      <Stack.Screen name="MyActivity" component={MyActivty} options={{
-        headerShown:true,
-        headerTitleStyle:{color:'white'},
-        headerStyle:{
-            backgroundColor:'#175d8c'
+      <Stack.Screen 
+      name="MyActivity" 
+      component={MyActivty} 
+      options={{
+        title: "Reward",
+        headerTitleAlign: "center",
+        headerTitleAllowFontScaling: true,
+        headerTitleStyle: {
+          fontWeight: "bold",
+          fontSize: 30,
         },
-        title:'My Activity',
-        headerStatusBarHeight:25
-      }}/>
+      }}
+      />
       <Stack.Screen name="MyRequest" component={MyRequest} options={{
         headerShown:true,
         headerTitleStyle:{color:'white'},
