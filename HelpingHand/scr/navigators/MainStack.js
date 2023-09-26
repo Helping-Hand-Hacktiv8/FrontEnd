@@ -37,7 +37,7 @@ export default function FrontStack(){
           }}
         />
         <Tab.Screen
-          name="MyActivity"
+          name="MyActivityStack"
           component={MyActivityStack}
           options={{
             title:"My Activity",
