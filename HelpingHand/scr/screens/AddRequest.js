@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, TextInput, Text, ScrollView, StyleSheet } from "react-native";
+import { View, TextInput, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker"; //https://github.com/react-native-datetimepicker/datetimepicker
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; //https://github.com/react-native-maps/react-native-maps
 import {enableLatestRenderer} from 'react-native-maps';
@@ -8,6 +8,7 @@ import { Button } from "@rneui/base";
 
 enableLatestRenderer();
 export default function AddRequest() {
+  const googleAPIkey='AIzaSyBqS7sw4CfzV-dHLQRcNCu4qo3R3HBWAXs'
   const [FromDate, setFromDate] = useState(new Date());
   const [ToDate, setToDate] = useState(new Date ());
 
@@ -190,7 +191,7 @@ export default function AddRequest() {
    </View>
       </View>
       <View style={{ alignItems: "center" }}>
-        <Text>Address</Text>
+        <Text>Search Place</Text>
         <TextInput
           placeholder={"address"}
           style={{
@@ -201,6 +202,9 @@ export default function AddRequest() {
             width: 200,
           }}
         />
+        <TouchableOpacity>
+          <Text>Search</Text>
+        </TouchableOpacity>
       </View>
       <View style={{flex:1, justifyContent:'center', alignItems:'center', marginVertical:15}}>
       <Button title="Submit" buttonStyle={{borderRadius:10}}/>
