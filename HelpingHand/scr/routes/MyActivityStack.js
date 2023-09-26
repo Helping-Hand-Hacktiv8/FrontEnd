@@ -6,6 +6,7 @@ import AddRequest from "../screens/AddRequest";
 import ActivityDetails from "../screens/ActivityDetails";
 
 export default function MyActivityStack() {
+  
   const Stack = createStackNavigator();
 
   return (
@@ -23,7 +24,7 @@ export default function MyActivityStack() {
         title:'My Activity',
         headerStatusBarHeight:25
       }}/>
-      <Stack.Screen name="MyRequest" component={ActivityDetails} options={{
+      <Stack.Screen name="MyRequest" component={AddRequest} options={{
         headerShown:true,
         headerTitleStyle:{color:'white'},
         headerStyle:{

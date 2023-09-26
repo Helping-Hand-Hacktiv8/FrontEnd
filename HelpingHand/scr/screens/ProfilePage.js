@@ -103,6 +103,10 @@ export default function ProfilePage({ navigation }) {
             </TouchableOpacity>
           </View>
 
+          <TouchableOpacity style={styles.chatButton}>
+            <Text style={{ textAlign: 'center' }}>Chat</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity style={styles.chatButton} onPress={handleLogout}>
             <Text style={{ textAlign: 'center' }}>Logout</Text>
           </TouchableOpacity>

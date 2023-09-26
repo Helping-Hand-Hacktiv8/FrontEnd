@@ -17,8 +17,7 @@ export default function ActivityDetails() {
                 marginTop: 10,
               }}
             >
-              The purpose of human life is to serve and to show compassion and the
-              will to help others." - Albert Schweitzer
+
             </Text>
             <View
               style={{
