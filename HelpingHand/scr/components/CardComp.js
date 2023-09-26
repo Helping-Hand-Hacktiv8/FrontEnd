@@ -8,11 +8,12 @@ export default function CardComp({data, handleNavigation }) {
       <TouchableOpacity style={styles.containerLogo}>
         <Image
           source={
-            "" //ambil dari props
+            {uri:data.photoAct} 
           }
           resizeMode="contain"
           style={{
             width: "100%",
+            borderRadius:10,
             height: "100%",
           }}
         />
