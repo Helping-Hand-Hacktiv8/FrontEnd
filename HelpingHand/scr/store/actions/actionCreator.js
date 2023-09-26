@@ -3,7 +3,7 @@ import axios from 'axios'
 import * as SecureStore from "expo-secure-store";
 // const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 // masukin punya sendiri
-const baseUrl = 'https://e2a3-36-71-27-144.ngrok.io'
+const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 
 
 // export const setEmptyDataUserSuccess = (data) =>{
@@ -155,16 +155,35 @@ export const asyncFetchSingleUser = (id) =>{
 
 // ===================================ACTIVITIES=====================================
 
-export const asyncFetchActSuccess = () =>{
+export const asyncFetchActSuccess = (lat, lon) =>{
     return async (dispatch) =>{
        try {
+        console.log(lat, lon)
         const access_token = await SecureStore.getItemAsync('access_token')
         const { data } = await axios({
-            method:'GET',
-            url:baseUrl+'/activities',
-            headers:{access_token}
+            method:'POST',
+            url:baseUrl+'/activities/all',
+            headers:{access_token},
+            data:{
+                latitude:lat,
+                longitude:lon
+            }
         })
-        dispatch(fetchActivitiesSuccess(data))
+        
+        const getId = await SecureStore.getItemAsync('user_id')
+        let res = []
+        for(let arr of data){
+            // console.log("HASIL>>>",arr.UserActivities)
+            let stat = arr.UserActivities.map(el=>{
+                if(el.UserId == +getId ){
+                    return true
+                } else{return false}
+            })
+            // console.log(stat)
+            if (!stat.includes(true)) res.push(arr)
+        }
+        // console.log("filter>>>",res)
+        dispatch(fetchActivitiesSuccess(res))
         return data
        } catch (error) {
             throw error.response.data
