@@ -1,12 +1,42 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, SafeAreaView, ActivityIndicator} from "react-native";
 import { Button, Divider } from "@rneui/base";
 import CardComp from "../components/CardComp";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { asyncFetchUserActivitiesSuccess } from "../store/actions/actionCreator";
 
 
 export default function MyActivty() {
+  const dispatch = useDispatch();
   const navigation = useNavigation()
-  return (
+  const [isLoading, setIsLoading] = useState(true);
+  const userActivities  = useSelector((state) => {
+    return state.activity.userActivities;
+  });
+
+  useEffect(()=> { 
+    if(isLoading) {
+      dispatch(asyncFetchUserActivitiesSuccess())
+      .then((data)=> {
+        setIsLoading(false)
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
+    }
+  }, [])
+  
+  console.log(userActivities[0])
+  
+  
+  if(isLoading) { 
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent:'center' }}>
+        <ActivityIndicator size="large" color={"#312651"} />
+      </SafeAreaView>
+    );   
+  } else return (
     <ScrollView>
       <View
         style={{
@@ -34,10 +64,7 @@ export default function MyActivty() {
         />
       </View>
       <View style={{flex:1, marginVertical:15,alignItems:'center', justifyContent:'center'}}>
-        <CardComp/>
-        <CardComp/>
-        <CardComp/>
-        <CardComp/>
+          
       </View>
 
 

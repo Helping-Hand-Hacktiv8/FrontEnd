@@ -1,7 +1,8 @@
-import { ACTIVITIES_FETCH_SUCCESS  } from "../actions/actionType"
+import { ACTIVITIES_FETCH_SUCCESS, USERACTIVITIES_FETCH_SUCCESS  } from "../actions/actionType"
 
 const initialState = {
     activities:[],
+    userActivities:[]
 }
 
 export default function rootReducer(state = initialState, action){
@@ -11,7 +12,13 @@ export default function rootReducer(state = initialState, action){
                 ...state,
                 activities:action.payload
             }
+        case USERACTIVITIES_FETCH_SUCCESS:
+            return{
+                ...state,
+                userActivities:action.payload
+            }
         default:
             return state
-    }
+    } 
+    
 }

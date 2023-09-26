@@ -75,6 +75,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
     }
   }, []);
 
+
   // console.log(search, '<<<<ini searchText')
   // console.log(result, '<<<<<<<ini hasil search')
 
@@ -82,7 +83,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
   
 
 
-  // const data = [
+  // const data = [ 
   //   {
   //     id: 1,
   //     name: "Mencuri hatinya",

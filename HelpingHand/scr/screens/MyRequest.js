@@ -34,10 +34,7 @@ export default function MyRequest() {
         />
       </View>
       <View style={{flex:1, marginVertical:15,alignItems:'center', justifyContent:'center'}}>
-        <CardComp/>
-        <CardComp/>
-        <CardComp/>
-        <CardComp/>
+           
       </View>
       <Divider width={3} color="#175d8c" inset={true} insetType="middle" style={{marginTop:20}}/>
       <View

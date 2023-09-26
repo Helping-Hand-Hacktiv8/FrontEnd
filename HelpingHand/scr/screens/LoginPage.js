@@ -1,4 +1,5 @@
-import { View, TextInput, StyleSheet, Button, Alert, Text, Image, SafeAreaView, } from "react-native";
+import { View, TextInput, StyleSheet, Button, Alert, Text, Image, SafeAreaView } from "react-native";
+// import { GoogleSignin, GoogleSigninButton } from "@react-native-google-signin/google-signin";
 import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import { useDispatch } from "react-redux";
@@ -56,7 +57,6 @@ export default function Login({ navigation }) {
 
   return (
     <SafeAreaView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      
       <Image
         source={logo}
         style={{
@@ -77,17 +77,19 @@ export default function Login({ navigation }) {
       <Text style={{ marginTop: 10 }}>Or Continue With</Text>
 
       {/* Google Login */}
-      <View></View>
+      <View>
+        {/* <GoogleSigninButton size={GoogleSigninButton.Size.Wide} color={GoogleSigninButton.Color.Dark} onPress={this._signIn} disabled={this.state.isSigninInProgress} 
+        />; */}
+      </View>
 
-      <Text 
-      style={{marginTop: 10}}
-      >Dont have an account? click here to sign up!</Text>
+      <Text style={{ marginTop: 10 }}>Dont have an account? click here to sign up!</Text>
 
-     <Button title="Sign Up" onPress={() => {
-      return navigation.navigate('Register')
-     }}/>
-
-     
+      <Button
+        title="Sign Up"
+        onPress={() => {
+          return navigation.navigate("Register");
+        }}
+      />
     </SafeAreaView>
   );
 }
