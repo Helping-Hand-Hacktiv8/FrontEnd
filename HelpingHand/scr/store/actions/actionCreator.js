@@ -301,7 +301,7 @@ export const submitEdit = (target, id, data) => {
 }
 
 
-//tes aja
+
 export const submitNew = (target, data) => {
     return () => {
         return fetch(baseUrl + '/' + target,
