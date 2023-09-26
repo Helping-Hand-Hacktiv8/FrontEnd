@@ -1,6 +1,22 @@
+import { useState } from "react";
 import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
+import { handleMidtrans, topUpToken } from "../store/actions/actionCreator";
 
-export default function TopUpScreen() {
+export default function TopUpScreen({ navigation }) {
+  const dispatch = useDispatch()
+  const [input, setInput] = useState(0)
+
+  const submitToken = () => {
+    dispatch(handleMidtrans(input))
+      .then(data => {
+        return navigation.navigate('PaymentScreen', {
+          url: data.redirect_url,
+          token: data.token
+        })
+      })
+  }
+
   return (
     <View
       style={{
@@ -12,13 +28,18 @@ export default function TopUpScreen() {
       <View style={styles.textTittle}>
         <Text style={{ textAlign: "center" }}>Enter Amount</Text>
       </View>
+      <View style={styles.textTittle}>
+        <Text style={{ textAlign: "center" }}>1 token = Rp20,000</Text>
+      </View>
       <View style={styles.textContainer}>
-        <TextInput style={{ textAlign: "center" }} keyboardType="numeric" placeholder="" />
+        <TextInput style={{ textAlign: "center" }} keyboardType="numeric" value={input} onChangeText={setInput} />
       </View>
 
       {/* Submit and Cancle */}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.submitButton}>
+        <TouchableOpacity style={styles.submitButton} onPress={() => {
+          submitToken()
+        }}>
           <Text style={{textAlign: 'center'}}>Submit</Text>
         </TouchableOpacity>
 
