@@ -3,7 +3,7 @@ import axios from 'axios'
 import * as SecureStore from "expo-secure-store";
 // const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 // masukin punya sendiri
-const baseUrl = 'https://d65c-180-252-171-208.ngrok-free.app'
+const baseUrl = 'https://e2a3-36-71-27-144.ngrok.io'
 
 
 // export const setEmptyDataUserSuccess = (data) =>{
@@ -83,7 +83,7 @@ export const fetchActivitiesSuccess = (data) =>{
 //     return{
 //         type:COMPANIES_SINGLE_FETCH_SUCCESS,
 //         payload:data
-//     }
+//     } 
 // }
 
 // export const setEmptyDataCompanySuccess = (data) =>{
@@ -93,6 +93,8 @@ export const fetchActivitiesSuccess = (data) =>{
 //     }
 // }
 
+
+// ===================================AXIOS=====================================
 export const registerUser = (registerForm) =>{
     return async () =>{
         try{
@@ -132,23 +134,6 @@ export const loginUser = (loginForm) =>{
     }
 }
 
-export const asyncFetchActSuccess = () =>{
-    return async (dispatch) =>{
-       try {
-        const access_token = await SecureStore.getItemAsync('access_token')
-        const { data } = await axios({
-            method:'GET',
-            url:baseUrl+'/activities',
-            headers:{access_token}
-        })
-        dispatch(fetchActivitiesSuccess(data))
-        return data
-       } catch (error) {
-            throw error.response.data
-       }
-    }
-}
-
 export const asyncFetchSingleUser = (id) =>{
     return async (dispatch) =>{
        try {
@@ -166,6 +151,46 @@ export const asyncFetchSingleUser = (id) =>{
        }
     }
 }
+
+
+// ===================================ACTIVITIES=====================================
+
+export const asyncFetchActSuccess = () =>{
+    return async (dispatch) =>{
+       try {
+        const access_token = await SecureStore.getItemAsync('access_token')
+        const { data } = await axios({
+            method:'GET',
+            url:baseUrl+'/activities',
+            headers:{access_token}
+        })
+        dispatch(fetchActivitiesSuccess(data))
+        return data
+       } catch (error) {
+            throw error.response.data
+       }
+    }
+}
+
+
+// ===================================REWARDS=====================================
+// export const asyncFetchRewardsSuccess = () =>{
+//     return async (dispatch) =>{
+//        try {
+//         const access_token = await SecureStore.getItemAsync('access_token')
+//         const { data } = await axios({
+//             method:'GET',
+//             url:baseUrl+'/activities',
+//             headers:{access_token}
+//         })
+//         dispatch(fetchActivitiesSuccess(data))
+//         return data
+//        } catch (error) {
+//             throw error.response.data
+//        }
+//     }
+// }
+
 
 export const companyDelete = (id) =>{
     return (dispatch) =>{
