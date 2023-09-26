@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, Image} from "react-native"
 import { Card, Button} from '@rneui/themed';
-import { color } from "@rneui/base";
 
 export default function CardReward(){
   return (

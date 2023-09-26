@@ -8,7 +8,6 @@ import { Button } from "@rneui/base";
 
 enableLatestRenderer();
 export default function AddRequest() {
-  const googleAPIkey='AIzaSyBqS7sw4CfzV-dHLQRcNCu4qo3R3HBWAXs'
   const [FromDate, setFromDate] = useState(new Date());
   const [ToDate, setToDate] = useState(new Date ());
 

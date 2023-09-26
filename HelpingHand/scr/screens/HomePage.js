@@ -9,11 +9,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { asyncFetchActSuccess, asyncFetchSingleUser } from "../store/actions/actionCreator";
 import * as SecureStore from "expo-secure-store";
 
+const initialLat = -6.200000
+const initialLng = 106.816666
+
 export default function Home({ searchTerms, setSearchTerms, handleClick }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [result, setResult] = useState('')
   const { user } = useSelector((state) => {
     return state.user;
   });
@@ -22,6 +26,33 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
     return state.activity;
   });
 
+  const googleAPIkey='AIzaSyBqS7sw4CfzV-dHLQRcNCu4qo3R3HBWAXs'
+  const searchPlaces = async () => {
+    if(!search.trim().length) return
+
+    const googleApisUrl ='https://maps.googleapis.com/maps/api/place/textsearch/json'
+    const input = search.trim()
+    const location = `${initialLat},${initialLng}&radius=1000`
+    const url = `${googleApisUrl}?query=${input}&location=${location}&key=${googleAPIkey}`
+    try {
+      const response = await fetch(url)
+      const json = await response.json()
+      if(json && json.results){
+        const coords = []
+        for (const item of json.results) {
+          coords.push({
+            name:item.name,
+            lattitude: item.geometry.location.lat,
+            longitude: item.geometry.location.lng,
+          })
+        }
+        setResult(coords)
+      }
+    } catch (error) {
+      console.log(error)
+      
+    }
+  }
   useEffect(() => {
     const fetchId = async () => {
       let getId = await SecureStore.getItemAsync("user_id");
@@ -41,6 +72,13 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
         });
     }
   }, []);
+
+  console.log(search, '<<<<ini searchText')
+  console.log(result, '<<<<<<<ini hasil search')
+
+  
+  
+
 
   // const data = [
   //   {
@@ -88,6 +126,8 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
               marginBottom: 1,
               fontSize: 25,
               padding: 10,
+              fontStyle:'italic',
+              color:'#dc6c3c'
             }}
           >
             Welcome {user.name}
@@ -97,7 +137,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
               textAlign: "left",
               fontWeight: "300",
               fontSize: 14,
-              padding: 10,
+              marginLeft:10
             }}
           >
             Which good deeds you want to do today?
@@ -113,6 +153,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
               borderWidth: 1,
               borderRadius: 16,
               overflow: "hidden",
+              marginHorizontal:10
             }}
           >
             <View
@@ -133,7 +174,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
                   height: "100%",
                 }}
                 value={searchTerms}
-                onChangeText={(text) => setSearchTerms(text)}
+                onChangeText={(text) => setSearch(text)}
                 placeholder="What kind of deeds you want to have?"
               />
             </View>
@@ -146,7 +187,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={handleClick}
+              onPress={searchPlaces}
             >
               <Image
                 source={searchIcon}
@@ -177,6 +218,8 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
               style={{
                 fontSize: 20,
                 color: "#312651",
+                marginLeft:10,
+                marginTop:10
               }}
             >
               Nearby Helps
@@ -186,7 +229,9 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
                 style={{
                   fontSize: 20,
                   color: "#312651",
-                }}
+                marginRight:10,
+                marginTop:10
+              }}
               >
                 Show all
               </Text>
@@ -200,9 +245,9 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
         ) : error ? (
           <Text>Something went wrong</Text> */}
               {/* ) : ( */}
-              {activities?.map((data) => (
+              {/* {activities?.map((data) => (
                 <CardComp data={data} key={`nearby-data-${data.id}`} handleNavigate={() => {}} />
-              ))}
+              ))} */}
               {/* )} */}
             </View>
           </ScrollView>

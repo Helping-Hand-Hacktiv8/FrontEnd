@@ -6,6 +6,7 @@ import HomeStack from "../routes/HomeStack";
 import ProfileStack from "../routes/ProfileStack";
 import { Ionicons } from '@expo/vector-icons'; 
 import { FontAwesome5 } from "@expo/vector-icons";
+import MyRewardsStack from "../routes/MyRewardStack";
 
 export default function FrontStack(){
     const Tab = createMaterialBottomTabNavigator();
@@ -47,7 +48,7 @@ export default function FrontStack(){
         />
         <Tab.Screen
           name="My Rewards"
-          component={Home}
+          component={MyRewardsStack}
           options={{
             tabBarIcon: ({ color }) => (
               <Ionicons name="ios-gift-sharp" size={24} color={color} />
