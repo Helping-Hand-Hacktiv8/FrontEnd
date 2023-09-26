@@ -1,15 +1,11 @@
-
+//halo
 import {  ACTIVITIES_FETCH_SUCCESS, USER_EDIT_ON_CHANGE, USER_SET_EMPTY_DATA, USER_GET_ACCESS_TOKEN, REWARDS_FETCH_SUCCESS, USERACTIVITIES_FETCH_SUCCESS } from "./actionType"
 import axios from 'axios'
 import * as SecureStore from "expo-secure-store";
 // const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 // masukin punya sendiri
-
-
-// const baseUrl = 'https://abdf-180-252-171-208.ngrok-free.app'
-const baseUrl = 'https://733c-36-71-27-144.ngrok.io'
-
-
+const baseUrl = 'https://e04e-114-122-106-150.ngrok-free.app'
+const baseUrlMid = 'https://19a6-182-253-163-163.ngrok-free.app'
 
 
 // export const setEmptyDataUserSuccess = (data) =>{
@@ -172,6 +168,27 @@ export const asyncFetchSingleUser = (id) => {
     }
 }
 
+export const asyncPutUserProfile = (form) => {
+    return async () => {
+        try {
+            const getId = await SecureStore.getItemAsync('user_id')
+            const access_token = await SecureStore.getItemAsync('access_token')
+            const { data } = await axios({
+                method: 'PUT',
+                url: baseUrl + '/users/profile/' + getId,
+                headers: { 
+                    access_token, 
+                    'Content-Type': 'multipart/form-data'
+                 },
+                data:form
+            })
+          
+        } catch (error) {
+            throw error.response.data
+        }
+    }
+}
+
 
 // ===================================ACTIVITIES=====================================
 
@@ -220,6 +237,24 @@ export const asyncFetchUserActivitiesSuccess = () =>{
             headers:{access_token}
         })
         dispatch(fetchUserActivitiesSuccess(data))
+        return data
+       } catch (error) {
+            throw error.response.data
+       }
+    }
+}
+
+// ===================================USERACTIVITIES=====================================
+export const asyncFetchRewardsSuccess = () =>{
+    return async (dispatch) =>{
+       try {
+        const access_token = await SecureStore.getItemAsync('access_token')
+        const { data } = await axios({
+            method:'GET',
+            url:baseUrl+'/rewards',
+            headers:{access_token}
+        })
+        dispatch(fetchRewardsSuccess(data))
         return data
        } catch (error) {
             throw error.response.data
@@ -301,7 +336,7 @@ export const submitEdit = (target, id, data) => {
 }
 
 
-//tes aja
+
 export const submitNew = (target, data) => {
     return () => {
         return fetch(baseUrl + '/' + target,
