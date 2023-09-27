@@ -34,7 +34,7 @@ export default function MyActivty() {
 
       }) 
     }
-  }, [])
+  }, [isLoading])
 
   // console.log(participantActivities[0].Activity.photoAct,"diMyActivity")
 

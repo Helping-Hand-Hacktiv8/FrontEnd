@@ -1,7 +1,7 @@
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { View, Text, ScrollView, TextInput, TouchableOpacity, Image, ActivityIndicator, StyleSheet } from "react-native";
 import { Button, SearchBar } from "@rneui/base";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CardComp from "../components/CardComp";
 import searchIcon from "../../assets/search.png";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -56,28 +56,52 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
       
     }
   }
-  useEffect(() => {
-    console.log('MASUK SINI')
-    const fetchId = async () => {
-      let getId = await SecureStore.getItemAsync("user_id");
-      console.log(getId)
-      return getId; 
-    };
-    if (isLoading) {
-      dispatch(asyncFetchActSuccess('all','all'))
-        .then(() => {
-          return fetchId();
-        })
-        .then((data) => {
-          console.log('DATA>>>',data)
-          dispatch(asyncFetchSingleUser(data));
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, []);
+  // useEffect(() => {
+  //   console.log('MASUK SINI')
+  //   const fetchId = async () => {
+  //     let getId = await SecureStore.getItemAsync("user_id");
+  //     console.log(getId)
+  //     return getId; 
+  //   };
+  //   if (isLoading) {
+  //     dispatch(asyncFetchActSuccess('all','all'))
+  //       .then(() => {
+  //         return fetchId();
+  //       })
+  //       .then((data) => {
+  //         console.log('DATA>>>',data)
+  //         dispatch(asyncFetchSingleUser(data));
+  //         setIsLoading(false);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }, [isLoading]);
+
+  useFocusEffect(
+    useCallback(() => {
+      const fetchId = async () => {
+        let getId = await SecureStore.getItemAsync("user_id");
+        console.log(getId)
+        return getId; 
+      };
+      if (isLoading) {
+        dispatch(asyncFetchActSuccess('all','all'))
+          .then(() => {
+            return fetchId();
+          })
+          .then((data) => {
+            console.log('DATA>>>',data)
+            dispatch(asyncFetchSingleUser(data));
+            setIsLoading(false);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    }, [activities])
+  )
 
 
   // console.log(search, '<<<<ini searchText')
