@@ -13,7 +13,7 @@ export default function FrontStack(){
     const Tab = createMaterialBottomTabNavigator();
     return(
         <Tab.Navigator
-        activeColor="#dc6c3c"
+        activeColor="#5FB0CB"
         barStyle={{
           backgroundColor: "white",
           height: 70,
