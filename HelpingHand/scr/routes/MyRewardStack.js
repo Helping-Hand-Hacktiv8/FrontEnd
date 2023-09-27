@@ -16,7 +16,7 @@ export default function MyRewardsStack() {
         name="Reward"
         component={Reward}
         options={{
-          title: "Reward",
+          title: "Reward Page",
           headerTitleAlign: "center",
           headerTitleAllowFontScaling: true,
           headerTitleStyle: {
@@ -30,13 +30,13 @@ export default function MyRewardsStack() {
         name="RewardDetails"
         component={RewardDetails}
         options={{
-          headerShown: true,
-          headerTitleStyle: { color: "white" },
-          headerStyle: {
-            backgroundColor: "#175d8c",
-          },
           title: "Reward Details",
-          headerStatusBarHeight: 25,
+          headerTitleAlign: "center",
+          headerTitleAllowFontScaling: true,
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 30,
+          },
         }}
       />
     </Stack.Navigator>
