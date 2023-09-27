@@ -288,6 +288,28 @@ export const asyncFetchUserActivitiesSuccess = () =>{
     }
 }
 
+export const asyncPostActivities = (form) => {
+    return async () => {
+        try {
+            const getId = await SecureStore.getItemAsync('user_id')
+            const access_token = await SecureStore.getItemAsync('access_token')
+            const { data } = await axios({
+                method: 'POST',
+                url: baseUrl + '/activities',
+                headers: { 
+                    access_token, 
+                    'Content-Type': 'multipart/form-data'
+                 },
+                data:form
+            })
+          
+        } catch (error) {
+            throw error.response.data
+            console.log(error)
+        }
+    }
+}
+
 // ===================================USERACTIVITIES=====================================
 
 

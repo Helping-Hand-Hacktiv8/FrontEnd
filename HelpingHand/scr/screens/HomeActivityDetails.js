@@ -119,19 +119,8 @@ export default function HomeActivityDetails({ route, navigation }) {
             <View style={{ marginTop: 10, width: 80, alignSelf: "center" }}>
               <Text style={{ textAlign: "center", color: "white" }}>{user.name}</Text>
             </View>
-            <View style={{ width: 80 }}></View>
-            <View
-              style={{
-                backgroundColor: "green",
-                marginTop: 10,
-                marginLeft: 10,
-                width: 80,
-                alignSelf: "center",
-                borderRadius: 10,
-              }}
-            >
-              <Text style={{ textAlign: "center", color: "white" }}>Joined</Text>
-            </View>
+            <View style={{width:80}}></View>
+            
           </View>
 
           {/* =============TOPSECTION======== */}
