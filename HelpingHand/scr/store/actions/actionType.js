@@ -17,3 +17,4 @@ export const USER_REWARDS_FETCH_SUCCESS = 'userRewards/fetchSuccess'
 export const AUTHOR_ACTIVITIES_FETCH_SUCCESS = 'authorActivities/fetchSuccess'
 export const PARTICIPANT_ACTIVITIES_FETCH_SUCCESS = 'participantActivities/fetchSuccess'
 
+export const ACTIVITY_FETCH_AUTHOR = 'activity/fetchAuthor/success'

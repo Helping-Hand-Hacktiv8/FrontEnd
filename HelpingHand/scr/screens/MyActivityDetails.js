@@ -2,7 +2,7 @@ import { View, Text, Image, ActivityIndicator, Button, StyleSheet, Pressable, To
 import { Divider } from "@rneui/themed";
 import { FontAwesome } from '@expo/vector-icons';
 import { useDispatch, useSelector } from "react-redux";
-import { asyncFetchActSingleParticipant, asyncFetchSingleUser, asyncUnparticipate} from "../store/actions/actionCreator";
+import { asyncFetchActSingleParticipant, asyncFetchSingleUser, asyncUnparticipate, fetchAuthorActivity } from "../store/actions/actionCreator";
 import * as SecureStore from "expo-secure-store";
 import { useCallback, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -10,7 +10,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 export default function MyActivityDetails({ route, navigation }) {
   const dispatch = useDispatch()
-  const { ActId, userActId,role } = route.params
+  const { ActId, userActId, role } = route.params
   const [author, setAuthor] = useState(0)
   const [isLoading, setLoading] = useState(true)
   let [userId, setUserId] = useState(0)
@@ -23,26 +23,35 @@ export default function MyActivityDetails({ route, navigation }) {
     return state.user
   })
 
-  const toUnparticipate = () =>{
-    console.log(userActId,"USER ACT ID")
+  const toUnparticipate = () => {
+    console.log(userActId, "USER ACT ID")
     dispatch(asyncUnparticipate(userActId))
-    .then(()=>{
-      return navigation.replace("MyActivity")
-    })
+      .then(() => {
+        return navigation.replace("MyActivity")
+      })
   }
 
-  console.log(activity)
-  useEffect(() => {
-    // let getId = SecureStore.getItemAsync("user_id");
-    // setUserId(getId)
-    dispatch(asyncFetchActSingleParticipant(ActId))
-      .catch(err => {
-        console.log(err)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [])
+  async function getId() {
+    let theId = await SecureStore.getItemAsync("user_id")
+    setUserId(theId)
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      getId()
+      dispatch(asyncFetchActSingleParticipant(ActId))
+        .then(() => {
+          dispatch(fetchAuthorActivity(ActId))
+            .then(res => {
+              setAuthor(res)
+            })
+            .finally(() => {
+              setLoading(false)
+            })
+        })
+
+    }, [userId, author])
+  )
 
   if (isLoading) {
     return (
@@ -128,8 +137,8 @@ export default function MyActivityDetails({ route, navigation }) {
             <View style={{ marginTop: 10, width: 80, alignSelf: "center" }}>
               <Text style={{ textAlign: "center", color: "white" }}>{user.name}</Text>
             </View>
-            <View style={{width:80}}></View>
-            
+            <View style={{ width: 80 }}></View>
+
           </View>
 
           {/* =============TOPSECTION======== */}
@@ -183,12 +192,12 @@ export default function MyActivityDetails({ route, navigation }) {
 
           <View style={styles.pointsContainer}>
             <TouchableOpacity style={styles.pointsButtons} onPress={() => {
-                navigation.navigate("ChatScreen", {
-                  UserId: userId,
-                  AuthorId: author.UserId,
-                  from: 'ActivityDetail'
-                })
-              }}>
+              navigation.navigate("ChatScreen", {
+                UserId: userId,
+                AuthorId: author.UserId,
+                from: 'ActivityDetail'
+              })
+            }}>
               <Text style={{ textAlign: 'center', color: 'white' }}>Message</Text>
             </TouchableOpacity>
 

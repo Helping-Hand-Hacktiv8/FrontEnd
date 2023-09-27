@@ -10,6 +10,7 @@ export default function TopUpScreen({ navigation }) {
   const submitToken = () => {
     dispatch(handleMidtrans(input))
       .then(data => {
+        console.log(data, '=> ini data')
         return navigation.navigate('PaymentScreen', {
           url: data.redirect_url,
           token: data.token
@@ -19,7 +20,6 @@ export default function TopUpScreen({ navigation }) {
         setInput(0)
       })
   }
-
 
   return (
     <View
@@ -47,7 +47,9 @@ export default function TopUpScreen({ navigation }) {
           <Text style={{ textAlign: 'center' }}>Submit</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.cancelButton, { marginLeft: 10 }]}>
+        <TouchableOpacity style={[styles.cancelButton, { marginLeft: 10 }]} onPress={() => {
+          navigation.navigate("ProfileStack")
+        }}>
           <Text style={{ textAlign: 'center' }}>Cancel</Text>
         </TouchableOpacity>
       </View>

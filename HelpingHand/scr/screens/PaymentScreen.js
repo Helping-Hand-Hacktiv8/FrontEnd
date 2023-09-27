@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 
 export default function PaymentScreen({ route, navigation }) {
     const { url, token } = route.params
+    console.log(url, '-> ini url')
 
     return (
         <WebView
