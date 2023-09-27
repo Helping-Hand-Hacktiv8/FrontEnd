@@ -289,6 +289,51 @@ export const asyncFetchUserActivitiesSuccess = () =>{
     }
 }
 
+export const asyncPostActivities = (form) => {
+    return async () => {
+        try {
+            const getId = await SecureStore.getItemAsync('user_id')
+            const access_token = await SecureStore.getItemAsync('access_token')
+            console.log(form)
+            const { data } = await axios({
+                method: 'POST',
+                url: baseUrl + '/activities',
+                headers: { 
+                    access_token, 
+                    'Content-Type': 'multipart/form-data'
+                 },
+                data:form
+            })
+          
+        } catch (error) {
+            console.log(error)
+            throw error.response.data
+        }
+    }
+}
+
+export const asyncPutActivities = (form) => {
+    return async () => {
+        try {
+            const getId = await SecureStore.getItemAsync('user_id')
+            const access_token = await SecureStore.getItemAsync('access_token')
+            console.log(form)
+            const { data } = await axios({
+                method: 'PUT',
+                url: baseUrl + '/activities/' + getId,
+                headers: { 
+                    access_token, 
+                    'Content-Type': 'multipart/form-data'
+                 },
+                data:form
+            })
+          
+        } catch (error) {
+            console.log(error)
+            throw error.response.data
+        }
+    }
+}
 // ===================================USERACTIVITIES=====================================
 
 
@@ -345,6 +390,23 @@ export const asyncFetchRewardsSuccess = () =>{
             headers:{access_token}
         })
         dispatch(fetchRewardsSuccess(data))
+        return data
+       } catch (error) {
+            throw error.response.data
+       }
+    }
+}
+
+export const asyncFetchSingleActivity = (id) =>{
+    return async (dispatch) =>{
+        try {
+        const getId = await SecureStore.getItemAsync('user_id')
+        const access_token = await SecureStore.getItemAsync('access_token')
+        const { data } = await axios({
+            method:'GET',
+            url:baseUrl+'/activities/' +id,
+            headers:{access_token}
+        })
         return data
        } catch (error) {
             throw error.response.data
