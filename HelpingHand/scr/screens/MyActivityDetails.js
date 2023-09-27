@@ -182,35 +182,20 @@ export default function MyActivityDetails({ route, navigation }) {
           </View>
 
           <View style={styles.pointsContainer}>
-
             <TouchableOpacity style={styles.pointsButtons} onPress={() => {
                 navigation.navigate("ChatScreen", {
                   UserId: userId,
-                  AuthorId: author.UserId
+                  AuthorId: author.UserId,
+                  from: 'ActivityDetail'
                 })
               }}>
-              <Text style={{ textAlign: 'center' }}>Message</Text>
+              <Text style={{ textAlign: 'center', color: 'white' }}>Message</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.pointsButtonsRed} onPress={toUnparticipate}>
-              <Text style={{ textAlign: 'center' }}>Unparticipate </Text>
+              <Text style={{ textAlign: 'center', color: 'white' }}>Unparticipate </Text>
             </TouchableOpacity>
           </View>
-
-
-          {/* <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                navigation.navigate("ChatScreen", {
-                  UserId: userId,
-                  AuthorId: author.UserId
-                })
-              }}
-            >
-              <Text style={styles.text}>Text Author</Text>
-            </TouchableOpacity>
-          </View> */}
         </View>
       </View>
     )
