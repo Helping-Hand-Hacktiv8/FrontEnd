@@ -4,6 +4,9 @@ import MyActivty from "../screens/MyActivityPage";
 import MyRequest from "../screens/MyRequest";
 import AddRequest from "../screens/AddRequest";
 import ActivityDetails from "../screens/HomeActivityDetails";
+import EditRequest from "../screens/EditRequest";
+import Monitor from "../screens/Monitor";
+import ActivityDetails from "../screens/MyActivityDetails";
 import ChatScreen from "../screens/ChatScreen";
 
 export default function MyActivityStack() {
@@ -55,8 +58,28 @@ export default function MyActivityStack() {
           backgroundColor: '#175d8c',
 
         },
-        title: '',
-        headerStatusBarHeight: 25
+        title:'',
+        headerStatusBarHeight:25
+      }} />
+       <Stack.Screen name="EditRequest" component={EditRequest} options={{
+        headerShown:true,
+        headerTitleStyle:{color:'white'},
+        headerStyle:{
+            backgroundColor:'#175d8c',
+            
+        },
+        title:'',
+        headerStatusBarHeight:25
+      }} />
+       <Stack.Screen name="Monitor" component={Monitor} options={{
+        headerShown:true,
+        headerTitleStyle:{color:'white'},
+        headerStyle:{
+            backgroundColor:'#175d8c',
+            
+        },
+        title:'',
+        headerStatusBarHeight:25
       }} />
       <Stack.Screen name="ChatScreen" component={ChatScreen} options={{
         headerShown: false,

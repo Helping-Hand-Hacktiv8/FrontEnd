@@ -176,11 +176,26 @@ export const asyncFetchActSuccess = (lat, lon) => {
                 // console.log(stat)
                 if (!stat.includes(true)) res.push(arr)
             }
-            console.log("filter>>>", res)
-            dispatch(fetchActivitiesSuccess(res))
-
-
-        } catch (error) {
+        })
+        
+        const getId = await SecureStore.getItemAsync('user_id')
+        let res = []
+        for(let arr of data){
+            console.log("HASIL>>>",getId,arr.UserActivities)
+            let stat = arr.UserActivities.map(el=>{
+                console.log(el.UserId,getId,el.UserId==getId)
+                if(el.UserId == +getId ){
+                    return true
+                } else{return false}
+            })
+            // console.log(stat)
+            if (!stat.includes(true)) res.push(arr)
+        }
+        console.log("filter>>>",res)
+        dispatch(fetchActivitiesSuccess(res))
+        
+        
+       } catch (error) {
             throw error.response.data
         }
     }
@@ -204,24 +219,97 @@ export const asyncFetchActSingleSuccess = (id) => {
     }
 }
 
+export const asyncFetchActSingleParticipant = (id) =>{
+    return async (dispatch) =>{
+       try {
+        const access_token = await SecureStore.getItemAsync('access_token')
+        const { data } = await axios({
+            method:'GET',
+            url:baseUrl+'/activities/'+id,
+            headers:{access_token}
+        })
+        
+        let res = []
+        for(let arr of data.UserActivities){
+            // console.log("HASIL>>>",arr.UserActivities)
+            if(arr.role !== 'Author' ){
+                res.push(arr)
+            } 
+        }
+        data.UserActivities = res
+        console.log("filter>>>",data)
 
-export const asyncFetchUserActivitiesSuccess = () => {
-    return async (dispatch) => {
-        try {
-            const access_token = await SecureStore.getItemAsync('access_token')
-            const { data } = await axios({
-                method: 'GET',
-                url: baseUrl + '/user-activities',
-                headers: { access_token }
-            })
-            dispatch(fetchUserActivitiesSuccess(data))
-            return data
-        } catch (error) {
+        dispatch(fetchActivitySuccess(data))
+        return data
+       } catch (error) {
             throw error.response.data
         }
     }
 }
 
+
+// export const asyncFetchUserActivitiesSuccess = () =>{
+//     return async (dispatch) =>{
+//        try {
+//         const access_token = await SecureStore.getItemAsync('access_token')
+//         const { data } = await axios({
+//             method:'GET',
+//             url:baseUrl+'/user-activities',
+//             headers:{access_token}
+//         })
+//         dispatch(fetchUserActivitiesSuccess(data))
+//         return data
+//        } catch (error) {
+//             throw error.response.data
+//        }
+//     }
+// }
+
+export const asyncPostActivities = (form) => {
+    return async () => {
+        try {
+            const getId = await SecureStore.getItemAsync('user_id')
+            const access_token = await SecureStore.getItemAsync('access_token')
+            console.log(form)
+            const { data } = await axios({
+                method: 'POST',
+                url: baseUrl + '/activities',
+                headers: { 
+                    access_token, 
+                    'Content-Type': 'multipart/form-data'
+                 },
+                data:form
+            })
+          
+        } catch (error) {
+            console.log(error)
+            throw error.response.data
+        }
+    }
+}
+
+export const asyncPutActivities = (form) => {
+    return async () => {
+        try {
+            const getId = await SecureStore.getItemAsync('user_id')
+            const access_token = await SecureStore.getItemAsync('access_token')
+            console.log(form)
+            const { data } = await axios({
+                method: 'PUT',
+                url: baseUrl + '/activities/' + getId,
+                headers: { 
+                    access_token, 
+                    'Content-Type': 'multipart/form-data'
+                 },
+                data:form
+            })
+          
+        } catch (error) {
+            console.log(error)
+            throw error.response.data
+        }
+    }
+}
 // ===================================USERACTIVITIES=====================================
 
 
@@ -265,6 +353,42 @@ export const asyncFetchActAuthorParticipantSuccess = () => {
     }
 }
 
+export const asyncParticipate = (ActivityId) =>{
+    return async () =>{
+        try{
+            const access_token = await SecureStore.getItemAsync('access_token')
+            const { data } = await axios({
+                method:'post',
+                url:baseUrl+'/user-activities',
+                data:{ActivityId},
+                headers:{access_token}
+            })
+
+            return data
+        } catch(err){
+            throw err.response.data
+        }
+    }
+}
+
+
+export const asyncUnparticipate = (ActivityId) =>{
+    return async (dispatch) =>{
+        try{
+            const access_token = await SecureStore.getItemAsync('access_token')
+            const { data } = await axios({
+                method:'DELETE',
+                url:baseUrl+'/user-activities/'+ActivityId,
+                headers:{access_token}
+            })
+            dispatch(asyncFetchActAuthorParticipantSuccess())
+            return data
+        } catch(err){
+            throw err.response.data
+        }
+    }
+}
+
 
 // ===================================REWARDS=====================================
 
@@ -285,6 +409,23 @@ export const asyncFetchRewardsSuccess = () => {
     }
 }
 
+
+export const asyncFetchSingleActivity = (id) =>{
+    return async (dispatch) =>{
+        try {
+        const getId = await SecureStore.getItemAsync('user_id')
+        const access_token = await SecureStore.getItemAsync('access_token')
+        const { data } = await axios({
+            method:'GET',
+            url:baseUrl+'/activities/' +id,
+            headers:{access_token}
+        })
+        return data
+       } catch (error) {
+            throw error.response.data
+       }
+    }
+}
 
 
 export const companyDelete = (id) => {

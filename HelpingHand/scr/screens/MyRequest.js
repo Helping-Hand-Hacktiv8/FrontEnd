@@ -4,6 +4,7 @@ import CardComp from "../components/CardComp";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import CardAuthor from "../components/CardAuthor";
 
 
 export default function MyRequest() {
@@ -46,7 +47,7 @@ export default function MyRequest() {
       <View style={{flex:1, marginVertical:15,alignItems:'center', justifyContent:'center'}}>
 
       {authorActivities?.map((data) => (
-                <CardComp data={data.Activity} key={`nearby-data-${data.Activity.id}`} handleNavigate={() => {}} />
+                <CardAuthor data={data.Activity} key={`nearby-data-${data.Activity.id}`} handleNavigate={() => {}} />
               ))}
 
       </View>
