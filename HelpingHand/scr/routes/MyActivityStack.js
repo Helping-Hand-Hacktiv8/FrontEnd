@@ -22,13 +22,14 @@ export default function MyActivityStack() {
         name="MyActivity"
         component={MyActivty}
         options={{
-          title: "My Activity",
-          headerTitleAlign: "center",
-          headerTitleAllowFontScaling: true,
-          headerTitleStyle: {
-            fontWeight: "bold",
-            fontSize: 30,
-          },
+          headerShown: false,
+        //   title: "My Activity",
+        //   headerTitleAlign: "center",
+        //   headerTitleAllowFontScaling: true,
+        //   headerTitleStyle: {
+        //     fontWeight: "bold",
+        //     fontSize: 30,
+        //   },
         }}
       />
       <Stack.Screen name="MyRequest" component={MyRequest} options={{

@@ -2,60 +2,46 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-export default function CardCompHome({data}) {
-  const navigation = useNavigation()
-  const toDetails = () =>{
-       return navigation.navigate('HomeActivityDetail',{ActId:data.id, role:'Participant'})
-  }
+export default function CardCompHome({ data }) {
+  const navigation = useNavigation();
+  const toDetails = () => {
+    return navigation.navigate("HomeActivityDetail", { ActId: data.id, role: "Participant" });
+  };
   return (
     <TouchableOpacity style={styles.cardContainer} onPress={toDetails}>
       <TouchableOpacity style={styles.containerLogo} onPress={toDetails}>
         <Image
-          source={
-            {uri:data.photoAct} 
-          }
+          source={{ uri: data.photoAct }}
           resizeMode="contain"
           style={{
             width: "100%",
-            borderRadius:10,
+            borderRadius: 10,
             height: "100%",
           }}
         />
       </TouchableOpacity>
 
       <View
-        style={{
-          flex: 1,
-          marginHorizontal: 14,
-          borderRadius: 10,
-          backgroundColor: "#cdd8ee",
-          padding: 10,
-        }}
+        style={styles.viewCardContainer}
       >
-
-      
-
         <View style={styles.topRow}>
-        {/* Title */}
-        <View
-        style={{
-          flex: 4
-        }}
-        >
+          {/* Title */}
+          <View
+            style={{
+              flex: 4,
+            }}
+          >
+            <Text style={styles.cardTittle} numberOfLines={1}>
+              {data.name}
+            </Text>
+          </View>
 
-        <Text style={styles.cardTittle} numberOfLines={1}>
-          {data.name}
-        </Text>
-        </View>
-
-        <View style={styles.rewardContainer}>
+          <View style={styles.rewardContainer}>
             <Text style={styles.rewardText}>reward:</Text>
             <Text style={styles.rewardValue}>{data.reward}</Text>
             <FontAwesome name="star" size={16} color="gold" />
           </View>
         </View>
-    
-       
 
         {/* Description */}
         <Text style={styles.descriptionText} numberOfLines={3}>
@@ -64,18 +50,18 @@ export default function CardCompHome({data}) {
 
         {/* Location */}
         <Text style={styles.locationText} numberOfLines={1}>
-         {data.location}
+          {data.location}
         </Text>
 
         <View style={styles.bottomRow}>
           <Text style={styles.clickForDetail}>Click For Details</Text>
-           {/* Participant */}
-        <View style={styles.participantRow}>
-          <View style={styles.participantContainer}>
-            <Text style={styles.participantText}>Participant</Text>
+          {/* Participant */}
+          <View style={styles.participantRow}>
+            <View style={styles.participantContainer}>
+              <Text style={styles.participantText}>Participant</Text>
+            </View>
+            <Text style={styles.participantValue}>{data.participant}/6</Text>
           </View>
-          <Text style={styles.participantValue}>{data.participant}/6</Text>
-        </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -83,6 +69,22 @@ export default function CardCompHome({data}) {
 }
 
 const styles = StyleSheet.create({
+  viewCardContainer: {
+    flex: 1,
+    marginHorizontal: 14,
+    borderRadius: 10,
+    backgroundColor: "#E9F2F3",
+    padding: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 36,
+    elevation: 1, 
+  },
+  
   cardTittle: {
     fontWeight: "bold",
     fontSize: 16,
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 5.84,
     elevation: 5,
-    shadowColor: "#F3F4F8",
+
   },
 
   containerLogo: {
@@ -166,7 +168,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    flex: 1
+    flex: 1,
   },
 
   bottomRow: {

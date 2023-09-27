@@ -19,17 +19,14 @@ export default function HomeStack() {
       <Stack.Screen name="Home" component={Home} options={{
         headerShown:true,
         headerStyle:{
-            backgroundColor:'#dc6c3c'
+            backgroundColor:'#5FB0CB'
         },
-        title:'',
-        headerStatusBarHeight:10
       }}/>
       <Stack.Screen name="HomeActivityDetail" component={HomeActivityDetails} options={{
         headerShown:true,
         headerTitleStyle:{color:'white'},
         headerStyle:{
             backgroundColor:'#175d8c',
-            
         },
         title:'',
         headerStatusBarHeight:25

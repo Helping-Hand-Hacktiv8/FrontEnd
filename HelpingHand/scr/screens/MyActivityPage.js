@@ -1,23 +1,19 @@
-import { View, Text, ScrollView, SafeAreaView, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, ActivityIndicator, TouchableOpacity } from "react-native";
 import { Button, Divider } from "@rneui/base";
 import CardComp from "../components/CardComp";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 
-import { asyncFetchActAuthorParticipantSuccess, } from "../store/actions/actionCreator";
-
-
+import { asyncFetchActAuthorParticipantSuccess } from "../store/actions/actionCreator";
 
 export default function MyActivty() {
   const dispatch = useDispatch();
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
-
 
   const participantActivities = useSelector((state) => {
     return state.activity.activitiesParticipant;
-
   });
 
   useFocusEffect(
@@ -25,57 +21,77 @@ export default function MyActivty() {
       if (isLoading) {
         dispatch(asyncFetchActAuthorParticipantSuccess())
           .then((data) => {
-            console.log(data)
+            console.log(data);
           })
           .catch((err) => {
-            console.log(err)
+            console.log(err);
           })
           .finally(() => {
-            setIsLoading(false)
-          })
+            setIsLoading(false);
+          });
       }
     }, [participantActivities])
-  )
+  );
 
   if (isLoading) {
     return (
-      <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
+      <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
         <ActivityIndicator size="large" color={"#312651"} />
       </SafeAreaView>
     );
-  } else return (
-    <ScrollView>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          marginTop: 20,
-          justifyContent: "center",
-        }}
-      >
-        <Button
-          title="My Activity"
-          containerStyle={{ marginLeft: 40, borderRadius: 10 }}
-          onPress={() => {
-            navigation.navigate("MyActivity");
-          }}
-        />
-        <View style={{ flexGrow: 1 }} />
+  } else
+    return (
+      <ScrollView style={styles.container}>
+        <View style={{ flex: 1 }}>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              Style={styles.buttonStyle}
+              onPress={() => {
+                navigation.navigate("MyActivity");
+              }}
+            >
+              <View style={styles.buttonStyle}>
+                <Text style={{fontSize: 24}}>My Activity</Text>
+              </View>
+            </TouchableOpacity>
 
-        <Button
-          title="My Request"
-          containerStyle={{ marginRight: 40, borderRadius: 10 }}
-          onPress={() => {
-            navigation.navigate("MyRequest");
-          }}
-        />
-      </View>
-      <View style={{ flex: 1, marginVertical: 15, alignItems: 'center', justifyContent: 'center' }}>
-
-        {participantActivities?.map((data) => (
-          <CardComp data={data.Activity} UserActId={data} key={`nearby-data-${data.Activity.id}`} handleNavigate={() => { }} />
-        ))}
-      </View>
-    </ScrollView>
-  );
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("MyRequest");
+              }}
+            >
+              <View style={styles.buttonStyle}>
+                <Text style={{fontSize: 24}}>My Request</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: 1, marginVertical: 15, alignItems: "center", justifyContent: "center" }}>
+            {participantActivities?.map((data) => (
+              <CardComp data={data.Activity} UserActId={data} key={`nearby-data-${data.Activity.id}`} handleNavigate={() => {}} />
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+    );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 50,
+    backgroundColor: "white"
+  },
+
+  buttonContainer: {
+    flex: 1,
+    flexDirection: "row",
+    marginTop: 20,
+    justifyContent: "center",
+  },
+
+  buttonStyle: {
+    marginLeft: 10,
+    marginRight: 10,
+    padding: 10,
+  },
+});

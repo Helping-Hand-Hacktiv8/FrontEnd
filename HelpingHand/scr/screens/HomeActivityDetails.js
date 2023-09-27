@@ -1,6 +1,6 @@
 import { View, Text, Image, ActivityIndicator, Button, StyleSheet, Pressable, TouchableOpacity } from "react-native";
 import { Divider } from "@rneui/themed";
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncFetchActSingleSuccess, asyncFetchActSuccess, asyncFetchSingleUser, asyncParticipate } from "../store/actions/actionCreator";
 import * as SecureStore from "expo-secure-store";
@@ -9,65 +9,65 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
 
 export default function HomeActivityDetails({ route, navigation }) {
-  const dispatch = useDispatch()
-  const { ActId, role } = route.params
-  const [authorId, setAuthorId] = useState(0)
-  const [isLoading, setLoading] = useState(true)
-  const [userId, setUserId] = useState(0)
+  const dispatch = useDispatch();
+  const { ActId, role } = route.params;
+  const [authorId, setAuthorId] = useState(0);
+  const [isLoading, setLoading] = useState(true);
+  const [userId, setUserId] = useState(0);
 
   const { activity } = useSelector((state) => {
-    return state.activity
-  })
+    return state.activity;
+  });
 
   const { user } = useSelector((state) => {
-    return state.user
-  })
+    return state.user;
+  });
 
   useFocusEffect(
     useCallback(() => {
       async function getUser() {
         let getId = await SecureStore.getItemAsync("user_id");
-        setUserId(getId)
+        setUserId(getId);
         dispatch(asyncFetchActSingleSuccess(ActId))
           .then(() => {
-            const author = activity.UserActivities.find(el => el.role == "Author")
-            setAuthorId(author.id)
-            dispatch(asyncFetchSingleUser(userId))
+            const author = activity.UserActivities.find((el) => el.role == "Author");
+            setAuthorId(author.id);
+            dispatch(asyncFetchSingleUser(userId));
           })
-          .catch(err => {
-            console.log('ERR', err)
+          .catch((err) => {
+            console.log("ERR", err);
           })
           .finally(() => {
-            setLoading(false)
-          })
+            setLoading(false);
+          });
       }
 
-      getUser()
+      getUser();
     }, [userId])
-  )
+  );
 
   const toParticipate = () => {
     dispatch(asyncParticipate(ActId))
       .then(() => {
-        dispatch(asyncFetchActSuccess('all', 'all'))
+        dispatch(asyncFetchActSuccess("all", "all"));
       })
       .then(() => {
-        return navigation.navigate('MyActivity')
+        return navigation.navigate("MyActivity");
       })
-      .catch(err => {
-        console.log(err)
-      })
-  }
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     dispatch(asyncFetchActSingleSuccess(ActId))
-      .catch(err => {
-        console.log(err)
+      .catch((err) => {
+        console.log(err);
       })
       .finally(() => {
-        setLoading(false)
-      })
-  }, [])
+        setLoading(false);
+      });
+  }, []);
 
   if (isLoading) {
     return (
@@ -86,8 +86,7 @@ export default function HomeActivityDetails({ route, navigation }) {
             marginTop: 10,
           }}
         >
-          The purpose of human life is to serve and to show compassion and the
-          will to help others." - Albert Schweitzer
+          The purpose of human life is to serve and to show compassion and the will to help others." - Albert Schweitzer
         </Text>
         <View
           style={{
@@ -154,23 +153,18 @@ export default function HomeActivityDetails({ route, navigation }) {
               <Text style={{ textAlign: "center", color: "white" }}>{user.name}</Text>
             </View>
             <View style={{ width: 80 }}></View>
-
           </View>
 
           {/* =============TOPSECTION======== */}
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
           <View style={{ padding: 10 }}>
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>Description:</Text>
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>
-              {activity.description}
-            </Text>
+            <Text style={{ color: "white", fontWeight: "bold" }}>Description:</Text>
+            <Text style={{ color: "white", fontWeight: "bold" }}>{activity.description}</Text>
           </View>
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
           <View style={{ padding: 10 }}>
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>Place/Destination:</Text>
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>
-              {activity.location}
-            </Text>
+            <Text style={{ color: "white", fontWeight: "bold" }}>Place/Destination:</Text>
+            <Text style={{ color: "white", fontWeight: "bold" }}>{activity.location}</Text>
           </View>
           {/* =============MIDSECTION======== */}
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
@@ -182,25 +176,27 @@ export default function HomeActivityDetails({ route, navigation }) {
                 marginLeft: 10,
                 alignSelf: "center",
                 borderRadius: 10,
-                padding: 10
+                padding: 10,
               }}
             >
               <Text style={{ textAlign: "center", color: "white" }}>Participants:</Text>
             </View>
             <View style={{ marginTop: 10, alignSelf: "center", marginLeft: 8 }}>
-              <Text style={{ textAlign: "center", color: "white" }}>{activity.UserActivities.length}/{activity.participant}</Text>
+              <Text style={{ textAlign: "center", color: "white" }}>
+                {activity.UserActivities.length}/{activity.participant}
+              </Text>
             </View>
             <View style={{ width: 90, marginHorizontal: -20 }} />
             <View
               style={{
                 marginTop: 10,
                 alignSelf: "center",
-                paddingLeft: 30
+                paddingLeft: 30,
               }}
             >
               <Text style={{ textAlign: "center", color: "white" }}>Rewards:</Text>
             </View>
-            <View style={{ marginTop: 10, alignSelf: "center", marginLeft: 8, flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ marginTop: 10, alignSelf: "center", marginLeft: 8, flexDirection: "row", alignItems: "center" }}>
               <Text style={{ textAlign: "center", color: "white" }}>{activity.reward}</Text>
               <FontAwesome name="star" size={24} color="yellow" style={{ marginLeft: 5 }} />
             </View>
@@ -208,30 +204,30 @@ export default function HomeActivityDetails({ route, navigation }) {
 
           <View style={styles.pointsContainer}>
             <TouchableOpacity style={styles.pointsButtonsGreen} onPress={toParticipate}>
-              <Text style={{ textAlign: 'center' }}>Participate </Text>
+              <Text style={{ textAlign: "center" }}>Participate </Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    flex: 1
+    flex: 1,
   },
   button: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 12,
   },
   text: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     letterSpacing: 0.25,
-    color: 'white',
-    padding: 10
+    color: "white",
+    padding: 10,
   },
   pointsContainer: {
     flexDirection: "row", // Menjadikan dua kolom dengan mengatur arah flex menjadi 'row'
@@ -253,4 +249,4 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: 100,
   },
-})
+});

@@ -1,6 +1,6 @@
 import { View, Text, Image, ActivityIndicator, Button, StyleSheet, Pressable, TouchableOpacity } from "react-native";
 import { Divider } from "@rneui/themed";
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncFetchActSingleParticipant, asyncFetchSingleUser, asyncUnparticipate, fetchAuthorActivity } from "../store/actions/actionCreator";
 import * as SecureStore from "expo-secure-store";
@@ -9,49 +9,46 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
 
 export default function MyActivityDetails({ route, navigation }) {
-  const dispatch = useDispatch()
-  const { ActId, userActId, role } = route.params
-  const [author, setAuthor] = useState(0)
-  const [isLoading, setLoading] = useState(true)
-  let [userId, setUserId] = useState(0)
+  const dispatch = useDispatch();
+  const { ActId, userActId, role } = route.params;
+  const [author, setAuthor] = useState(0);
+  const [isLoading, setLoading] = useState(true);
+  let [userId, setUserId] = useState(0);
 
   const { activity } = useSelector((state) => {
-    return state.activity
-  })
+    return state.activity;
+  });
 
   const { user } = useSelector((state) => {
-    return state.user
-  })
+    return state.user;
+  });
 
   const toUnparticipate = () => {
-    console.log(userActId, "USER ACT ID")
-    dispatch(asyncUnparticipate(userActId))
-      .then(() => {
-        return navigation.replace("MyActivity")
-      })
-  }
+    console.log(userActId, "USER ACT ID");
+    dispatch(asyncUnparticipate(userActId)).then(() => {
+      return navigation.replace("MyActivity");
+    });
+  };
 
   async function getId() {
-    let theId = await SecureStore.getItemAsync("user_id")
-    setUserId(theId)
+    let theId = await SecureStore.getItemAsync("user_id");
+    setUserId(theId);
   }
 
   useFocusEffect(
     useCallback(() => {
-      getId()
-      dispatch(asyncFetchActSingleParticipant(ActId))
-        .then(() => {
-          dispatch(fetchAuthorActivity(ActId))
-            .then(res => {
-              setAuthor(res)
-            })
-            .finally(() => {
-              setLoading(false)
-            })
-        })
-
+      getId();
+      dispatch(asyncFetchActSingleParticipant(ActId)).then(() => {
+        dispatch(fetchAuthorActivity(ActId))
+          .then((res) => {
+            setAuthor(res);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      });
     }, [userId, author])
-  )
+  );
 
   if (isLoading) {
     return (
@@ -70,8 +67,7 @@ export default function MyActivityDetails({ route, navigation }) {
             marginTop: 10,
           }}
         >
-          The purpose of human life is to serve and to show compassion and the
-          will to help others." - Albert Schweitzer
+          The purpose of human life is to serve and to show compassion and the will to help others." - Albert Schweitzer
         </Text>
         <View
           style={{
@@ -138,23 +134,18 @@ export default function MyActivityDetails({ route, navigation }) {
               <Text style={{ textAlign: "center", color: "white" }}>{user.name}</Text>
             </View>
             <View style={{ width: 80 }}></View>
-
           </View>
 
           {/* =============TOPSECTION======== */}
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
           <View style={{ padding: 10 }}>
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>Description:</Text>
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>
-              {activity.description}
-            </Text>
+            <Text style={{ color: "white", fontWeight: "bold" }}>Description:</Text>
+            <Text style={{ color: "white", fontWeight: "bold" }}>{activity.description}</Text>
           </View>
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
           <View style={{ padding: 10 }}>
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>Place/Destination:</Text>
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>
-              {activity.location}
-            </Text>
+            <Text style={{ color: "white", fontWeight: "bold" }}>Place/Destination:</Text>
+            <Text style={{ color: "white", fontWeight: "bold" }}>{activity.location}</Text>
           </View>
           {/* =============MIDSECTION======== */}
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
@@ -166,66 +157,71 @@ export default function MyActivityDetails({ route, navigation }) {
                 marginLeft: 10,
                 alignSelf: "center",
                 borderRadius: 10,
-                padding: 10
+                padding: 10,
               }}
             >
               <Text style={{ textAlign: "center", color: "white" }}>Participants:</Text>
             </View>
             <View style={{ marginTop: 10, alignSelf: "center", marginLeft: 8 }}>
-              <Text style={{ textAlign: "center", color: "white" }}>{activity.UserActivities.length}/{activity.participant}</Text>
+              <Text style={{ textAlign: "center", color: "white" }}>
+                {activity.UserActivities.length}/{activity.participant}
+              </Text>
             </View>
             <View style={{ width: 90, marginHorizontal: -20 }} />
             <View
               style={{
                 marginTop: 10,
                 alignSelf: "center",
-                paddingLeft: 30
+                paddingLeft: 30,
               }}
             >
               <Text style={{ textAlign: "center", color: "white" }}>Rewards:</Text>
             </View>
-            <View style={{ marginTop: 10, alignSelf: "center", marginLeft: 8, flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ marginTop: 10, alignSelf: "center", marginLeft: 8, flexDirection: "row", alignItems: "center" }}>
               <Text style={{ textAlign: "center", color: "white" }}>{activity.reward}</Text>
               <FontAwesome name="star" size={24} color="yellow" style={{ marginLeft: 5 }} />
             </View>
           </View>
 
           <View style={styles.pointsContainer}>
-            <TouchableOpacity style={styles.pointsButtons} onPress={() => {
-              navigation.navigate("ChatScreen", {
-                UserId: userId,
-                AuthorId: author.UserId,
-                from: 'ActivityDetail'
-              })
-            }}>
-              <Text style={{ textAlign: 'center', color: 'white' }}>Message</Text>
+            <TouchableOpacity
+              style={styles.pointsButtons}
+              onPress={() => {
+                navigation.navigate("ChatScreen", {
+                  UserId: userId,
+                  AuthorId: author.UserId,
+                  from: "ActivityDetail",
+                });
+              }}
+            >
+              <Text style={{ textAlign: "center", color: "white" }}>Message</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.pointsButtonsRed} onPress={toUnparticipate}>
-              <Text style={{ textAlign: 'center', color: 'white' }}>Unparticipate </Text>
+              <Text style={{ textAlign: "center", color: "white" }}>Unparticipate </Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    flex: 1
+    flex: 1,
   },
   button: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 12,
   },
   text: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     letterSpacing: 0.25,
-    color: 'white',
-    padding: 10
+    color: "white",
+    padding: 10,
   },
   pointsContainer: {
     flexDirection: "row", // Menjadikan dua kolom dengan mengatur arah flex menjadi 'row'
@@ -247,4 +243,4 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: 100,
   },
-})
+});

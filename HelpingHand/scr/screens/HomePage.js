@@ -54,28 +54,6 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
       console.log(error);
     }
   };
-  // useEffect(() => {
-  //   console.log('MASUK SINI')
-  //   const fetchId = async () => {
-  //     let getId = await SecureStore.getItemAsync("user_id");
-  //     console.log(getId)
-  //     return getId;
-  //   };
-  //   if (isLoading) {
-  //     dispatch(asyncFetchActSuccess('all','all'))
-  //       .then(() => {
-  //         return fetchId();
-  //       })
-  //       .then((data) => {
-  //         console.log('DATA>>>',data)
-  //         dispatch(asyncFetchSingleUser(data));
-  //         setIsLoading(false);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [isLoading]);
 
   useFocusEffect(
     useCallback(() => {
@@ -101,34 +79,6 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
     }, [activities])
   );
 
-  // console.log(search, '<<<<ini searchText')
-  // console.log(result, '<<<<<<<ini hasil search')
-
-  // const data = [
-  //   {
-  //     id: 1,
-  //     name: "Mencuri hatinya",
-  //     description: "biasalah cinta itu buta",
-  //     fromDate: "2023-10-29",
-  //     toDate: "2023-12-25",
-  //     participant: 2,
-  //     reward: 5,
-  //     location: "none",
-  //     lat: 0,
-  //     status: "Pending",
-  //     lon: 0,
-  //     photoAct: "https://thumbs.dreamstime.com/z/beautiful-exterior-home-pictures-new-home-design-images-modern-best-house-design-images-best-house-images-images-latest-172194515.jpg",
-  //     UserActivity: [
-  //       {
-  //         id: 1,
-  //         UserId: 1,
-  //         ActivityId: 1,
-  //         role: "Author",
-  //       },
-  //     ],
-  //   },
-  // ];
-
   if (isLoading) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -143,59 +93,16 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
         }}
       >
         <View style={{ backgroundColor: "white", flex: 1 }}>
-          <Text style={styles.container}>Welcome {user.name}</Text>
-          <Text
-            style={styles.goodDeedsContainer}
-          >
-            Which good deeds you want to do today?
-          </Text>
+          <Text style={styles.containerUsername}>Welcome {user.name}</Text>
+          <Text style={styles.goodDeedsContainer}>Which good deeds you want to do today?</Text>
 
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginTop: 20,
-              height: 50,
-              borderColor: "gray",
-              borderWidth: 1,
-              borderRadius: 16,
-              overflow: "hidden",
-              marginHorizontal: 10,
-            }}
-          >
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: "white",
-                marginRight: 2,
-                borderRadius: 16,
-                flexDirection: "row",
-                alignItems: "center",
-                paddingHorizontal: 10,
-                height: "100%",
-              }}
-            >
-              <TextInput
-                style={{
-                  flex: 1,
-                  height: "100%",
-                }}
-                value={searchTerms}
-                onChangeText={(text) => setSearch(text)}
-                placeholder="What kind of deeds you want to have?"
-              />
+          {/* search welcome container */}
+          <View style={styles.searchContainer}>
+            <View style={styles.searchIconContainer}>
+              <TextInput style={{ flex: 1, height: "100%" }} value={searchTerms} onChangeText={(text) => setSearch(text)} placeholder="What kind of deeds you want to have?" />
             </View>
 
-            <TouchableOpacity
-              style={{
-                width: 50,
-                height: "100%",
-                backgroundColor: "#FF7754",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onPress={searchPlaces}
-            >
+            <TouchableOpacity style={styles.searchIconStyle} onPress={searchPlaces}>
               <Image
                 source={searchIcon}
                 resizeMode="contain"
@@ -213,40 +120,15 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
             <TouchableOpacity style={{}}></TouchableOpacity>
           </View>
 
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginTop: 2,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 20,
-                color: "#312651",
-                marginLeft: 10,
-                marginTop: 10,
-              }}
-            >
-              Nearby Helps
-            </Text>
+          <View style={styles.nearbyShowContainer}>
+            <Text style={styles.nearbyAndShowText}>Nearby Helps</Text>
             <TouchableOpacity>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: "#312651",
-                  marginRight: 10,
-                  marginTop: 10,
-                }}
-              >
-                Show all
-              </Text>
+              <Text style={[{ marginRight: 7 }, styles.nearbyAndShowText]}>Show all</Text>
             </TouchableOpacity>
           </View>
 
           <ScrollView style={{ flex: 1 }}>
-            <View style={{ flex: 1, marginVertical: 15, alignItems: "center", justifyContent: "center", marginTop: 16 }}>
+            <View style={styles.dataContainer}>
               {activities?.map((data) => (
                 <CardCompHome data={data} key={`nearby-data-${data.id}`} handleNavigate={() => {}} />
               ))}
@@ -259,7 +141,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  containerUsername: {
     textAlign: "left",
     fontWeight: "600",
     marginBottom: 1,
@@ -271,8 +153,61 @@ const styles = StyleSheet.create({
 
   goodDeedsContainer: {
     textAlign: "left",
-              fontWeight: "300",
-              fontSize: 14,
-              marginLeft: 10
-  }
+    fontWeight: "300",
+    fontSize: 14,
+    marginLeft: 10,
+  },
+
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 20,
+    height: 50,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 16,
+    overflow: "hidden",
+    marginHorizontal: 10,
+  },
+
+  searchIconContainer: {
+    flex: 1,
+    backgroundColor: "white",
+    marginRight: 2,
+    borderRadius: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    height: "100%",
+  },
+
+  searchIconStyle: {
+    width: 50,
+    height: "100%",
+    backgroundColor: "#0084B0",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  nearbyShowContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 2,
+  },
+
+  nearbyAndShowText: {
+    fontSize: 20,
+    color: "#312651",
+    marginLeft: 10,
+    marginTop: 10,
+  },
+
+  dataContainer: {
+    flex: 1,
+    marginVertical: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 16,
+  },
 });
