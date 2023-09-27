@@ -183,7 +183,6 @@ export const asyncFetchSingleUser = (id) => {
                 headers: { access_token }
             })
             dispatch(editUserOnChange(data))
-            console.log(data)
             return data
         } catch (error) {
             throw error.response.data
