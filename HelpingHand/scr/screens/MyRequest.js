@@ -1,10 +1,11 @@
 import { View, Text, ScrollView } from "react-native";
 import { Button, Divider } from "@rneui/base";
 import CardComp from "../components/CardComp";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import CardAuthor from "../components/CardAuthor";
+import { asyncFetchActAuthorParticipantSuccess } from "../store/actions/actionCreator";
 
 
 export default function MyRequest() {
@@ -15,6 +16,24 @@ export default function MyRequest() {
   const authorActivities  = useSelector((state) => {
     return state.activity.activitiesAuthor;
   });
+
+  useFocusEffect(
+    useCallback(() => {
+      if(isLoading) {
+
+        dispatch(asyncFetchActAuthorParticipantSuccess())
+        .then((data)=> {
+          console.log(data)
+  
+          setIsLoading(false)
+        })
+        .catch((err)=> {
+          console.log(err)
+  
+        }) 
+      }
+    }, [authorActivities])
+  )
 
   console.log(authorActivities[0], "<<<MyRequest") 
   return (

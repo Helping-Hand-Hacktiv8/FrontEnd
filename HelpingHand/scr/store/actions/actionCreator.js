@@ -6,8 +6,8 @@ import * as SecureStore from "expo-secure-store";
 // const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 // masukin punya sendiri
 // const baseUrlMid = 'https://19a6-182-253-163-163.ngrok-free.app'
-// const baseUrl = 'https://e04e-114-122-106-150.ngrok-free.app'
-const baseUrl = 'https://306b-182-253-163-163.ngrok-free.app'
+const baseUrl = 'https://e04e-114-122-106-150.ngrok-free.app'
+// const baseUrl = 'https://306b-182-253-163-163.ngrok-free.app'
 
 
 export const editUserOnChange = (data) => {
@@ -176,7 +176,7 @@ export const asyncFetchActSuccess = (lat, lon) => {
                 // console.log(stat)
                 if (!stat.includes(true)) res.push(arr)
             }
-            console.log("filter>>>",res)
+            // console.log("filter>>>",res)
             dispatch(fetchActivitiesSuccess(res))
         } catch (error) {
             throw error.response.data
@@ -220,7 +220,7 @@ export const asyncFetchActSingleParticipant = (id) =>{
             } 
         }
         data.UserActivities = res
-        console.log("filter>>>",data)
+        // console.log("filter>>>",data)
 
         dispatch(fetchActivitySuccess(data))
         return data
@@ -326,7 +326,8 @@ export const asyncFetchActAuthorParticipantSuccess = () => {
                 // if (!stat.includes(true)) res.push(arr)
             }
             // console.log("filter>>>",res)
-            // console.log(resParticipant,'<<<<')
+            console.log(resParticipant,'<<<<')
+            
             dispatch(fetchAuthorActivitiesSuccess(resAuthor))
             dispatch(fetchParticipantActivitiesSuccess(resParticipant))
             return data
