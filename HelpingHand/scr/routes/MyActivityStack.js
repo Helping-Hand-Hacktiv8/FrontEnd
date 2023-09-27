@@ -3,7 +3,6 @@ import React from "react";
 import MyActivty from "../screens/MyActivityPage";
 import MyRequest from "../screens/MyRequest";
 import AddRequest from "../screens/AddRequest";
-import ActivityDetails from "../screens/HomeActivityDetails";
 import EditRequest from "../screens/EditRequest";
 import Monitor from "../screens/Monitor";
 import ActivityDetails from "../screens/MyActivityDetails";
