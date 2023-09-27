@@ -1,5 +1,4 @@
-import { View, TextInput, StyleSheet, Button, Alert, Text, Image, SafeAreaView } from "react-native";
-// import { GoogleSignin, GoogleSigninButton } from "@react-native-google-signin/google-signin";
+import { View, TextInput, StyleSheet, TouchableOpacity, Alert, Text, Image, SafeAreaView, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import { useDispatch } from "react-redux";
@@ -56,51 +55,76 @@ export default function Login({ navigation }) {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Image
-        source={logo}
-        style={{
-          width: 200,
-          height: 200,
-        }}
-      ></Image>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={styles.container}>
+          {/* content */}
+          <View style={styles.logoContainer}>
+            <Image source={logo} style={styles.logoStyle}></Image>
+          </View>
 
-      <View style={styles.quoteStyle}>
-        <Text style={{ textAlign: "center" }}>"The best way to find yourself is to lose yourself in the service of others." - Mahatma Gandhi</Text>
-      </View>
+          <View style={styles.quoteStyle}>
+            <Text style={{ textAlign: "center" }}>"The best way to find yourself is to lose yourself in the service of others." - Mahatma Gandhi</Text>
+          </View>
 
-      <TextInput style={styles.input} placeholder="email" onChangeText={onChangeText} value={text} />
+          {/* form login */}
+          <View style={styles.formContainer}>
+            <TextInput style={styles.input} placeholder="email" onChangeText={onChangeText} value={text} />
 
-      <TextInput style={styles.input} placeholder="password" onChangeText={onChangePass} value={pass} secureTextEntry={true} />
-      <Button title="Submit" onPress={toLogin} />
+            <TextInput style={styles.input} placeholder="password" onChangeText={onChangePass} value={pass} secureTextEntry={true} />
+            <TouchableOpacity style={styles.buttonStyle} onPress={toLogin}>
+              <Text style={{ color: "#FFFFFF", textAlign: "center" }}>Submit</Text>
+            </TouchableOpacity>
+          </View>
 
-      <Text style={{ marginTop: 10 }}>Or Continue With</Text>
+          <Text style={{ marginBottom: 10 }}>Don't have an account? Click here to sign up!</Text>
 
-      {/* Google Login */}
-      <View>
-        {/* <GoogleSigninButton size={GoogleSigninButton.Size.Wide} color={GoogleSigninButton.Color.Dark} onPress={this._signIn} disabled={this.state.isSigninInProgress} 
-        />; */}
-      </View>
-
-      <Text style={{ marginTop: 10 }}>Dont have an account? click here to sign up!</Text>
-
-      <Button
-        title="Sign Up"
-        onPress={() => {
-          return navigation.navigate("Register");
-        }}
-      />
+          <TouchableOpacity style={styles.buttonStyle} onPress={() => navigation.navigate("Register")}>
+            <Text style={{ color: "#FFFFFF", textAlign: "center" }}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  logoContainer: {
+    flex: 1,
+    width: 200,
+    height: 200,
+    marginTop: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  logoStyle: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    resizeMode: "contain",
+  },
+
+  formContainer: {
+    marginTop: 20,
+    marginBottom: 20,
+  },
+
   input: {
     height: 40,
-    margin: 12,
+    marginBottom: 10,
     borderWidth: 1,
     padding: 10,
     width: 200,
+    borderRadius: 100,
+    justifyContent: "center",
   },
 
   quoteStyle: {
@@ -110,5 +134,13 @@ const styles = StyleSheet.create({
     padding: 5,
   },
 
-  logo,
+  buttonStyle: {
+    backgroundColor: "#1C95BD",
+    borderRadius: 50,
+    padding: 10,
+    width: 200,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
+  },
 });
