@@ -61,7 +61,7 @@ export default function ProfilePage({ navigation }) {
             {/* untuk profile photo */}
             <View style={{ flex: 1 }}>
               <Image
-                source={{ uri: "https://e04e-114-122-106-150.ngrok-free.app" + "/static/" + user.profileImg }}
+                source={{ uri: "https://helping-hand-server.blekzzz.com" + "/static/" + user.profileImg }}
                 style={{
                   width: 150,
                   height: 150,

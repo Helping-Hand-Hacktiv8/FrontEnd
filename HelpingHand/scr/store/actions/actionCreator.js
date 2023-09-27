@@ -13,11 +13,7 @@ import {
 } from "./actionType";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
-// const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
-// masukin punya sendiri
-// const baseUrlMid = 'https://19a6-182-253-163-163.ngrok-free.app'
-// const baseUrl = 'https://e04e-114-122-106-150.ngrok-free.app'
-const baseUrl = "https://306b-182-253-163-163.ngrok-free.app";
+const baseUrl = "https://helping-hand-server.blekzzz.com";
 
 export const editUserOnChange = (data) => {
   return {

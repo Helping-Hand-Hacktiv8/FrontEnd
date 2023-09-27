@@ -52,7 +52,7 @@ export default function HomeActivityDetails({ route, navigation }) {
         dispatch(asyncFetchActSuccess("all", "all"));
       })
       .then(() => {
-        return navigation.navigate("MyActivity");
+        return navigation.navigate("Home");
       })
       .catch((err) => {
         console.log(err);

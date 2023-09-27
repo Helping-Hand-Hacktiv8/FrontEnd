@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker";
 import { asyncPutUserProfile } from "../store/actions/actionCreator";
 
 export default function EditProfile({ navigation }) {
@@ -35,25 +35,27 @@ export default function EditProfile({ navigation }) {
 
   const handleSaveProfile = () => {
     const data = new FormData();
-    data.append('name', formData.newUsername)
-    data.append('email', formData.newEmail)
-    data.append('password', formData.newPassword)
-    data.append('phoneNumber', formData.newPhoneNumber)
-    data.append('profileImg', {
-      name: 'image.jpg',
-      type: 'image/jpeg',
-      uri: formData.newProfileImage.uri
-    })
-    console.log("disini>>>", formData)
+    data.append("name", formData.newUsername);
+    data.append("email", formData.newEmail);
+    data.append("password", formData.newPassword);
+    data.append("phoneNumber", formData.newPhoneNumber);
+    data.append("profileImg", {
+      name: "image.jpg",
+      type: "image/jpeg",
+      uri: formData.newProfileImage.uri,
+    });
+    console.log("disini>>>", formData);
     dispatch(asyncPutUserProfile(data))
       .then(() => {
+        // return navigation.navigate("ProfileStack");
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
         return navigation.navigate("ProfileStack")
       })
-      .catch(err => {
-        console.log(err)
-      })
-
-  }
+  };
 
   useEffect(() => {
     setFormData({
@@ -62,18 +64,18 @@ export default function EditProfile({ navigation }) {
       newEmail: user.email,
       newPassword: user.password,
       newPhoneNumber: user.phoneNumber,
-    })
-  }, [])
+    });
+  }, []);
 
   const deleteAccountHandler = () => {
     console.log(`akun kedelete hehe`);
-  }
-  
+  };
+
   return (
     <ScrollView>
       <View style={styles.container}>
         {/* Profile Image */}
-        <TouchableOpacity >
+        <TouchableOpacity>
           <Image
             source={user.profileImg} // Gunakan gambar profil baru jika ada, jika tidak gunakan yang lama
             style={{
@@ -90,7 +92,7 @@ export default function EditProfile({ navigation }) {
 
         {/* Edit Profile Image */}
         <Text style={styles.textTitle}>Edit Profile Image</Text>
-        <TouchableOpacity style={styles.buttonContainer} onPress={selectImage} >
+        <TouchableOpacity style={styles.buttonContainer} onPress={selectImage}>
           <Text style={{ textAlign: "center" }}>Choose Image</Text>
         </TouchableOpacity>
 
