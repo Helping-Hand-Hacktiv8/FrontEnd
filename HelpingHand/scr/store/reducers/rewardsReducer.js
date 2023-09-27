@@ -1,7 +1,8 @@
-import { REWARDS_FETCH_SUCCESS  } from "../actions/actionType"
+import { REWARDS_FETCH_SUCCESS, USER_REWARDS_FETCH_SUCCESS  } from "../actions/actionType"
 
 const initialState = {
-    rewards:[],
+    rewards: [],
+    userRewards:[]
 }
 
 export default function rootReducer(state = initialState, action){
@@ -10,6 +11,11 @@ export default function rootReducer(state = initialState, action){
             return{
                 ...state,
                 rewards:action.payload
+            }
+         case USER_REWARDS_FETCH_SUCCESS:
+            return{
+                ...state,
+                userRewards:action.payload
             }
         default:
             return state

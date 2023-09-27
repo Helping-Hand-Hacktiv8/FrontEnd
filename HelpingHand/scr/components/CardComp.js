@@ -1,11 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-export default function CardComp({data, handleNavigation }) {
+export default function CardComp({data, UserActId}) {
+  const navigation = useNavigation()
+
+  const toDetails = () =>{
+       return navigation.navigate('ActivityDetail',{ActId:data.id, userActId:UserActId.id ,role:'Participant'})
+  }
   return (
-    <TouchableOpacity style={styles.cardContainer}>
-      <TouchableOpacity style={styles.containerLogo}>
+    <TouchableOpacity style={styles.cardContainer} onPress={toDetails}>
+      <TouchableOpacity style={styles.containerLogo} onPress={toDetails}>
         <Image
           source={
             {uri:data.photoAct} 
@@ -70,7 +76,7 @@ export default function CardComp({data, handleNavigation }) {
           <View style={styles.participantContainer}>
             <Text style={styles.participantText}>Participant</Text>
           </View>
-          <Text style={styles.participantValue}>{data.participant}/{data.participant}</Text>
+          <Text style={styles.participantValue}>{data.participant}/6</Text>
         </View>
         </View>
       </View>
