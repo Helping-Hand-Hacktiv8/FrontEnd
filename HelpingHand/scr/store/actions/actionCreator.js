@@ -176,26 +176,9 @@ export const asyncFetchActSuccess = (lat, lon) => {
                 // console.log(stat)
                 if (!stat.includes(true)) res.push(arr)
             }
-        })
-        
-        const getId = await SecureStore.getItemAsync('user_id')
-        let res = []
-        for(let arr of data){
-            console.log("HASIL>>>",getId,arr.UserActivities)
-            let stat = arr.UserActivities.map(el=>{
-                console.log(el.UserId,getId,el.UserId==getId)
-                if(el.UserId == +getId ){
-                    return true
-                } else{return false}
-            })
-            // console.log(stat)
-            if (!stat.includes(true)) res.push(arr)
-        }
-        console.log("filter>>>",res)
-        dispatch(fetchActivitiesSuccess(res))
-        
-        
-       } catch (error) {
+            console.log("filter>>>",res)
+            dispatch(fetchActivitiesSuccess(res))
+        } catch (error) {
             throw error.response.data
         }
     }
