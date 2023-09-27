@@ -7,6 +7,7 @@ import ProfileStack from "../routes/ProfileStack";
 import { Ionicons } from '@expo/vector-icons'; 
 import { FontAwesome5 } from "@expo/vector-icons";
 import MyRewardsStack from "../routes/MyRewardStack";
+import ChatStack from "../routes/ChatStack";
 
 export default function FrontStack(){
     const Tab = createMaterialBottomTabNavigator();
@@ -66,13 +67,12 @@ export default function FrontStack(){
           }}
         />
         <Tab.Screen
-          name="Chat"
-          component={HomeStack}
+          name="ChatStack"
+          component={ChatStack}
           options={{
-            title: "Chat",
+            title: "Chat List",
             tabBarIcon: ({ color }) => (
               <Entypo name="chat" size={24} color={color} />
-
             ),
           }}
         />

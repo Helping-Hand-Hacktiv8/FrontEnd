@@ -108,7 +108,9 @@ export default function ProfilePage({ navigation }) {
           </View>
 
 
-          <TouchableOpacity style={styles.chatButton}>
+          <TouchableOpacity style={styles.chatButton} onPress={() => {
+            navigation.navigate("ChatList")
+          }}>
             <Text style={{ textAlign: 'center' }}>Chat</Text>
           </TouchableOpacity>
 
