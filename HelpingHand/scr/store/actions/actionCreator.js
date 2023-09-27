@@ -269,7 +269,7 @@ export const asyncPostActivities = (form) => {
   };
 };
 
-export const asyncPutActivities = (form) => {
+export const asyncPutActivities = (form, activityId) => {
   return async () => {
     try {
       const getId = await SecureStore.getItemAsync("user_id");
@@ -277,7 +277,7 @@ export const asyncPutActivities = (form) => {
       console.log(form);
       const { data } = await axios({
         method: "PUT",
-        url: baseUrl + "/activities/" + getId,
+        url: baseUrl + "/activities/" + activityId,
         headers: {
           access_token,
           "Content-Type": "multipart/form-data",
