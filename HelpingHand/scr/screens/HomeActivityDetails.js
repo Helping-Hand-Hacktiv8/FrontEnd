@@ -11,9 +11,9 @@ import { useFocusEffect } from "@react-navigation/native";
 export default function HomeActivityDetails({ route, navigation }) {
   const dispatch = useDispatch()
   const { ActId, role } = route.params
-  const [author, setAuthor] = useState(0)
+  const [authorId, setAuthorId] = useState(0)
   const [isLoading, setLoading] = useState(true)
-  let [userId, setUserId] = useState(0)
+  const [userId, setUserId] = useState(0)
 
   const { activity } = useSelector((state) => {
     return state.activity
@@ -22,6 +22,29 @@ export default function HomeActivityDetails({ route, navigation }) {
   const { user } = useSelector((state) => {
     return state.user
   })
+
+  useFocusEffect(
+    useCallback(() => {
+      async function getUser() {
+        let getId = await SecureStore.getItemAsync("user_id");
+        setUserId(getId)
+        dispatch(asyncFetchActSingleSuccess(ActId))
+          .then(() => {
+            const author = activity.UserActivities.find(el => el.role == "Author")
+            setAuthorId(author.id)
+            dispatch(asyncFetchSingleUser(userId))
+          })
+          .catch(err => {
+            console.log('ERR', err)
+          })
+          .finally(() => {
+            setLoading(false)
+          })
+      }
+
+      getUser()
+    }, [userId])
+  )
 
   const toParticipate = () =>{
     dispatch(asyncParticipate(ActId))
@@ -208,7 +231,7 @@ export default function HomeActivityDetails({ route, navigation }) {
               onPress={() => {
                 navigation.navigate("ChatScreen", {
                   UserId: userId,
-                  AuthorId: author.UserId
+                  AuthorId: authorId
                 })
               }}
             >

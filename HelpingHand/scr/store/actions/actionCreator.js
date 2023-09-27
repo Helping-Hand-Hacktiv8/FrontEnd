@@ -1,21 +1,14 @@
 
 
-import {  ACTIVITIES_FETCH_SUCCESS, USER_EDIT_ON_CHANGE, USER_SET_EMPTY_DATA, USER_GET_ACCESS_TOKEN, REWARDS_FETCH_SUCCESS, USERACTIVITIES_FETCH_SUCCESS, AUTHOR_ACTIVITIES_FETCH_SUCCESS, PARTICIPANT_ACTIVITIES_FETCH_SUCCESS,ACTIVITY_FETCH_SUCCESS } from "./actionType"
+import { ACTIVITIES_FETCH_SUCCESS, USER_EDIT_ON_CHANGE, USER_SET_EMPTY_DATA, USER_GET_ACCESS_TOKEN, REWARDS_FETCH_SUCCESS, USERACTIVITIES_FETCH_SUCCESS, AUTHOR_ACTIVITIES_FETCH_SUCCESS, PARTICIPANT_ACTIVITIES_FETCH_SUCCESS, ACTIVITY_FETCH_SUCCESS } from "./actionType"
 import axios from 'axios'
 import * as SecureStore from "expo-secure-store";
 // const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 // masukin punya sendiri
-const baseUrlMid ='https://19a6-182-253-163-163.ngrok-free.app'
+// const baseUrlMid = 'https://19a6-182-253-163-163.ngrok-free.app'
 const baseUrl = 'https://e04e-114-122-106-150.ngrok-free.app'
+// const baseUrl = 'https://306b-182-253-163-163.ngrok-free.app'
 
-
-
-// export const setEmptyDataUserSuccess = (data) =>{
-//     return{
-//         type:USER_SET_EMPTY_DATA,
-//         payload:data
-//     }
-// }
 
 export const editUserOnChange = (data) => {
     return {
@@ -45,89 +38,29 @@ export const fetchActivitySuccess = (data) => {
     }
 }
 
-export const fetchRewardsSuccess = (data) =>{
-    return{
-        type:REWARDS_FETCH_SUCCESS,
-        payload:data
+export const fetchRewardsSuccess = (data) => {
+    return {
+        type: REWARDS_FETCH_SUCCESS,
+        payload: data
     }
 }
 
 
-export const fetchAuthorActivitiesSuccess = (data) =>{
-    return{
-        type:AUTHOR_ACTIVITIES_FETCH_SUCCESS,
+export const fetchAuthorActivitiesSuccess = (data) => {
+    return {
+        type: AUTHOR_ACTIVITIES_FETCH_SUCCESS,
 
-        payload:data
+        payload: data
     }
 }
 
 
-export const fetchParticipantActivitiesSuccess = (data) =>{
-    return{
-        type:PARTICIPANT_ACTIVITIES_FETCH_SUCCESS,
-        payload:data
+export const fetchParticipantActivitiesSuccess = (data) => {
+    return {
+        type: PARTICIPANT_ACTIVITIES_FETCH_SUCCESS,
+        payload: data
     }
 }
-
-// export const fetchJobSuccess = (data) =>{
-//     return{
-//         type:JOBS_FETCH_SUCCESS,
-//         payload:data
-//     }
-// }
-
-
-
-// export const fetchSingleJobSuccess = (data) =>{
-//     return{
-//         type:JOBS_SINGLE_FETCH_SUCCESS,
-//         payload:data
-//     }
-// }
-
-// export const setEmptyDataJobSuccess = (data) =>{
-//     return{
-//         type:JOBS_SET_EMPTY_DATA,
-//         payload:data
-//     }
-// }
-
-// export const editJobsOnChange = (data) =>{
-//     return{
-//         type:JOBS_EDIT_ON_CHANGE,
-//         payload:data
-//     }
-// }
-
-// export const editCompaniesOnChange = (data) =>{
-//     return{
-//         type:COMPANIES_EDIT_ON_CHANGE,
-//         payload:data
-//     }
-// }
-
-
-// export const fetchCompanySuccess = (data) =>{
-//     return{
-//         type:COMPANIES_FETCH_SUCCESS,
-//         payload:data
-//     }
-// }
-
-// export const fetchSingleCompanySuccess = (data) =>{
-//     return{
-//         type:COMPANIES_SINGLE_FETCH_SUCCESS,
-//         payload:data
-//     } 
-// }
-
-// export const setEmptyDataCompanySuccess = (data) =>{
-//     return{
-//         type:COMPANIES_SET_EMPTY_DATA,
-//         payload:data
-//     }
-// }
-
 
 // ===================================AXIOS=====================================
 export const registerUser = (registerForm) => {
@@ -156,7 +89,7 @@ export const loginUser = (loginForm) => {
                 url: baseUrl + '/login',
                 data: loginForm
             })
-           
+
             // console.log('GET>>',data)
             await SecureStore.setItemAsync('access_token', data.access_token)
             await SecureStore.setItemAsync('user_id', String(data.dataUser.id))
@@ -185,6 +118,7 @@ export const asyncFetchSingleUser = (id) => {
             dispatch(editUserOnChange(data))
             return data
         } catch (error) {
+            console.log(error)
             throw error.response.data
         }
     }
@@ -198,13 +132,13 @@ export const asyncPutUserProfile = (form) => {
             const { data } = await axios({
                 method: 'PUT',
                 url: baseUrl + '/users/profile/' + getId,
-                headers: { 
-                    access_token, 
+                headers: {
+                    access_token,
                     'Content-Type': 'multipart/form-data'
-                 },
-                data:form
+                },
+                data: form
             })
-          
+
         } catch (error) {
             throw error.response.data
         }
@@ -214,60 +148,57 @@ export const asyncPutUserProfile = (form) => {
 
 // ===================================ACTIVITIES=====================================
 
-export const asyncFetchActSuccess = (lat, lon) =>{
-    return async (dispatch) =>{
-       try {
-        console.log(lat, lon)
-        const access_token = await SecureStore.getItemAsync('access_token')
-        console.log(access_token)
-        const { data } = await axios({
-            method:'POST',
-            url:baseUrl+'/activities/all',
-            headers:{access_token},
-            data:{
-                latitude:lat,
-                longitude:lon
-            }
-        })
-        
-        const getId = await SecureStore.getItemAsync('user_id')
-        let res = []
-        for(let arr of data){
-            console.log("HASIL>>>",getId,arr.UserActivities)
-            let stat = arr.UserActivities.map(el=>{
-                console.log(el.UserId,getId,el.UserId==getId)
-                if(el.UserId == +getId ){
-                    return true
-                } else{return false}
+export const asyncFetchActSuccess = (lat, lon) => {
+    return async (dispatch) => {
+        try {
+            console.log(lat, lon)
+            const access_token = await SecureStore.getItemAsync('access_token')
+            console.log(access_token)
+            const { data } = await axios({
+                method: 'POST',
+                url: baseUrl + '/activities/all',
+                headers: { access_token },
+                data: {
+                    latitude: lat,
+                    longitude: lon
+                }
             })
-            // console.log(stat)
-            if (!stat.includes(true)) res.push(arr)
-        }
-        console.log("filter>>>",res)
-        dispatch(fetchActivitiesSuccess(res))
-        
-        
-       } catch (error) {
+
+            const getId = await SecureStore.getItemAsync('user_id')
+            let res = []
+            for (let arr of data) {
+                // console.log("HASIL>>>",arr.UserActivities)
+                let stat = arr.UserActivities.map(el => {
+                    if (el.UserId == +getId) {
+                        return true
+                    } else { return false }
+                })
+                // console.log(stat)
+                if (!stat.includes(true)) res.push(arr)
+            }
+            // console.log("filter>>>",res)
+            dispatch(fetchActivitiesSuccess(res))
+        } catch (error) {
             throw error.response.data
-       }
+        }
     }
 }
 
-export const asyncFetchActSingleSuccess = (id) =>{
-    return async (dispatch) =>{
-       try {
-        const access_token = await SecureStore.getItemAsync('access_token')
-        const { data } = await axios({
-            method:'GET',
-            url:baseUrl+'/activities/'+id,
-            headers:{access_token}
-        })
-        
-        dispatch(fetchActivitySuccess(data))
-        return data
-       } catch (error) {
+export const asyncFetchActSingleSuccess = (id) => {
+    return async (dispatch) => {
+        try {
+            const access_token = await SecureStore.getItemAsync('access_token')
+            const { data } = await axios({
+                method: 'GET',
+                url: baseUrl + '/activities/' + id,
+                headers: { access_token }
+            })
+
+            dispatch(fetchActivitySuccess(data))
+            return data
+        } catch (error) {
             throw error.response.data
-       }
+        }
     }
 }
 
@@ -289,13 +220,13 @@ export const asyncFetchActSingleParticipant = (id) =>{
             } 
         }
         data.UserActivities = res
-        console.log("filter>>>",data)
+        // console.log("filter>>>",data)
 
         dispatch(fetchActivitySuccess(data))
         return data
        } catch (error) {
             throw error.response.data
-       }
+        }
     }
 }
 
@@ -417,26 +348,26 @@ export const asyncCancelActivity = (id) => {
 // ===================================USERACTIVITIES=====================================
 
 
-export const asyncFetchActAuthorParticipantSuccess = () =>{
-    return async (dispatch) =>{
-       try {
-        const access_token = await SecureStore.getItemAsync('access_token')
-        const { data } = await axios({
-            method:'GET',
-            url:baseUrl+'/user-activities',
-            headers:{access_token},
-        })
-        
-        const getId = await SecureStore.getItemAsync('user_id')
-        let resAuthor = []
-        let resParticipant = [] 
-        // console.log(data, "diCreator")
+export const asyncFetchActAuthorParticipantSuccess = () => {
+    return async (dispatch) => {
+        try {
+            const access_token = await SecureStore.getItemAsync('access_token')
+            const { data } = await axios({
+                method: 'GET',
+                url: baseUrl + '/user-activities',
+                headers: { access_token },
+            })
 
-        for(let arr of data){
-            // console.log("HASIL>>>",arr.UserActivities)
-            // let stat = arr.UserActivities.map(el=>{
+            const getId = await SecureStore.getItemAsync('user_id')
+            let resAuthor = []
+            let resParticipant = []
+            // console.log(data, "diCreator")
+
+            for (let arr of data) {
+                // console.log("HASIL>>>",arr.UserActivities)
+                // let stat = arr.UserActivities.map(el=>{
                 // console.log(el.role, "di creator")
-                    if(arr.role === "Author") {
+                if (arr.role === "Author") {
                     resAuthor.push(arr)
                     } else resParticipant.push(arr)
                 // })
@@ -449,7 +380,7 @@ export const asyncFetchActAuthorParticipantSuccess = () =>{
         return data
        } catch (error) {
             throw error.response.data
-       }
+        }
     }
 }
 
@@ -492,22 +423,23 @@ export const asyncUnparticipate = (ActivityId) =>{
 
 // ===================================REWARDS=====================================
 
-export const asyncFetchRewardsSuccess = () =>{
-    return async (dispatch) =>{
-       try {
-        const access_token = await SecureStore.getItemAsync('access_token')
-        const { data } = await axios({
-            method:'GET',
-            url:baseUrl+'/rewards',
-            headers:{access_token}
-        })
-        dispatch(fetchRewardsSuccess(data))
-        return data
-       } catch (error) {
+export const asyncFetchRewardsSuccess = () => {
+    return async (dispatch) => {
+        try {
+            const access_token = await SecureStore.getItemAsync('access_token')
+            const { data } = await axios({
+                method: 'GET',
+                url: baseUrl + '/rewards',
+                headers: { access_token }
+            })
+            dispatch(fetchRewardsSuccess(data))
+            return data
+        } catch (error) {
             throw error.response.data
-       }
+        }
     }
 }
+
 
 export const asyncFetchSingleActivity = (id) =>{
     return async (dispatch) =>{
@@ -526,7 +458,6 @@ export const asyncFetchSingleActivity = (id) =>{
     }
 }
 
- 
 
 export const companyDelete = (id) => {
     return (dispatch) => {

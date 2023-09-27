@@ -10,7 +10,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 export default function MyActivityDetails({ route, navigation }) {
   const dispatch = useDispatch()
-  const { ActId, role } = route.params
+  const { ActId, userActId,role } = route.params
   const [author, setAuthor] = useState(0)
   const [isLoading, setLoading] = useState(true)
   let [userId, setUserId] = useState(0)
@@ -24,7 +24,8 @@ export default function MyActivityDetails({ route, navigation }) {
   })
 
   const toUnparticipate = () =>{
-    dispatch(asyncUnparticipate(ActId))
+    console.log(userActId,"USER ACT ID")
+    dispatch(asyncUnparticipate(userActId))
     .then(()=>{
       return navigation.goBack()
     })

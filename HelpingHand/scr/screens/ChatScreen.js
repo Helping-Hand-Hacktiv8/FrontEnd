@@ -1,72 +1,79 @@
 import { ActivityIndicator, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import * as TalkRn from '@talkjs/expo';
-import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { asyncFetchSingleUser } from "../store/actions/actionCreator";
+import * as SecureStore from "expo-secure-store";
+import { useCallback, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import axios from 'axios'
+// const baseUrl = 'https://e04e-114-122-106-150.ngrok-free.app'
+const baseUrl = 'https://306b-182-253-163-163.ngrok-free.app'
 
 export default function ChatScreen({ route }) {
     const { UserId, AuthorId } = route.params
-    const dispatch = useDispatch()
     const [isLoading, setIsLoading] = useState(true)
     const [user, setUser] = useState({
         id: "",
         name: "",
         email: "",
-        photoUrl: ""
+        photoUrl: "",
+        role: "default"
     })
     const [author, setAuthor] = useState({
         id: "",
         name: "",
         email: "",
-        photoUrl: ""
+        photoUrl: "",
+        role: "default"
     })
-    console.log(AuthorId, '-> ini author id');
 
-    useEffect(() => {
-        dispatch(asyncFetchSingleUser(UserId))
-            .then(res => {
-                setUser({
-                    id: res.id,
-                    name: res.name,
-                    email: res.email,
-                    photoUrl: 'https://e04e-114-122-106-150.ngrok-free.app' + '/static/' + res.profileImg
+    console.log(AuthorId, '-> ini authorId')
+    console.log(UserId, '-> ini UserId')
+
+    useFocusEffect(
+        useCallback(() => {
+            async function getData() {
+                try {
+                    const access_token = await SecureStore.getItemAsync('access_token')
+
+                    const { data: dataAuthor } = await axios({
+                        method: 'GET',
+                        url: baseUrl + '/users/profile/' + Number(AuthorId),
+                        headers: { access_token }
+                    })
+
+                    setAuthor({
+                        id: dataAuthor.id,
+                        name: dataAuthor.name,
+                        email: dataAuthor.email,
+                        photoUrl: 'https://306b-182-253-163-163.ngrok-free.app' + '/static/' + dataAuthor.profileImg
+                    })
+
+                    const { data: dataUser } = await axios({
+                        method: 'GET',
+                        url: baseUrl + '/users/profile/' + Number(UserId),
+                        headers: { access_token }
+                    })
+
+                    setUser({
+                        id: dataUser.id,
+                        name: dataUser.name,
+                        email: dataUser.email,
+                        photoUrl: 'https://306b-182-253-163-163.ngrok-free.app' + '/static/' + dataUser.profileImg
+                    })
+
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+
+            getData()
+                .finally(() => {
+                    setIsLoading(false)
                 })
-                dispatch(asyncFetchSingleUser(AuthorId))
-            })
-            .then(res => {
-                setAuthor({
-                    id: res.id,
-                    name: res.name,
-                    email: res.email,
-                    photoUrl: 'https://e04e-114-122-106-150.ngrok-free.app' + '/static/' + res.profileImg
-                })
-            })
-            .finally(() => {
-                setIsLoading(false)
-            })
-    }, [])
+        }, [AuthorId, UserId])
+    )
 
-    useEffect(() => {
-
-    }, [])
-    console.log(author, '-> ini author')
     console.log(user, '-> ini user')
-
-    // const other = {
-    //     id: '1234',
-    //     name: 'Natanja gaurangga',
-    //     email: 'natanjaja@mail.com',
-    //     photoUrl: 'https://talkjs.com/images/avatar-1.jpg',
-    //     role: 'default',
-    // }
-
-    // const me = {
-    //     id: '12345',
-    //     name: 'Siapa terserahmu',
-    //     email: 'bapakmu@mail.com',
-    //     photoUrl: 'https://talkjs.com/images/avatar-5.jpg',
-    //     role: 'default',
-    // }
+    console.log(author, '-> ini author')
 
     const conversationBuilder = TalkRn.getConversationBuilder(
         TalkRn.oneOnOneId(user, author)
