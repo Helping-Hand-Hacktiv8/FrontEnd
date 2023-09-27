@@ -12,6 +12,7 @@ export const USER_GET_ACCESS_TOKEN = "user/editToken"
 export const ACTIVITIES_FETCH_SUCCESS = "activities/fetchSuccess"
 export const ACTIVITY_FETCH_SUCCESS = "activity/fetchSuccess"
 export const REWARDS_FETCH_SUCCESS = 'rewards/fetchSuccess'
+export const USER_REWARDS_FETCH_SUCCESS = 'userRewards/fetchSuccess'
 
 export const AUTHOR_ACTIVITIES_FETCH_SUCCESS = 'authorActivities/fetchSuccess'
 export const PARTICIPANT_ACTIVITIES_FETCH_SUCCESS = 'participantActivities/fetchSuccess'

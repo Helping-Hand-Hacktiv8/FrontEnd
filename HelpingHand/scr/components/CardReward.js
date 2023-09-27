@@ -1,22 +1,38 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity,Alert } from "react-native";
 import { Card, Button } from "@rneui/themed";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { asyncClaimReward } from "../store/actions/actionCreator";
 
-export default function CardReward({ data }) {
+export default function CardReward({ data, claimed }) {
+  const dispatch = useDispatch()
   const navigation = useNavigation();
   const { user } = useSelector((state) => {
     return state.user;
   });
 
-  const handleClaimReward = async (price) => {
-    console.log(price);
-    if (user.token < price) {
-      console.log("not enough token");
+  const handleClaimReward = () => {
+    console.log(data.price);
+    console.log(data.id)
+    if (user.token > data.price) {
+     console.log('gakcukup')
+    } else {
+      dispatch(asyncClaimReward(data.id))
+        .then((data) => { 
+         console.log(data, 'berhasil')
+        })
     }
   };
 
-  console.log(user);
+  let status = 'unclaim'
+
+  claimed.map((e) => { 
+    if (e === data.id) {
+      status = 'claimed'
+    }
+  })
+  
+  console.log(status)
 
   return (
     <View>
@@ -42,12 +58,21 @@ export default function CardReward({ data }) {
                   <Text style={{ fontSize: 15, color: "white" }}>Click For Details</Text>
                 </View>
               </TouchableOpacity>
-
-              <TouchableOpacity onPress={(data) => {}}>
+              {status != 'claimed' ? <>
+              <TouchableOpacity onPress={handleClaimReward}>
                 <View style={[styles.claimContainer, { marginLeft: 7 }]}>
                   <Text style={[styles.buttonText]}>Claim</Text>
                 </View>
               </TouchableOpacity>
+              </> : <>
+              <View >
+                <View style={[styles.claimContainer, { marginLeft: 7 }]}>
+                  <Text style={[styles.buttonText]}>Claimed</Text>
+                </View>
+              </View>
+              </>}
+              
+              
             </View>
           </View>
         </View>

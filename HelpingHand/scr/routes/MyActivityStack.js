@@ -6,6 +6,7 @@ import AddRequest from "../screens/AddRequest";
 import EditRequest from "../screens/EditRequest";
 import Monitor from "../screens/Monitor";
 import ChatScreen from "../screens/ChatScreen";
+import MyActivityDetails from "../screens/MyActivityDetails";
 
 export default function MyActivityStack() {
 
@@ -49,7 +50,7 @@ export default function MyActivityStack() {
         title: '',
         headerStatusBarHeight: 25
       }} />
-      <Stack.Screen name="ActivityDetail" component={ActivityDetails} options={{
+      <Stack.Screen name="ActivityDetail" component={MyActivityDetails} options={{
         headerShown: true,
         headerTitleStyle: { color: 'white' },
         headerStyle: {
