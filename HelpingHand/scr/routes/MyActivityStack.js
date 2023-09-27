@@ -3,7 +3,7 @@ import React from "react";
 import MyActivty from "../screens/MyActivityPage";
 import MyRequest from "../screens/MyRequest";
 import AddRequest from "../screens/AddRequest";
-import ActivityDetails from "../screens/ActivityDetails";
+import ActivityDetails from "../screens/HomeActivityDetails";
 
 export default function MyActivityStack() {
   
@@ -15,15 +15,19 @@ export default function MyActivityStack() {
         headerShown: true,
       }}
     >
-      <Stack.Screen name="MyActivity" component={MyActivty} options={{
-        headerShown:true,
-        headerTitleStyle:{color:'white'},
-        headerStyle:{
-            backgroundColor:'#175d8c'
+      <Stack.Screen 
+      name="MyActivity" 
+      component={MyActivty} 
+      options={{
+        title: "Reward",
+        headerTitleAlign: "center",
+        headerTitleAllowFontScaling: true,
+        headerTitleStyle: {
+          fontWeight: "bold",
+          fontSize: 30,
         },
-        title:'My Activity',
-        headerStatusBarHeight:25
-      }}/>
+      }}
+      />
       <Stack.Screen name="MyRequest" component={MyRequest} options={{
         headerShown:true,
         headerTitleStyle:{color:'white'},
@@ -34,6 +38,16 @@ export default function MyActivityStack() {
         headerStatusBarHeight:25
       }}/>
       <Stack.Screen name="AddRequest" component={AddRequest} options={{
+        headerShown:true,
+        headerTitleStyle:{color:'white'},
+        headerStyle:{
+            backgroundColor:'#175d8c',
+            
+        },
+        title:'',
+        headerStatusBarHeight:25
+      }}/>
+      <Stack.Screen name="ActivityDetail" component={ActivityDetails} options={{
         headerShown:true,
         headerTitleStyle:{color:'white'},
         headerStyle:{

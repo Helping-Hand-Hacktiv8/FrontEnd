@@ -1,31 +1,36 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { Feather } from "@expo/vector-icons";
-import HomeStack from "./scr/routes/HomeStack";
-import ProfileStack from "./scr/routes/ProfileStack";
-import { Ionicons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { StyleSheet, Text } from "react-native";
 import { useTheme } from "react-native-paper";
-import MyActivityStack from "./scr/routes/MyActivityStack";
-import { Entypo } from "@expo/vector-icons";
-
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import store from "./scr/store/index.js";
-import FrontStack from "./scr/navigators/MainStack";
-import MainStack from "./scr/navigators/FrontStack";
-import { useEffect, useState } from "react";
-import * as SecureStore from "expo-secure-store";
 import ControlNav from "./scr/navigators/ControlNav";
+import React, { useEffect, useState } from "react";
+import * as Font from "expo-font";
 
 export default function App() {
   const theme = useTheme();
   theme.colors.secondaryContainer = "transperent";
   const Tab = createMaterialBottomTabNavigator();
+  const [isFontLoaded, setIsFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadFont() {
+      await Font.loadAsync({
+        GlacialIndifference: require("./assets/fonts/GlacialIndifference-Regular.ttf"),
+      });
+      setIsFontLoaded(true);
+    }
+
+    loadFont();
+  }, []);
 
   return (
     <Provider store={store}>
-      <ControlNav />
+      {isFontLoaded ? (
+        <ControlNav />
+      ) : (
+        <Text>Something went wrong</Text>
+      )}
     </Provider>
   );
 }
