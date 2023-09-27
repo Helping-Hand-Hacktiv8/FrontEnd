@@ -362,6 +362,58 @@ export const asyncPutActivities = (form) => {
         }
     }
 }
+
+export const asyncFinishActivity = (id) => {
+    return async () => {
+        try {
+            const getId = await SecureStore.getItemAsync('user_id')
+            console.log(getId)
+            const access_token = await SecureStore.getItemAsync('access_token')
+            const arrayUser = [{
+                UserId: getId,
+                ActivityId: id,
+                role: "Participant"
+            }]
+           
+            console.log(arrayUser)
+           
+            const { data } = await axios({
+                method: 'PUT',
+                url: baseUrl + '/activities/finish/' + id,
+                headers: { 
+                    access_token, 
+                },
+                data: { arrayUser }
+    
+            })
+          
+        } catch (error) {
+            
+            throw error.response.data
+        }
+    }
+}
+
+export const asyncCancelActivity = (id) => {
+    return async () => {
+        try {
+            const getId = await SecureStore.getItemAsync('user_id')
+            const access_token = await SecureStore.getItemAsync('access_token')           
+            const { data } = await axios({
+                method: 'PATCH',
+                url: baseUrl + '/activities/cancel/' + id,
+                headers: { 
+                    access_token, 
+                },
+    
+            })
+          
+        } catch (error) {
+            throw error.response.data
+        }
+    }
+}
+
 // ===================================USERACTIVITIES=====================================
 
 
@@ -386,12 +438,8 @@ export const asyncFetchActAuthorParticipantSuccess = () =>{
                 // console.log(el.role, "di creator")
                     if(arr.role === "Author") {
                     resAuthor.push(arr)
-
                     } else resParticipant.push(arr)
-                
-
                 // })
-
             // if (!stat.includes(true)) res.push(arr)
         }
         // console.log("filter>>>",res)

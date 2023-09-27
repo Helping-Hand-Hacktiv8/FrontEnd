@@ -1,5 +1,4 @@
 import { View, Text, ScrollView, SafeAreaView, ActivityIndicator, StyleSheet } from "react-native";
-import { Card, Button } from "@rneui/themed";
 import CardReward from "../components/CardReward";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
