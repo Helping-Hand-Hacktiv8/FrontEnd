@@ -5,7 +5,6 @@ import MyRequest from "../screens/MyRequest";
 import AddRequest from "../screens/AddRequest";
 import EditRequest from "../screens/EditRequest";
 import Monitor from "../screens/Monitor";
-import ActivityDetails from "../screens/MyActivityDetails";
 import ChatScreen from "../screens/ChatScreen";
 
 export default function MyActivityStack() {

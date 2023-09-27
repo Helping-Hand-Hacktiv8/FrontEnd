@@ -101,19 +101,28 @@ export default function ProfilePage({ navigation }) {
             <Text>Settings</Text>
           </View>
 
+          <TouchableOpacity style={styles.chatButton} onPress={() => {
+            navigation.navigate("ChatList")
+          }}>
+            <Text style={{ textAlign: 'center' }}>Chat</Text>
+          </TouchableOpacity>
+
+
+          <TouchableOpacity style={styles.chatButton} onPress={handleLogout}>
+            <Text style={{ textAlign: 'center' }}>Logout</Text>
+          </TouchableOpacity>
           <View style={styles.contentContainer}>
             {/* edit button */}
             <TouchableOpacity
               style={styles.buttonContainer}
               onPress={() => {
                 return navigation.navigate("EditProfile");
-              }}
-            >
+              }}>
               <Text style={styles.contentAndSettingsText}>Edit Profile</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.chatButton} onPress={handleLogout}>
-            <Text style={styles.contentAndSettingsText}>Logout</Text>
-          </TouchableOpacity>
+              <Text style={styles.contentAndSettingsText}>Logout</Text>
+            </TouchableOpacity>
           </View>
    
         </View>
