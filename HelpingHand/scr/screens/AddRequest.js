@@ -68,8 +68,8 @@ export default function AddRequest() {
     const data = new FormData();
     data.append('name',formData.newTitle)
     data.append('description',formData.newDescription)
-    data.append('fromDate',formData.newFromDate)
-    data.append('toDate',formData.newToDate)
+    data.append('fromDate',new Date(formData.newFromDate).toISOString())
+    data.append('toDate',new Date(formData.newToDate).toISOString())
     data.append('participant',formData.newParticipants)
     data.append('reward',formData.newRewardPoints)
     data.append('location',formData.newLocation)
