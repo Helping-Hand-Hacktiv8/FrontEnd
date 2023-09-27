@@ -1,42 +1,49 @@
-import { View, Text, Image, ActivityIndicator } from "react-native";
+import { View, Text, Image, ActivityIndicator, Button, StyleSheet, Pressable, TouchableOpacity } from "react-native";
 import { Divider } from "@rneui/themed";
 import { FontAwesome } from '@expo/vector-icons';
 import { useDispatch, useSelector } from "react-redux";
-import { asyncFetchActSingleSuccess } from "../store/actions/actionCreator";
-import { useEffect, useState } from "react";
+import { asyncFetchActSingleSuccess, asyncFetchSingleUser } from "../store/actions/actionCreator";
+import * as SecureStore from "expo-secure-store";
+import { useCallback, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useFocusEffect } from "@react-navigation/native";
 
-export default function HomeActivityDetails({route, navigation}) {
-    const dispatch = useDispatch()
-    const { ActId, role} = route.params
-    const [isLoading,setLoading] = useState(true)
+export default function HomeActivityDetails({ route, navigation }) {
+  const dispatch = useDispatch()
+  const { ActId, role } = route.params
+  const [author, setAuthor] = useState(0)
+  const [isLoading, setLoading] = useState(true)
+  let [userId, setUserId] = useState(0)
 
-    const { activity } = useSelector((state)=>{
-      return state.activity
-    })
+  const { activity } = useSelector((state) => {
+    return state.activity
+  })
 
-    const { user } = useSelector((state)=>{
-      return state.user
-    })
-    
-    // console.log("ACTIVITY ",activity.UserActivities.length)
-    useEffect(()=>{
-      if (isLoading){
-        dispatch(asyncFetchActSingleSuccess(ActId))
+  const { user } = useSelector((state) => {
+    return state.user
+  })
+
+  useEffect(() => {
+    // let getId = SecureStore.getItemAsync("user_id");
+    // setUserId(getId)
+    dispatch(asyncFetchActSingleSuccess(ActId))
+      .catch(err => {
+        console.log(err)
+      })
+      .finally(() => {
         setLoading(false)
-      }
-      
-    },[])
+      })
+  }, [])
 
-    if(isLoading){
-      return (
-        <SafeAreaView style={{ flex: 1 }}>
-          <ActivityIndicator size="large" color={"#312651"} />
-        </SafeAreaView>
-      );
-    } else{
-      return (
-        <View>
+  if (isLoading) {
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <ActivityIndicator size="large" color={"#312651"} />
+      </SafeAreaView>
+    );
+  } else {
+    return (
+      <View>
         <Text
           style={{
             textAlign: "center",
@@ -112,7 +119,7 @@ export default function HomeActivityDetails({route, navigation}) {
             <View style={{ marginTop: 10, width: 80, alignSelf: "center" }}>
               <Text style={{ textAlign: "center", color: "white" }}>{user.name}</Text>
             </View>
-            <View style={{width:80}}></View>
+            <View style={{ width: 80 }}></View>
             <View
               style={{
                 backgroundColor: "green",
@@ -126,21 +133,21 @@ export default function HomeActivityDetails({route, navigation}) {
               <Text style={{ textAlign: "center", color: "white" }}>Joined</Text>
             </View>
           </View>
-  
+
           {/* =============TOPSECTION======== */}
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
-          <View style={{padding:10}}>
-          <Text style={{color:'white', fontWeight:'bold'}}>Description:</Text>
-          <Text style={{color:'white', fontWeight:'bold'}}>
-            {activity.description}
-          </Text>
+          <View style={{ padding: 10 }}>
+            <Text style={{ color: 'white', fontWeight: 'bold' }}>Description:</Text>
+            <Text style={{ color: 'white', fontWeight: 'bold' }}>
+              {activity.description}
+            </Text>
           </View>
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
-          <View style={{padding:10}}>
-          <Text style={{color:'white', fontWeight:'bold'}}>Place/Destination:</Text>
-          <Text style={{color:'white', fontWeight:'bold'}}>
-            {activity.location}
-          </Text>
+          <View style={{ padding: 10 }}>
+            <Text style={{ color: 'white', fontWeight: 'bold' }}>Place/Destination:</Text>
+            <Text style={{ color: 'white', fontWeight: 'bold' }}>
+              {activity.location}
+            </Text>
           </View>
           {/* =============MIDSECTION======== */}
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
@@ -152,33 +159,62 @@ export default function HomeActivityDetails({route, navigation}) {
                 marginLeft: 10,
                 alignSelf: "center",
                 borderRadius: 10,
-                padding:10
+                padding: 10
               }}
             >
               <Text style={{ textAlign: "center", color: "white" }}>Participants:</Text>
             </View>
-            <View style={{ marginTop: 10, alignSelf: "center", marginLeft:8 }}>
+            <View style={{ marginTop: 10, alignSelf: "center", marginLeft: 8 }}>
               <Text style={{ textAlign: "center", color: "white" }}>{activity.UserActivities.length}/{activity.participant}</Text>
             </View>
-            <View style={{width:90, marginHorizontal:-20}}/>
+            <View style={{ width: 90, marginHorizontal: -20 }} />
             <View
               style={{
                 marginTop: 10,
                 alignSelf: "center",
-                paddingLeft:30
+                paddingLeft: 30
               }}
             >
               <Text style={{ textAlign: "center", color: "white" }}>Rewards:</Text>
             </View>
-            <View style={{ marginTop: 10, alignSelf: "center", marginLeft:8, flexDirection:'row', alignItems:'center'}}>
+            <View style={{ marginTop: 10, alignSelf: "center", marginLeft: 8, flexDirection: 'row', alignItems: 'center' }}>
               <Text style={{ textAlign: "center", color: "white" }}>{activity.reward}</Text>
-              <FontAwesome name="star" size={24} color="yellow"  style={{marginLeft:5}}/>
+              <FontAwesome name="star" size={24} color="yellow" style={{ marginLeft: 5 }} />
             </View>
+          </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("ChatScreen", {
+                  UserId: userId,
+                  AuthorId: author.UserId
+                })
+              }}
+            >
+              <Text style={styles.text}>Text Author</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
     )
-    }
-       
-    
+  }
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    flex: 1
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
+    padding: 10
+  },
+})

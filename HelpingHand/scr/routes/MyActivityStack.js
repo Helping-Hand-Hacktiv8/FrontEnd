@@ -4,9 +4,10 @@ import MyActivty from "../screens/MyActivityPage";
 import MyRequest from "../screens/MyRequest";
 import AddRequest from "../screens/AddRequest";
 import ActivityDetails from "../screens/HomeActivityDetails";
+import ChatScreen from "../screens/ChatScreen";
 
 export default function MyActivityStack() {
-  
+
   const Stack = createStackNavigator();
 
   return (
@@ -15,48 +16,52 @@ export default function MyActivityStack() {
         headerShown: true,
       }}
     >
-      <Stack.Screen 
-      name="MyActivity" 
-      component={MyActivty} 
-      options={{
-        title: "Reward",
-        headerTitleAlign: "center",
-        headerTitleAllowFontScaling: true,
-        headerTitleStyle: {
-          fontWeight: "bold",
-          fontSize: 30,
-        },
-      }}
+      <Stack.Screen
+        name="MyActivity"
+        component={MyActivty}
+        options={{
+          title: "My Activity",
+          headerTitleAlign: "center",
+          headerTitleAllowFontScaling: true,
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 30,
+          },
+        }}
       />
       <Stack.Screen name="MyRequest" component={MyRequest} options={{
-        headerShown:true,
-        headerTitleStyle:{color:'white'},
-        headerStyle:{ 
-            backgroundColor:'#175d8c'
+        headerShown: true,
+        headerTitleStyle: { color: 'white' },
+        headerStyle: {
+          backgroundColor: '#175d8c'
         },
-        title:'My Request',
-        headerStatusBarHeight:25
-      }}/>
+        title: 'My Request',
+        headerStatusBarHeight: 25
+      }} />
       <Stack.Screen name="AddRequest" component={AddRequest} options={{
-        headerShown:true,
-        headerTitleStyle:{color:'white'},
-        headerStyle:{
-            backgroundColor:'#175d8c',
-            
+        headerShown: true,
+        headerTitleStyle: { color: 'white' },
+        headerStyle: {
+          backgroundColor: '#175d8c',
+
         },
-        title:'',
-        headerStatusBarHeight:25
-      }}/>
+        title: '',
+        headerStatusBarHeight: 25
+      }} />
       <Stack.Screen name="ActivityDetail" component={ActivityDetails} options={{
-        headerShown:true,
-        headerTitleStyle:{color:'white'},
-        headerStyle:{
-            backgroundColor:'#175d8c',
-            
+        headerShown: true,
+        headerTitleStyle: { color: 'white' },
+        headerStyle: {
+          backgroundColor: '#175d8c',
+
         },
-        title:'',
-        headerStatusBarHeight:25
-      }}/>
+        title: '',
+        headerStatusBarHeight: 25
+      }} />
+      <Stack.Screen name="ChatScreen" component={ChatScreen} options={{
+        headerShown: false,
+        headerStatusBarHeight: 25
+      }} />
     </Stack.Navigator>
   );
 }
