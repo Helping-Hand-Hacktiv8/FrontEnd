@@ -47,7 +47,7 @@ export default function EditProfile({ navigation }) {
     console.log("disini>>>",formData)
     dispatch(asyncPutUserProfile(data))
     .then(()=>{
-      return navigation.navigate('ProfileStack')
+      return navigation.replace('ProfileStack')
     })
     .catch(err=>{
       console.log(err)

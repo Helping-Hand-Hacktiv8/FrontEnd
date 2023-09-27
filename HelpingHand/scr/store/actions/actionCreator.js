@@ -1,6 +1,6 @@
 
 
-import { ACTIVITIES_FETCH_SUCCESS, USER_EDIT_ON_CHANGE, USER_SET_EMPTY_DATA, USER_GET_ACCESS_TOKEN, REWARDS_FETCH_SUCCESS, USERACTIVITIES_FETCH_SUCCESS, AUTHOR_ACTIVITIES_FETCH_SUCCESS, PARTICIPANT_ACTIVITIES_FETCH_SUCCESS, ACTIVITY_FETCH_SUCCESS } from "./actionType"
+import { ACTIVITIES_FETCH_SUCCESS, USER_EDIT_ON_CHANGE, USER_SET_EMPTY_DATA, USER_GET_ACCESS_TOKEN, REWARDS_FETCH_SUCCESS, USERACTIVITIES_FETCH_SUCCESS, AUTHOR_ACTIVITIES_FETCH_SUCCESS, PARTICIPANT_ACTIVITIES_FETCH_SUCCESS, ACTIVITY_FETCH_SUCCESS, USER_REWARDS_FETCH_SUCCESS } from "./actionType"
 import axios from 'axios'
 import * as SecureStore from "expo-secure-store";
 // const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
@@ -41,6 +41,13 @@ export const fetchActivitySuccess = (data) => {
 export const fetchRewardsSuccess = (data) => {
     return {
         type: REWARDS_FETCH_SUCCESS,
+        payload: data
+    }
+}
+
+export const fetchUserRewardsSuccess = (data) => {
+    return {
+        type: USER_REWARDS_FETCH_SUCCESS ,
         payload: data
     }
 }
@@ -439,6 +446,40 @@ export const asyncFetchRewardsSuccess = () => {
         }
     }
 }
+
+export const asyncClaimReward = (RewardId) => {
+    return async (dispatch) => {
+        try {
+            const access_token = await SecureStore.getItemAsync('access_token')
+            const { data } = await axios({
+                method: 'POST',
+                url: baseUrl + '/user-rewards',
+                headers: { access_token },
+                data:{RewardId}
+            })
+        } catch (error) {
+            throw error.response.data
+        }
+    }
+}
+
+export const asyncFetchUserReward = () => {
+    return async (dispatch) => {
+        try {
+            const getId = await SecureStore.getItemAsync('user_id')
+            const access_token = await SecureStore.getItemAsync('access_token')
+            const { data } = await axios({
+                method: 'GET',
+                url: baseUrl + '/user-rewards',
+                headers: { access_token },
+            })
+           dispatch(fetchUserRewardsSuccess(data))
+        } catch (error) {
+            throw error.response.data
+        }
+    }
+}
+
 
 
 export const asyncFetchSingleActivity = (id) =>{

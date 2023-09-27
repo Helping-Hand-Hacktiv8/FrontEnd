@@ -1,12 +1,25 @@
-import { View, Text, ScrollView, SafeAreaView, ActivityIndicator, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  SafeAreaView,
+  ActivityIndicator,
+  StyleSheet,
+} from "react-native";
 import CardReward from "../components/CardReward";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncFetchRewardsSuccess } from "../store/actions/actionCreator";
+import {
+  asyncFetchRewardsSuccess,
+  asyncFetchUserReward,
+} from "../store/actions/actionCreator";
 
 export default function Reward() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
+  const { userRewards } = useSelector((state) => {
+    return state.rewards;
+  });
   const { rewards } = useSelector((state) => {
     return state.rewards;
   });
@@ -15,17 +28,28 @@ export default function Reward() {
     return state.user;
   });
 
-  useEffect(() => {
+  let claimed = []
+
+  useEffect( () => {
     if (isLoading) {
       dispatch(asyncFetchRewardsSuccess())
         .then((data) => {
-          setIsLoading(false);
+          dispatch(asyncFetchUserReward())
+        })
+        .then((e) => { 
+          setIsLoading(false)
         })
         .catch((err) => {
           console.log(err);
         });
     }
   }, [isLoading]);
+
+
+  userRewards.map((e) => { 
+     claimed.push(e.RewardId)
+  })
+
 
   if (isLoading) {
     return (
@@ -53,7 +77,14 @@ export default function Reward() {
           <Text style={styles.claimReward}>Claim Your Reward Below</Text>
           <View style={{ alignItems: "center" }}>
             {rewards?.map((data) => {
-              return <CardReward data={data} key={`nearby-data-${data.id}`} handleNavigate={() => {}} />;
+              return (
+                <CardReward
+                  data={data}
+                  claimed={claimed}
+                  key={`nearby-data-${data.id}`}
+                  handleNavigate={() => {}}
+                />
+              );
             })}
           </View>
         </ScrollView>
@@ -88,5 +119,4 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 20,
   },
-
 });

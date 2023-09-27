@@ -6,12 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useState } from "react";
 import CardAuthor from "../components/CardAuthor";
 import { asyncFetchActAuthorParticipantSuccess } from "../store/actions/actionCreator";
-
+import { useIsFocused } from "@react-navigation/native"; 
 
 export default function MyRequest() {
   const dispatch = useDispatch();
   const navigation = useNavigation()
   const [isLoading, setIsLoading] = useState(true);
+  const focus = useIsFocused()
 
   const authorActivities  = useSelector((state) => {
     return state.activity.activitiesAuthor;
@@ -23,8 +24,7 @@ export default function MyRequest() {
 
         dispatch(asyncFetchActAuthorParticipantSuccess())
         .then((data)=> {
-          console.log(data)
-  
+          // console.log(data)
           setIsLoading(false)
         })
         .catch((err)=> {
@@ -35,7 +35,7 @@ export default function MyRequest() {
     }, [authorActivities])
   )
 
-  console.log(authorActivities[0], "<<<MyRequest") 
+  // console.log(authorActivities[0], "<<<MyRequest") 
   return (
     <ScrollView>
       <View  

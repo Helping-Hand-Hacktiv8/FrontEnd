@@ -27,7 +27,7 @@ export default function MyActivityDetails({ route, navigation }) {
     console.log(userActId,"USER ACT ID")
     dispatch(asyncUnparticipate(userActId))
     .then(()=>{
-      return navigation.goBack()
+      return navigation.replace("MyActivity")
     })
   }
 
