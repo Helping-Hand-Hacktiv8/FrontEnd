@@ -2,13 +2,13 @@ import { View, Text, Image, ActivityIndicator, Button, StyleSheet, Pressable, To
 import { Divider } from "@rneui/themed";
 import { FontAwesome } from '@expo/vector-icons';
 import { useDispatch, useSelector } from "react-redux";
-import { asyncFetchActSingleSuccess, asyncFetchActSuccess, asyncFetchSingleUser, asyncParticipate } from "../store/actions/actionCreator";
+import { asyncFetchActSingleParticipant, asyncFetchSingleUser, asyncUnparticipate} from "../store/actions/actionCreator";
 import * as SecureStore from "expo-secure-store";
 import { useCallback, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
 
-export default function HomeActivityDetails({ route, navigation }) {
+export default function MyActivityDetails({ route, navigation }) {
   const dispatch = useDispatch()
   const { ActId, role } = route.params
   const [author, setAuthor] = useState(0)
@@ -23,23 +23,18 @@ export default function HomeActivityDetails({ route, navigation }) {
     return state.user
   })
 
-  const toParticipate = () =>{
-    dispatch(asyncParticipate(ActId))
+  const toUnparticipate = () =>{
+    dispatch(asyncUnparticipate(ActId))
     .then(()=>{
-      dispatch(asyncFetchActSuccess('all','all'))
-    })
-    .then(()=>{
-      return navigation.navigate('Home')
-    })
-    .catch(err=>{
-      console.log(err)
+      return navigation.goBack()
     })
   }
 
+  console.log(activity)
   useEffect(() => {
     // let getId = SecureStore.getItemAsync("user_id");
     // setUserId(getId)
-    dispatch(asyncFetchActSingleSuccess(ActId))
+    dispatch(asyncFetchActSingleParticipant(ActId))
       .catch(err => {
         console.log(err)
       })
@@ -196,8 +191,8 @@ export default function HomeActivityDetails({ route, navigation }) {
               <Text style={{ textAlign: 'center' }}>Message</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.pointsButtonsGreen} onPress={toParticipate}>
-              <Text style={{ textAlign: 'center' }}>Participate </Text>
+            <TouchableOpacity style={styles.pointsButtonsRed} onPress={toUnparticipate}>
+              <Text style={{ textAlign: 'center' }}>Unparticipate </Text>
             </TouchableOpacity>
           </View>
 
@@ -250,9 +245,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: 100,
   },
-  pointsButtonsGreen: {
+  pointsButtonsRed: {
     marginTop: 20,
-    backgroundColor: "green",
+    backgroundColor: "red",
     padding: 10,
     borderRadius: 20,
     width: 100,
