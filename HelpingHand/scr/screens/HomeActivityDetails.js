@@ -46,22 +46,20 @@ export default function HomeActivityDetails({ route, navigation }) {
     }, [userId])
   )
 
-  const toParticipate = () =>{
+  const toParticipate = () => {
     dispatch(asyncParticipate(ActId))
-    .then(()=>{
-      dispatch(asyncFetchActSuccess('all','all'))
-    })
-    .then(()=>{
-      return navigation.navigate('Home')
-    })
-    .catch(err=>{
-      console.log(err)
-    })
+      .then(() => {
+        dispatch(asyncFetchActSuccess('all', 'all'))
+      })
+      .then(() => {
+        return navigation.navigate('MyActivity')
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   useEffect(() => {
-    // let getId = SecureStore.getItemAsync("user_id");
-    // setUserId(getId)
     dispatch(asyncFetchActSingleSuccess(ActId))
       .catch(err => {
         console.log(err)
@@ -155,8 +153,8 @@ export default function HomeActivityDetails({ route, navigation }) {
             <View style={{ marginTop: 10, width: 80, alignSelf: "center" }}>
               <Text style={{ textAlign: "center", color: "white" }}>{user.name}</Text>
             </View>
-            <View style={{width:80}}></View>
-            
+            <View style={{ width: 80 }}></View>
+
           </View>
 
           {/* =============TOPSECTION======== */}
@@ -209,35 +207,10 @@ export default function HomeActivityDetails({ route, navigation }) {
           </View>
 
           <View style={styles.pointsContainer}>
-
-            <TouchableOpacity style={styles.pointsButtons} onPress={() => {
-                navigation.navigate("ChatScreen", {
-                  UserId: userId,
-                  AuthorId: author.UserId
-                })
-              }}>
-              <Text style={{ textAlign: 'center' }}>Message</Text>
-            </TouchableOpacity>
-
             <TouchableOpacity style={styles.pointsButtonsGreen} onPress={toParticipate}>
               <Text style={{ textAlign: 'center' }}>Participate </Text>
             </TouchableOpacity>
           </View>
-
-
-          {/* <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                navigation.navigate("ChatScreen", {
-                  UserId: userId,
-                  AuthorId: authorId
-                })
-              }}
-            >
-              <Text style={styles.text}>Text Author</Text>
-            </TouchableOpacity>
-          </View> */}
         </View>
       </View>
     )

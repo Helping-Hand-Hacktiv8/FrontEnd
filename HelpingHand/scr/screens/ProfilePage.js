@@ -114,7 +114,7 @@ export default function ProfilePage({ navigation }) {
               <Text style={styles.contentAndSettingsText}>Logout</Text>
             </TouchableOpacity>
           </View>
-   
+
         </View>
       </ScrollView>
     );
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   contentAndSettingsText: {
     fontSize: 16,
     marginTop: 10,
-    marginBottom:10,
+    marginBottom: 10,
     marginLeft: 10,
     fontWeight: "400",
     color: "black",
