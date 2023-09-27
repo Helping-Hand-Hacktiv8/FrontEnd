@@ -20,13 +20,16 @@ export default function HomeActivityDetails({route, navigation}) {
     })
     
     // console.log("ACTIVITY ",activity.UserActivities.length)
-    useEffect(()=>{
-      if (isLoading){
+    useEffect(() => {
+      if (isLoading) {
         dispatch(asyncFetchActSingleSuccess(ActId))
-        setLoading(false)
+          .then(() => {
+          })
+          .finally(() => {
+            setLoading(false)
+          })
       }
-      
-    },[])
+    }, [])
 
     if(isLoading){
       return (
