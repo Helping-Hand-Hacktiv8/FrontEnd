@@ -51,7 +51,7 @@ export default function Reward() {
             </Text>
           </View>
           <Text style={styles.claimReward}>Claim Your Reward Below</Text>
-          <View style={{ alignItems: "center", marginVertical: 15 }}>
+          <View style={{ alignItems: "center" }}>
             {rewards?.map((data) => {
               return <CardReward data={data} key={`nearby-data-${data.id}`} handleNavigate={() => {}} />;
             })}
@@ -64,7 +64,6 @@ export default function Reward() {
 const styles = StyleSheet.create({
   totalPoints: {
     textAlign: "center",
-    fontStyle: "italic",
     fontWeight: "800",
     fontSize: 25,
     padding: 10,
@@ -72,15 +71,14 @@ const styles = StyleSheet.create({
 
   pointsContainer: {
     backgroundColor: "#3AAACF",
-    height: 70,
+    height: 60,
     alignSelf: "center",
     borderRadius: 50,
     elevation: 5,
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
-    marginTop: 20,
-    width: 200,
+    marginTop: 10,
+    width: 250,
   },
 
   claimReward: {
