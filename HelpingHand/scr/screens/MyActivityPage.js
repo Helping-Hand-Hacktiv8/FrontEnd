@@ -19,6 +19,7 @@ export default function MyActivty() {
     return state.activity.activitiesParticipant;
 
   });
+  
 
   // useEffect(()=> { 
   //   if(isLoading) {
