@@ -1,4 +1,4 @@
-import { View, TextInput, StyleSheet, Button, Alert, Text, Image } from "react-native";
+import { View, TextInput, StyleSheet, TouchableOpacity, Button, Alert, Text, Image, ScrollView } from "react-native";
 import { useState } from "react";
 import logo from "../../assets/cropped_logo.png";
 import { useDispatch } from "react-redux";
@@ -40,32 +40,48 @@ export default function Register({ navigation }) {
       });
   };
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-
-   
+    <ScrollView style={{ flex: 1 }}>
+      <View style={styles.container}>
         <Image source={logo} style={styles.logoStyle}></Image>
 
+        <View style={styles.quoteStyle}>
+          <Text style={{ textAlign: "center" }}>"The best way to find yourself is to lose yourself in the service of others." - Mahatma Gandhi</Text>
+        </View>
 
-      <View style={styles.quoteStyle}>
-        <Text style={{ textAlign: "center" }}>"The best way to find yourself is to lose yourself in the service of others." - Mahatma Gandhi</Text>
+        <TextInput style={styles.input} placeholder="Name" onChangeText={onChangeName} value={nameText} />
+        <TextInput style={styles.input} placeholder="email" onChangeText={onChangeEmail} value={emailText} />
+        <TextInput style={styles.input} onChangeText={onChangePass} value={pass} secureTextEntry={true} placeholder="password" />
+        <TouchableOpacity style={styles.buttonStyle} onPress={toRegister}>
+          <Text style={{ color: "#FFFFFF", textAlign: "center" }}>Submit</Text>
+        </TouchableOpacity>
       </View>
-
-      <TextInput style={styles.input} placeholder="Name" onChangeText={onChangeName} value={nameText} />
-      <TextInput style={styles.input} placeholder="email" onChangeText={onChangeEmail} value={emailText} />
-      <TextInput style={styles.input} onChangeText={onChangePass} value={pass} secureTextEntry={true} placeholder="password" />
-      <Button title="Submit" onPress={toRegister}></Button>
-
-      <Text style={{ marginTop: 10 }}>Or Continue With</Text>
-    </View>
+    </ScrollView>
   );
 }
+
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  logoStyle: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    resizeMode: "contain",
+  },
+
   input: {
     height: 40,
-    margin: 12,
+    marginBottom: 10,
     borderWidth: 1,
     padding: 10,
     width: 200,
+    borderRadius: 100,
+    justifyContent: "center",
   },
 
   quoteStyle: {
@@ -75,19 +91,13 @@ const styles = StyleSheet.create({
     padding: 5,
   },
 
-  logoStyle: {
+  buttonStyle: {
+    backgroundColor: "#1C95BD",
+    borderRadius: 50,
+    padding: 10,
     width: 200,
-    height: 200,
-    borderRadius: 100, // Set borderRadius to half the width/height to make it circular
-    borderWidth: 2, // Add a border width
-    shadowColor: '#ff0000',
-    // elevation: 20,
-    shadowOffset: {
-      height: 3,
-      width: 3
-    },
-    // shadowRadius: 0.5,
-    // shadowOpacity: 0.8
-    // borderColor: "black", // Specify the border color
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
   },
 });
