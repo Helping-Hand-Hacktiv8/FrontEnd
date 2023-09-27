@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 
 
 
+
 const initialLat = -6.200000
 const initialLng = 106.816666
 
@@ -83,7 +84,7 @@ export default function AddRequest() {
     console.log("disini>>>",formData)
     dispatch(asyncPostActivities(data))
     .then(()=>{
-      return navigation.goBack()
+        return navigation.replace("MyRequest")
     })
     .catch(err=>{
       console.log(err)

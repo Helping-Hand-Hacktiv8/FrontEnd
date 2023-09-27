@@ -9,6 +9,12 @@ import searchIcon from "../../assets/search.png";
 import * as ImagePicker from 'expo-image-picker';
 import { asyncPutActivities } from "../store/actions/actionCreator";
 import { useDispatch } from "react-redux";
+import { StackActions, NavigationActions } from 'react-navigation';
+
+const resetAction = StackActions.reset({
+  index: 0,
+  actions: [NavigationActions.navigate({ routeName: 'MyRequest' })],
+});
 
  
 
@@ -86,8 +92,7 @@ const initialLng = data.coordinate.coordinates[0]
     console.log("disini>>>",data)
     dispatch(asyncPutActivities(data))
     .then(()=>{
-      return navigation.goBack()
-    })
+this.props.navigation.dispatch(resetAction);    })
     .catch(err=>{
       console.log(err)
     })

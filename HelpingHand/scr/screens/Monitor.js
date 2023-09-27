@@ -10,8 +10,12 @@ import {
   Image,
 } from "react-native";
 import { useDispatch } from "react-redux";
-import { asyncFetchSingleActivity, asyncFinishActivity, asyncCancelActivity } from "../store/actions/actionCreator";
-import { Button,  } from "@rneui/base";
+import {
+  asyncFetchSingleActivity,
+  asyncFinishActivity,
+  asyncCancelActivity,
+} from "../store/actions/actionCreator";
+import { Button } from "@rneui/base";
 
 const initialLat = -6.2;
 const initialLng = 106.816666;
@@ -19,10 +23,9 @@ const initialLng = 106.816666;
 export default function Monitor({ route }) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
-  const [singleActivity, setSingleActivity] = useState("");
   const navigation = useNavigation();
+  const [singleActivity, setSingleActivity] = useState("");
   const id = route.params.id;
- 
 
   useEffect(() => {
     if (isLoading) {
@@ -35,30 +38,36 @@ export default function Monitor({ route }) {
         });
     }
   }, []);
-  
+
   // console.log(singleActivity)
 
-  const handleFinishActivity = (() => { 
+  const handleFinishActivity = () => {
     dispatch(asyncFinishActivity(id))
-      .then((data) => { 
-        setIsLoading(false)
-        navigation.goBack()
+      .then((data) => {
+        setIsLoading(false);
+        return navigation.reset({
+          index: 2,
+          routes: [{ name: "MyActivity" }],
+        });
       })
-      .catch((err) => { 
-        console.log(err)
-      })
-  })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  const handleCancelActivity = (() => { 
+  const handleCancelActivity = () => {
     dispatch(asyncCancelActivity(id))
-      .then((data) => { 
-        setIsLoading(false)
-        navigation.goBack()
+      .then((data) => {
+        setIsLoading(false);
+        return navigation.reset({
+          index: 2,
+          routes: [{ name: "MyActivity" }],
+        });
       })
-      .catch((err) => { 
-        console.log(err)
-      })
-  })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   console.log(singleActivity);
   return (
@@ -117,7 +126,7 @@ export default function Monitor({ route }) {
                 backgroundColor: "#175d8c",
               }}
               onPress={() => {
-                navigation.goBack()
+                navigation.goBack();
               }}
             />
           </View>
@@ -141,7 +150,7 @@ export default function Monitor({ route }) {
                 backgroundColor: "maroon",
               }}
               onPress={() => {
-                handleCancelActivity()
+                handleCancelActivity();
               }}
             />
           </View>
