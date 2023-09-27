@@ -6,8 +6,8 @@ import * as SecureStore from "expo-secure-store";
 // const baseUrl = 'https://34ae-114-122-107-88.ngrok-free.app'
 // masukin punya sendiri
 // const baseUrlMid = 'https://19a6-182-253-163-163.ngrok-free.app'
-// const baseUrl = 'https://e04e-114-122-106-150.ngrok-free.app'
-const baseUrl = 'https://306b-182-253-163-163.ngrok-free.app'
+const baseUrl = 'https://e04e-114-122-106-150.ngrok-free.app'
+// const baseUrl = 'https://306b-182-253-163-163.ngrok-free.app'
 
 
 export const editUserOnChange = (data) => {
@@ -176,7 +176,7 @@ export const asyncFetchActSuccess = (lat, lon) => {
                 // console.log(stat)
                 if (!stat.includes(true)) res.push(arr)
             }
-            console.log("filter>>>",res)
+            // console.log("filter>>>",res)
             dispatch(fetchActivitiesSuccess(res))
         } catch (error) {
             throw error.response.data
@@ -220,7 +220,7 @@ export const asyncFetchActSingleParticipant = (id) =>{
             } 
         }
         data.UserActivities = res
-        console.log("filter>>>",data)
+        // console.log("filter>>>",data)
 
         dispatch(fetchActivitySuccess(data))
         return data
@@ -293,6 +293,58 @@ export const asyncPutActivities = (form) => {
         }
     }
 }
+
+export const asyncFinishActivity = (id) => {
+    return async () => {
+        try {
+            const getId = await SecureStore.getItemAsync('user_id')
+            console.log(getId)
+            const access_token = await SecureStore.getItemAsync('access_token')
+            const arrayUser = [{
+                UserId: getId,
+                ActivityId: id,
+                role: "Participant"
+            }]
+           
+            console.log(arrayUser)
+           
+            const { data } = await axios({
+                method: 'PUT',
+                url: baseUrl + '/activities/finish/' + id,
+                headers: { 
+                    access_token, 
+                },
+                data: { arrayUser }
+    
+            })
+          
+        } catch (error) {
+            
+            throw error.response.data
+        }
+    }
+}
+
+export const asyncCancelActivity = (id) => {
+    return async () => {
+        try {
+            const getId = await SecureStore.getItemAsync('user_id')
+            const access_token = await SecureStore.getItemAsync('access_token')           
+            const { data } = await axios({
+                method: 'PATCH',
+                url: baseUrl + '/activities/cancel/' + id,
+                headers: { 
+                    access_token, 
+                },
+    
+            })
+          
+        } catch (error) {
+            throw error.response.data
+        }
+    }
+}
+
 // ===================================USERACTIVITIES=====================================
 
 
@@ -317,20 +369,16 @@ export const asyncFetchActAuthorParticipantSuccess = () => {
                 // console.log(el.role, "di creator")
                 if (arr.role === "Author") {
                     resAuthor.push(arr)
-
-                } else resParticipant.push(arr)
-
-
+                    } else resParticipant.push(arr)
                 // })
-
-                // if (!stat.includes(true)) res.push(arr)
-            }
-            // console.log("filter>>>",res)
-            // console.log(resParticipant,'<<<<')
-            dispatch(fetchAuthorActivitiesSuccess(resAuthor))
-            dispatch(fetchParticipantActivitiesSuccess(resParticipant))
-            return data
-        } catch (error) {
+            // if (!stat.includes(true)) res.push(arr)
+        }
+        // console.log("filter>>>",res)
+        // console.log(resParticipant,'<<<<')
+        dispatch(fetchAuthorActivitiesSuccess(resAuthor))
+        dispatch(fetchParticipantActivitiesSuccess(resParticipant))
+        return data
+       } catch (error) {
             throw error.response.data
         }
     }
