@@ -18,10 +18,7 @@ export default function RewardDetails({route}) {
         setIsLoading(false)
       }
     }
-  },[])  
-  
-
-  console.log(data)
+  },[])
   
   if(isLoading) {
     return (

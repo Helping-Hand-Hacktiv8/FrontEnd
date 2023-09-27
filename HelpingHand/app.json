@@ -15,15 +15,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-
+      "supportsTablet": true,
+      "bundleIdentifier": "com.HelpingHand.app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      
-      }
+      },
+      "package": "com.HelpingHand.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -183,7 +183,6 @@ export const asyncFetchSingleUser = (id) => {
                 headers: { access_token }
             })
             dispatch(editUserOnChange(data))
-            console.log(data)
             return data
         } catch (error) {
             throw error.response.data
@@ -234,8 +233,9 @@ export const asyncFetchActSuccess = (lat, lon) =>{
         const getId = await SecureStore.getItemAsync('user_id')
         let res = []
         for(let arr of data){
-            // console.log("HASIL>>>",arr.UserActivities)
+            console.log("HASIL>>>",getId,arr.UserActivities)
             let stat = arr.UserActivities.map(el=>{
+                console.log(el.UserId,getId,el.UserId==getId)
                 if(el.UserId == +getId ){
                     return true
                 } else{return false}
@@ -271,23 +271,51 @@ export const asyncFetchActSingleSuccess = (id) =>{
     }
 }
 
-
-export const asyncFetchUserActivitiesSuccess = () =>{
+export const asyncFetchActSingleParticipant = (id) =>{
     return async (dispatch) =>{
        try {
         const access_token = await SecureStore.getItemAsync('access_token')
         const { data } = await axios({
             method:'GET',
-            url:baseUrl+'/user-activities',
+            url:baseUrl+'/activities/'+id,
             headers:{access_token}
         })
-        dispatch(fetchUserActivitiesSuccess(data))
+        
+        let res = []
+        for(let arr of data.UserActivities){
+            // console.log("HASIL>>>",arr.UserActivities)
+            if(arr.role !== 'Author' ){
+                res.push(arr)
+            } 
+        }
+        data.UserActivities = res
+        console.log("filter>>>",data)
+
+        dispatch(fetchActivitySuccess(data))
         return data
        } catch (error) {
             throw error.response.data
        }
     }
 }
+
+
+// export const asyncFetchUserActivitiesSuccess = () =>{
+//     return async (dispatch) =>{
+//        try {
+//         const access_token = await SecureStore.getItemAsync('access_token')
+//         const { data } = await axios({
+//             method:'GET',
+//             url:baseUrl+'/user-activities',
+//             headers:{access_token}
+//         })
+//         dispatch(fetchUserActivitiesSuccess(data))
+//         return data
+//        } catch (error) {
+//             throw error.response.data
+//        }
+//     }
+// }
 
 export const asyncPostActivities = (form) => {
     return async () => {
@@ -374,6 +402,42 @@ export const asyncFetchActAuthorParticipantSuccess = () =>{
        } catch (error) {
             throw error.response.data
        }
+    }
+}
+
+export const asyncParticipate = (ActivityId) =>{
+    return async () =>{
+        try{
+            const access_token = await SecureStore.getItemAsync('access_token')
+            const { data } = await axios({
+                method:'post',
+                url:baseUrl+'/user-activities',
+                data:{ActivityId},
+                headers:{access_token}
+            })
+
+            return data
+        } catch(err){
+            throw err.response.data
+        }
+    }
+}
+
+
+export const asyncUnparticipate = (ActivityId) =>{
+    return async (dispatch) =>{
+        try{
+            const access_token = await SecureStore.getItemAsync('access_token')
+            const { data } = await axios({
+                method:'DELETE',
+                url:baseUrl+'/user-activities/'+ActivityId,
+                headers:{access_token}
+            })
+            dispatch(asyncFetchActAuthorParticipantSuccess())
+            return data
+        } catch(err){
+            throw err.response.data
+        }
     }
 }
 
