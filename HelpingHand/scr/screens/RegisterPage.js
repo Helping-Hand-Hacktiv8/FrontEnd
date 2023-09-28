@@ -40,7 +40,7 @@ export default function Register({ navigation }) {
       });
   };
   return (
-    <ScrollView style={{ flex: 1 }}>
+
       <View style={styles.container}>
         <Image source={logo} style={styles.logoStyle}></Image>
 
@@ -55,16 +55,15 @@ export default function Register({ navigation }) {
           <Text style={{ color: "#FFFFFF", textAlign: "center" }}>Submit</Text>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: 10,
     alignItems: "center",
     justifyContent: "center",
+
   },
 
   logoStyle: {
