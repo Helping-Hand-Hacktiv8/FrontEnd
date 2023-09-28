@@ -92,7 +92,7 @@ export default function Home({ searchTerms, setSearchTerms, handleClick }) {
           flex: 1,
         }}
       >
-        <View style={{ backgroundColor: "white", flex: 1 }}>
+        <View style={{ backgroundColor: "white", flex: 1, padding: 20 }}>
           <Text style={styles.containerUsername}>Welcome {user.name}</Text>
           <Text style={styles.goodDeedsContainer}>Which good deeds you want to do today?</Text>
 

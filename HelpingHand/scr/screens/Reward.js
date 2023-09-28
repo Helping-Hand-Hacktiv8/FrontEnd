@@ -30,13 +30,13 @@ export default function Reward() {
 
   let claimed = []
 
-  useEffect( () => {
+  useEffect(() => {
     if (isLoading) {
       dispatch(asyncFetchRewardsSuccess())
         .then((data) => {
           dispatch(asyncFetchUserReward())
         })
-        .then((e) => { 
+        .then((e) => {
           setIsLoading(false)
         })
         .catch((err) => {
@@ -46,8 +46,8 @@ export default function Reward() {
   }, [isLoading]);
 
 
-  userRewards.map((e) => { 
-     claimed.push(e.RewardId)
+  userRewards.map((e) => {
+    claimed.push(e.RewardId)
   })
 
 
@@ -59,9 +59,9 @@ export default function Reward() {
     );
   } else
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.mainContainer}>
         <ScrollView>
-          <Text style={styles.totalPoints}>Your Total Points</Text>
+          <Text style={styles.totalPoints}>Total Points</Text>
 
           <View style={styles.pointsContainer}>
             <Text
@@ -74,7 +74,7 @@ export default function Reward() {
               {user.token}
             </Text>
           </View>
-          <Text style={styles.claimReward}>Claim Your Reward Below</Text>
+          <Text style={styles.claimReward}>Claim Reward</Text>
           <View style={{ alignItems: "center" }}>
             {rewards?.map((data) => {
               return (
@@ -82,7 +82,7 @@ export default function Reward() {
                   data={data}
                   claimed={claimed}
                   key={`nearby-data-${data.id}`}
-                  handleNavigate={() => {}}
+                  handleNavigate={() => { }}
                 />
               );
             })}
@@ -93,6 +93,11 @@ export default function Reward() {
 }
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
+
   totalPoints: {
     textAlign: "center",
     fontWeight: "800",

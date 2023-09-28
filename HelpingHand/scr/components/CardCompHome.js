@@ -74,15 +74,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 14,
     borderRadius: 10,
     backgroundColor: "#E9F2F3",
-    padding: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.36,
-    shadowRadius: 36,
-    elevation: 1, 
+    padding: 20,
   },
   
   cardTittle: {
@@ -116,7 +108,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 16,
     borderRadius: 12,
-    backgroundColor: "#FFF",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

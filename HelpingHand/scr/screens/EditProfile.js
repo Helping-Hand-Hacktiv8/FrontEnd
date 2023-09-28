@@ -5,8 +5,6 @@ import * as ImagePicker from "expo-image-picker";
 import { asyncPutUserProfile } from "../store/actions/actionCreator";
 
 export default function EditProfile({ navigation }) {
-  const [newUsername, setNewUsername] = useState("");
-
   const dispatch = useDispatch();
   const { user } = useSelector((state) => {
     return state.user;
@@ -91,35 +89,31 @@ export default function EditProfile({ navigation }) {
         </TouchableOpacity>
 
         {/* Edit Profile Image */}
-        <Text style={styles.textTitle}>Edit Profile Image</Text>
+        <Text style={styles.textTitle}>Profile Image</Text>
         <TouchableOpacity style={styles.buttonContainer} onPress={selectImage}>
-          <Text style={{ textAlign: "center" }}>Choose Image</Text>
+          <Text style={{ textAlign: "center", color: "white" }}>Choose Image</Text>
         </TouchableOpacity>
 
         {/* Edit Username */}
-        <Text style={styles.textTitle}>Edit Username</Text>
+        <Text style={styles.textTitle}>Username</Text>
         <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newUsername: text })} placeholder={user.name} value={formData.newUsername} />
 
         {/* Edit Email */}
-        <Text style={styles.textTitle}>Edit Email</Text>
+        <Text style={styles.textTitle}>Email</Text>
         <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newEmail: text })} placeholder={user.email} value={formData.newEmail} />
 
-        {/* Edit Pasword */}
-        <Text style={styles.textTitle}>Edit Password</Text>
-        <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newPassword: text })} placeholder="**********" value={formData.newPassword} secureTextEntry={true} />
-
         {/* Edit Phone Number */}
-        <Text style={styles.textTitle}>Edit Phone Number</Text>
+        <Text style={styles.textTitle}>Phone Number</Text>
         <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newPhoneNumber: text })} placeholder={user.phoneNumber} value={formData.newPhoneNumber} />
 
         {/* Save Button */}
         <TouchableOpacity style={styles.buttonContainer} onPress={handleSaveProfile}>
-          <Text style={{ textAlign: "center" }}>Save</Text>
+          <Text style={{ textAlign: "center", color: 'white' }}>Save Changes</Text>
         </TouchableOpacity>
 
         {/* Delete My Account */}
-        <TouchableOpacity style={styles.buttonContainer} onPress={deleteAccountHandler}>
-          <Text style={{ textAlign: "center" }}>Delete My Account</Text>
+        <TouchableOpacity style={styles.buttonDelete} onPress={deleteAccountHandler}>
+          <Text style={{ textAlign: "center", color: "white" }}>Delete My Account</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -131,29 +125,43 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "white"
   },
   textContainer: {
     fontSize: 18,
     marginBottom: 10,
+    borderRadius: 30,
+    padding: 10,
     fontWeight: "bold",
     textAlign: "center",
-    backgroundColor: "#9C8F8E",
-    padding: 10,
     borderRadius: 30,
-    width: 300,
+    borderWidth: 1,
+    borderColor: 'black',
+    width: 300
   },
   textTitle: {
     alignItems: "center",
     justifyContent: "center",
     fontSize: 24,
+    paddingTop: 10,
   },
   buttonContainer: {
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
-    backgroundColor: "#DDA343",
-    padding: 10,
+    backgroundColor: "#3AAACF",
+    marginTop: 10,
+    padding: 15,
     borderRadius: 30,
-    width: 100,
+  },
+  buttonDelete: {
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    backgroundColor: "red",
+    marginTop: 15,
+    padding: 15,
+    borderRadius: 30,
+    marginBottom: 50
   },
 });
