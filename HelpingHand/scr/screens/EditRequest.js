@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { View, TextInput, Text, ScrollView, StyleSheet, TouchableOpacity, Image } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker"; //https://github.com/react-native-datetimepicker/datetimepicker
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; //https://github.com/react-native-maps/react-native-maps
+import DateTimePicker from "@react-native-community/datetimepicker";
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Marker, enableLatestRenderer } from 'react-native-maps';
 import { Button } from "@rneui/base";
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native";
 import searchIcon from "../../assets/search.png";
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker";
 import { asyncPutActivities } from "../store/actions/actionCreator";
 import { useDispatch } from "react-redux";
 import { StackActions, NavigationActions, SafeAreaView } from 'react-navigation';
@@ -34,12 +34,11 @@ export default function EditRequest({ route }) {
   const [ToShow, setToShow] = useState(false);
 
   const [search, setSearch] = useState("");
-  const [result, setResult] = useState('')
-
+  const [result, setResult] = useState("");
 
   const [pin, setPin] = useState({
     latitude: initialLat,
-    longitude: initialLng
+    longitude: initialLng,
   });
 
   const [formData, setFormData] = useState({
@@ -54,8 +53,7 @@ export default function EditRequest({ route }) {
     newParticipants: data.participant,
     newImageUrl: data.photoAct
   });
-
-
+  
   const selectImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -115,13 +113,13 @@ export default function EditRequest({ route }) {
             name: item.name,
             latitude: item.geometry.location.lat,
             longitude: item.geometry.location.lng,
-          })
+          });
         }
-        setResult(coords)
+        setResult(coords);
         setPin({
           latitude: coords[0].latitude,
-          longitude: coords[0].longitude
-        })
+          longitude: coords[0].longitude,
+        });
         setFormData({
           ...formData,
           newLocation: coords[0].name,
@@ -129,13 +127,10 @@ export default function EditRequest({ route }) {
           newLon: coords[0].longitude
         })
       }
-
     } catch (error) {
       console.log(error)
-
     }
-  }
-
+  };
 
   const onChangeFromDate = (event, selectedDate) => {
     const currentFromDate = selectedDate;
@@ -143,8 +138,8 @@ export default function EditRequest({ route }) {
     setFromDate(currentFromDate);
     setFormData({
       ...formData,
-      newFromDate: currentFromDate
-    })
+      newFromDate: currentFromDate,
+    });
   };
   const onChangeToDate = (event, selectedDate) => {
     const currentToDate = selectedDate;
@@ -152,8 +147,8 @@ export default function EditRequest({ route }) {
     setToDate(currentToDate);
     setFormData({
       ...formData,
-      newToDate: currentToDate
-    })
+      newToDate: currentToDate,
+    });
   };
 
   const showFromMode = (currentMode) => {
@@ -172,7 +167,7 @@ export default function EditRequest({ route }) {
     showToMode("date");
   };
 
-  console.log(formData)
+  console.log(formData);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -372,7 +367,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     alignSelf: 'center'
-
   },
   map: {
     ...StyleSheet.absoluteFillObject,

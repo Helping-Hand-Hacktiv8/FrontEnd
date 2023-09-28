@@ -270,26 +270,26 @@ export const asyncPostActivities = (form) => {
     };
 };
 
-export const asyncPutActivities = (form) => {
-    return async () => {
-        try {
-            const getId = await SecureStore.getItemAsync("user_id");
-            const access_token = await SecureStore.getItemAsync("access_token");
-            console.log(form);
-            const { data } = await axios({
-                method: "PUT",
-                url: baseUrl + "/activities/" + getId,
-                headers: {
-                    access_token,
-                    "Content-Type": "multipart/form-data",
-                },
-                data: form,
-            });
-        } catch (error) {
-            console.log(error);
-            throw error.response.data;
-        }
-    };
+export const asyncPutActivities = (form, activityId) => {
+  return async () => {
+    try {
+      const getId = await SecureStore.getItemAsync("user_id");
+      const access_token = await SecureStore.getItemAsync("access_token");
+      console.log(form);
+      const { data } = await axios({
+        method: "PUT",
+        url: baseUrl + "/activities/" + activityId,
+        headers: {
+          access_token,
+          "Content-Type": "multipart/form-data",
+        },
+        data: form,
+      });
+    } catch (error) {
+      console.log(error);
+      throw error.response.data;
+    }
+  };
 };
 
 export const asyncFinishActivity = (id) => {
