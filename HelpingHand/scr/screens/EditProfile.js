@@ -91,35 +91,35 @@ export default function EditProfile({ navigation }) {
         </TouchableOpacity>
 
         {/* Edit Profile Image */}
-        <Text style={styles.textTitle}>Edit Profile Image</Text>
+        <Text style={styles.textTitle}>Profile Image</Text>
         <TouchableOpacity style={styles.buttonContainer} onPress={selectImage}>
           <Text style={{ textAlign: "center" }}>Choose Image</Text>
         </TouchableOpacity>
 
         {/* Edit Username */}
-        <Text style={styles.textTitle}>Edit Username</Text>
+        <Text style={styles.textTitle}>Username</Text>
         <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newUsername: text })} placeholder={user.name} value={formData.newUsername} />
 
         {/* Edit Email */}
-        <Text style={styles.textTitle}>Edit Email</Text>
+        <Text style={styles.textTitle}>Email</Text>
         <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newEmail: text })} placeholder={user.email} value={formData.newEmail} />
 
         {/* Edit Pasword */}
-        <Text style={styles.textTitle}>Edit Password</Text>
+        <Text style={styles.textTitle}>Password</Text>
         <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newPassword: text })} placeholder="**********" value={formData.newPassword} secureTextEntry={true} />
 
         {/* Edit Phone Number */}
-        <Text style={styles.textTitle}>Edit Phone Number</Text>
+        <Text style={styles.textTitle}>Phone Number</Text>
         <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newPhoneNumber: text })} placeholder={user.phoneNumber} value={formData.newPhoneNumber} />
 
         {/* Save Button */}
         <TouchableOpacity style={styles.buttonContainer} onPress={handleSaveProfile}>
-          <Text style={{ textAlign: "center" }}>Save</Text>
+          <Text style={{ textAlign: "center" }}>Save Changes</Text>
         </TouchableOpacity>
 
         {/* Delete My Account */}
-        <TouchableOpacity style={styles.buttonContainer} onPress={deleteAccountHandler}>
-          <Text style={{ textAlign: "center" }}>Delete My Account</Text>
+        <TouchableOpacity style={styles.buttonDelete} onPress={deleteAccountHandler}>
+          <Text style={{ textAlign: "center", color: "white" }}>Delete My Account</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -151,9 +151,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
-    backgroundColor: "#DDA343",
+    backgroundColor: "#279EFF",
+    marginTop: 10,
     padding: 10,
     borderRadius: 30,
-    width: 100,
+  },
+  buttonDelete: {
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    backgroundColor: "red",
+    marginTop: 10,
+    padding: 10,
+    borderRadius: 30,
   },
 });

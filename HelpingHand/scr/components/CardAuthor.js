@@ -3,22 +3,22 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Button } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
+import logo from '../../assets/helping_hand.png'
 
-
-export default function CardAuthor({data, handleNavigation }) {
-    const navigation = useNavigation()
-    console.log(data)
+export default function CardAuthor({ data, handleNavigation }) {
+  const navigation = useNavigation()
+  console.log(data)
   return (
     <TouchableOpacity style={styles.cardContainer}>
       <TouchableOpacity style={styles.containerLogo}>
         <Image
           source={
-            {uri:'https://e04e-114-122-106-150.ngrok-free.app'+'/static/'+ data.photoAct} 
+            { uri: 'https://helping-hand-server.blekzzz.com/static/' + data.photoAct } || logo
           }
           resizeMode="contain"
           style={{
             width: "100%",
-            borderRadius:10,
+            borderRadius: 10,
             height: "100%",
           }}
         />
@@ -33,74 +33,69 @@ export default function CardAuthor({data, handleNavigation }) {
           padding: 5,
         }}
       >
-
-      
-
         <View style={styles.topRow}>
-        {/* Title */}
-        <View
-        style={{
-          flex: 4,
-          marginLeft:10
-        }}
-        >
-        <Text style={styles.cardTittle} numberOfLines={1}>
-          {data.name}
-        </Text>
-        </View>
+          {/* Title */}
+          <View
+            style={{
+              flex: 4,
+              marginLeft: 10
+            }}
+          >
+            <Text style={styles.cardTittle} numberOfLines={1}>
+              {data.name}
+            </Text>
+          </View>
 
-        <View style={styles.statusContainer}>
+          <View style={styles.statusContainer}>
             <Text style={styles.rewardText}>{data.status}</Text>
           </View>
         </View>
-    
-       
-
-    
 
         {/* Location */}
         <Text style={styles.locationText} numberOfLines={1}>
-         {data.location}
+          {data.location}
         </Text>
 
         {/* button */}
-        <View style={{flexDirection:'row', marginBottom:10}}>
-            <View style={{marginHorizontal:5}}>
+        <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+          <View style={{ marginHorizontal: 5 }}>
 
-        <Button title="Edit" buttonStyle={{
-            borderRadius:10,
-            backgroundColor:'#175d8c'
-            
-          }}
-          onPress={()=> {
-            navigation.push('EditRequest', {data:data})}}
-          />
-            </View>
-           <View style={{marginHorizontal:5}}>
-                
-          <Button title="Monitor" buttonStyle={{
-            borderRadius:10,
-            backgroundColor:'#175d8c'
-          }}
-          onPress={()=> {
-            navigation.push('Monitor', {id:data.id})}}
-          />
-            </View>
-            <View style={styles.rewardContainer}>
+            <Button title="Edit" buttonStyle={{
+              borderRadius: 10,
+              backgroundColor: '#175d8c'
+
+            }}
+              onPress={() => {
+                navigation.push('EditRequest', { data: data })
+              }}
+            />
+          </View>
+          <View style={{ marginHorizontal: 5 }}>
+
+            <Button title="Monitor" buttonStyle={{
+              borderRadius: 10,
+              backgroundColor: '#175d8c'
+            }}
+              onPress={() => {
+                navigation.push('Monitor', { id: data.id })
+              }}
+            />
+          </View>
+          <View style={styles.rewardContainer}>
             <Text style={styles.rewardText}>reward:</Text>
             <Text style={styles.rewardValue}>{data.reward}</Text>
             <FontAwesome name="star" size={16} color="gold" />
           </View>
-        
-            
+
+
         </View>
 
         <View style={styles.bottomRow}>
 
-           {/* Participant */}
-        <View style={styles.participantRow}>
-         
-        </View>
+          {/* Participant */}
+          <View style={styles.participantRow}>
+
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -112,7 +107,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     marginVertical: 6,
-    
+
   },
 
   clickForDetail: {
@@ -125,7 +120,7 @@ const styles = StyleSheet.create({
     fontWeight: "normal",
     fontSize: 14,
     marginVertical: 6,
-    marginLeft:10
+    marginLeft: 10
 
   },
 
@@ -166,15 +161,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flex: 2,
-justifyContent:'flex-end'
+    justifyContent: 'flex-end'
   },
 
   statusContainer: {
     alignItems: "center",
     flex: 2,
-justifyContent:'flex-end',
-backgroundColor:'orange', 
-borderRadius:10,
+    justifyContent: 'flex-end',
+    backgroundColor: 'orange',
+    borderRadius: 10,
 
 
   },
