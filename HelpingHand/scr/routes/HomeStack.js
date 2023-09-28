@@ -17,12 +17,7 @@ export default function HomeStack() {
       }}/>
       <Stack.Screen name="HomeActivityDetail" component={HomeActivityDetails} options={{
         headerShown:true,
-        headerTitleStyle:{color:'white'},
-        headerStyle:{
-            backgroundColor:'#175d8c',
-        },
-        title:'',
-        headerStatusBarHeight:25
+        title:'Activity Detail',
       }}/>
     </Stack.Navigator>
   );

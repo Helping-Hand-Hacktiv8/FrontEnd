@@ -30,12 +30,19 @@ export default function RewardDetails({ route }) {
       <SafeAreaView style={{ backgroundColor: "transparent" }}>
         <View
           style={{
-            width: 350,
-            elevation: 5,
-            borderRadius: 3,
-            padding: 10,
+            padding: 20,
+            borderRadius: 10,
+            backgroundColor: "white",
             alignSelf: "center",
             marginVertical: 15,
+            elevation: 5,
+            borderRadius: 10,
+            shadowColor: 'black',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.2,
+            shadowRadius: 4,
+            borderRadius: 10,
+            width: 380
           }}
         >
           <View style={{ flexDirection: "row" }}>

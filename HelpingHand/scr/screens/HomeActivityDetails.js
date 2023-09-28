@@ -97,13 +97,18 @@ export default function HomeActivityDetails({ route, navigation }) {
         </Text>
         <View
           style={{
-            width: 350,
-            height: 500,
-            elevation: 5,
+            padding: 20,
             borderRadius: 10,
-            backgroundColor: "#175D8C",
+            backgroundColor: "white",
             alignSelf: "center",
             marginVertical: 15,
+            elevation: 5,
+            borderRadius: 10,
+            shadowColor: 'black',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.2,
+            shadowRadius: 4,
+            borderRadius: 10,
           }}
         >
           <View style={{ flexDirection: "row" }}>
@@ -134,7 +139,6 @@ export default function HomeActivityDetails({ route, navigation }) {
                   fontSize: 30,
                   textAlign: "center",
                   alignSelf: "center",
-                  color: "white",
                   fontWeight: "bold",
                 }}
               >
@@ -153,7 +157,7 @@ export default function HomeActivityDetails({ route, navigation }) {
                 borderRadius: 10,
               }}
             >
-              <Text style={{ textAlign: "center", color: "white", }}>Author: {activityAuthor.name}</Text>
+              <Text style={{ textAlign: "center", color: "white" }}>Author: {activityAuthor.name}</Text>
             </View>
             <View style={{ width: 80 }}></View>
           </View>
@@ -161,13 +165,13 @@ export default function HomeActivityDetails({ route, navigation }) {
           {/* =============TOPSECTION======== */}
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
           <View style={{ padding: 10 }}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>Description:</Text>
-            <Text style={{ color: "white", paddingTop: 5, textAlign: 'justify' }}>{activity.description}</Text>
+            <Text style={{ fontWeight: "bold" }}>Description:</Text>
+            <Text style={{ paddingTop: 5, textAlign: 'justify' }}>{activity.description}</Text>
           </View>
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
           <View style={{ padding: 10 }}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>Place/Destination:</Text>
-            <Text style={{ color: "white", paddingTop: 5, textAlign: 'justify' }}>{activity.location}</Text>
+            <Text style={{ fontWeight: "bold" }}>Place/Destination:</Text>
+            <Text style={{ paddingTop: 5, textAlign: 'justify' }}>{activity.location}</Text>
           </View>
           {/* =============MIDSECTION======== */}
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
@@ -192,10 +196,10 @@ export default function HomeActivityDetails({ route, navigation }) {
                 paddingLeft: 30,
               }}
             >
-              <Text style={{ textAlign: "center", color: "white" }}>Rewards:</Text>
+              <Text style={{ textAlign: "center" }}>Rewards:</Text>
             </View>
             <View style={{ marginTop: 10, alignSelf: "center", marginLeft: 8, flexDirection: "row", alignItems: "center" }}>
-              <Text style={{ textAlign: "center", color: "white" }}>{activity.reward}</Text>
+              <Text style={{ textAlign: "center" }}>{activity.reward}</Text>
               <FontAwesome name="star" size={24} color="yellow" style={{ marginLeft: 5 }} />
             </View>
           </View>
