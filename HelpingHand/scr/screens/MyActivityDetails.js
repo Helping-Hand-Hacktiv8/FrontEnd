@@ -2,11 +2,12 @@ import { View, Text, Image, ActivityIndicator, Button, StyleSheet, Pressable, To
 import { Divider } from "@rneui/themed";
 import { FontAwesome } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncFetchActSingleParticipant, asyncFetchSingleUser, asyncUnparticipate, fetchAuthorActivity } from "../store/actions/actionCreator";
+import { asyncFetchActSingleParticipant, asyncUnparticipate, fetchAuthorActivity } from "../store/actions/actionCreator";
 import * as SecureStore from "expo-secure-store";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
+const baseUrl = "https://helping-hand-server.blekzzz.com";
 
 export default function MyActivityDetails({ route, navigation }) {
   const dispatch = useDispatch();
@@ -19,9 +20,9 @@ export default function MyActivityDetails({ route, navigation }) {
     return state.activity;
   });
 
-  const { user } = useSelector((state) => {
-    return state.user;
-  });
+  const { activityAuthor } = useSelector((state) => {
+    return state.activity
+  })
 
   const toUnparticipate = () => {
     console.log(userActId, "USER ACT ID");
@@ -58,7 +59,7 @@ export default function MyActivityDetails({ route, navigation }) {
     );
   } else {
     return (
-      <View>
+      <View style={styles.mainContainer}>
         <Text
           style={{
             textAlign: "center",
@@ -71,13 +72,18 @@ export default function MyActivityDetails({ route, navigation }) {
         </Text>
         <View
           style={{
-            width: 350,
-            height: 500,
-            elevation: 5,
+            padding: 20,
             borderRadius: 10,
-            backgroundColor: "#dc6c3c",
+            backgroundColor: "white",
             alignSelf: "center",
             marginVertical: 15,
+            elevation: 5,
+            borderRadius: 10,
+            shadowColor: 'black',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.2,
+            shadowRadius: 4,
+            borderRadius: 10,
           }}
         >
           <View style={{ flexDirection: "row" }}>
@@ -85,7 +91,6 @@ export default function MyActivityDetails({ route, navigation }) {
               style={{
                 justifyContent: "center",
                 width: 130,
-                backgroundColor: "#175D8C",
                 height: 130,
                 alignSelf: "center",
                 borderRadius: 10,
@@ -109,7 +114,6 @@ export default function MyActivityDetails({ route, navigation }) {
                   fontSize: 30,
                   textAlign: "center",
                   alignSelf: "center",
-                  color: "white",
                   fontWeight: "bold",
                 }}
               >
@@ -120,39 +124,35 @@ export default function MyActivityDetails({ route, navigation }) {
           <View style={{ flexDirection: "row" }}>
             <View
               style={{
-                backgroundColor: "#175D8C",
+                backgroundColor: "#5FB0CB",
                 marginTop: 10,
                 marginLeft: 10,
-                width: 80,
+                padding: 10,
                 alignSelf: "center",
                 borderRadius: 10,
               }}
             >
-              <Text style={{ textAlign: "center", color: "white" }}>Author:</Text>
+              <Text style={{ textAlign: "center", color: "white" }}>Author: {activityAuthor.name}</Text>
             </View>
-            <View style={{ marginTop: 10, width: 80, alignSelf: "center" }}>
-              <Text style={{ textAlign: "center", color: "white" }}>{user.name}</Text>
-            </View>
-            <View style={{ width: 80 }}></View>
           </View>
 
           {/* =============TOPSECTION======== */}
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
           <View style={{ padding: 10 }}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>Description:</Text>
-            <Text style={{ color: "white", fontWeight: "bold" }}>{activity.description}</Text>
+            <Text style={{ fontWeight: "bold" }}>Description:</Text>
+            <Text style={{ paddingTop: 5, textAlign: 'justify' }}>{activity.description}</Text>
           </View>
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
           <View style={{ padding: 10 }}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>Place/Destination:</Text>
-            <Text style={{ color: "white", fontWeight: "bold" }}>{activity.location}</Text>
+            <Text style={{ fontWeight: "bold" }}>Place/Destination:</Text>
+            <Text style={{ paddingTop: 5, textAlign: 'justify' }}>{activity.location}</Text>
           </View>
           {/* =============MIDSECTION======== */}
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
           <View style={{ flexDirection: "row" }}>
             <View
               style={{
-                backgroundColor: "#175D8C",
+                backgroundColor: "#5FB0CB",
                 marginTop: 10,
                 marginLeft: 10,
                 alignSelf: "center",
@@ -160,12 +160,7 @@ export default function MyActivityDetails({ route, navigation }) {
                 padding: 10,
               }}
             >
-              <Text style={{ textAlign: "center", color: "white" }}>Participants:</Text>
-            </View>
-            <View style={{ marginTop: 10, alignSelf: "center", marginLeft: 8 }}>
-              <Text style={{ textAlign: "center", color: "white" }}>
-                {activity.UserActivities.length}/{activity.participant}
-              </Text>
+              <Text style={{ textAlign: "center", color: "white" }}>Participants: {activity.UserActivities.length}/{activity.participant}</Text>
             </View>
             <View style={{ width: 90, marginHorizontal: -20 }} />
             <View
@@ -175,10 +170,10 @@ export default function MyActivityDetails({ route, navigation }) {
                 paddingLeft: 30,
               }}
             >
-              <Text style={{ textAlign: "center", color: "white" }}>Rewards:</Text>
+              <Text style={{ textAlign: "center" }}>Rewards:</Text>
             </View>
             <View style={{ marginTop: 10, alignSelf: "center", marginLeft: 8, flexDirection: "row", alignItems: "center" }}>
-              <Text style={{ textAlign: "center", color: "white" }}>{activity.reward}</Text>
+              <Text style={{ textAlign: "center" }}>{activity.reward}</Text>
               <FontAwesome name="star" size={24} color="yellow" style={{ marginLeft: 5 }} />
             </View>
           </View>
@@ -227,11 +222,12 @@ const styles = StyleSheet.create({
     flexDirection: "row", // Menjadikan dua kolom dengan mengatur arah flex menjadi 'row'
     justifyContent: "space-between", // kasih ruang diantara dua button
     alignItems: "center", // Menengahkan vertikal
+    padding: 10
   },
 
   pointsButtons: {
     marginTop: 20,
-    backgroundColor: "blue",
+    backgroundColor: "#5FB0CB",
     padding: 10,
     borderRadius: 20,
     width: 100,
@@ -241,6 +237,9 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     padding: 10,
     borderRadius: 20,
-    width: 100,
   },
+  mainContainer: {
+    flex: 1,
+    backgroundColor: 'white'
+  }
 });

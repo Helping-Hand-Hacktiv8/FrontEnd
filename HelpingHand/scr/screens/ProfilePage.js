@@ -11,14 +11,8 @@ export default function ProfilePage({ navigation }) {
     return state.user;
   });
 
-  const [editingPassword, setEditingPassword] = useState(false);
-  const [newPassword, setNewPassword] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   let [userId, setUserId] = useState(0);
-
-  const handleChat = () => {
-    console.log("Chat button clicked");
-  };
 
   const handleLogout = async () => {
     try {
@@ -74,17 +68,23 @@ export default function ProfilePage({ navigation }) {
               />
             </View>
             {/* username */}
-            <Text style={styles.ContentTextContainer}>{user.name}</Text>
+            <View style={styles.nameContainer}>
+              <Text>{user.name}</Text>
+            </View>
 
             {/* Email */}
-            <Text style={styles.ContentTextContainer}>{user.email}</Text>
+            <View style={styles.emailContainer}>
+              <Text>{user.email}</Text>
+            </View>
 
             {/* points */}
-            <Text style={styles.ContentTextContainer}>Points: {user.token}</Text>
+            <View style={styles.pointContainer}>
+            <Text>{user.token} Point(s)</Text>
+            </View>
           </View>
 
           <View style={styles.bracketContainer}>
-            <Text>Content</Text>
+            <Text>Feature</Text>
           </View>
 
           <View style={styles.contentContainer}>
@@ -132,7 +132,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#FDFDFD",
     paddingBottom: 20, // Add some padding to create a margin at the bottom
-    width: 380,
   },
 
   imageContainer: {
@@ -169,17 +168,38 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     backgroundColor: "#FDFDFD",
-    paddingVertical: 20, // Padding atas dan bawah
-    width: 380,
+    paddingVertical: 20,
     flexDirection: "column",
-    justifyContent: "center", // Elemen di tengah secara vertikal
+    justifyContent: "center",
   },
 
-  ContentTextContainer: {
+  nameContainer: {
     fontSize: 18,
     marginLeft: 5,
     fontWeight: "500",
     color: "black",
+    padding: 5,
+    borderRadius: 20,
+  },
+
+  pointContainer: {
+    fontSize: 18,
+    marginLeft: 5,
+    fontWeight: "500",
+    color: "black",
+    padding: 5,
+    borderRadius: 20,
+    marginTop: 10
+  },
+
+  emailContainer: {
+    fontSize: 18,
+    marginLeft: 5,
+    fontWeight: "500",
+    color: "black",
+    padding: 5,
+    borderRadius: 20,
+    marginTop: 10
   },
 
   contentAndSettingsText: {

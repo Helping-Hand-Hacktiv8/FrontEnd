@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import logo from '../../assets/helping_hand.png'
 
 export default function CardComp({data, UserActId}) {
   const navigation = useNavigation()
@@ -14,7 +15,7 @@ export default function CardComp({data, UserActId}) {
       <TouchableOpacity style={styles.containerLogo} onPress={toDetails}>
         <Image
           source={
-            {uri:data.photoAct} 
+            { uri:'https://helping-hand-server.blekzzz.com/static/' + data.photoAct } || logo
           }
           resizeMode="contain"
           style={{
@@ -56,8 +57,6 @@ export default function CardComp({data, UserActId}) {
             <FontAwesome name="star" size={16} color="gold" />
           </View>
         </View>
-    
-       
 
         {/* Description */}
         <Text style={styles.descriptionText} numberOfLines={3}>
@@ -116,8 +115,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 16,
     borderRadius: 12,
-    backgroundColor: "#FFF",
-    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,

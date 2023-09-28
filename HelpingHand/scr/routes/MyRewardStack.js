@@ -19,10 +19,6 @@ export default function MyRewardsStack() {
           title: "Reward Page",
           headerTitleAlign: "center",
           headerTitleAllowFontScaling: true,
-          headerTitleStyle: {
-            fontWeight: "bold",
-            fontSize: 30,
-          },
         }}
       />
 
@@ -33,10 +29,6 @@ export default function MyRewardsStack() {
           title: "Reward Details",
           headerTitleAlign: "center",
           headerTitleAllowFontScaling: true,
-          headerTitleStyle: {
-            fontWeight: "bold",
-            fontSize: 30,
-          },
         }}
       />
     </Stack.Navigator>
