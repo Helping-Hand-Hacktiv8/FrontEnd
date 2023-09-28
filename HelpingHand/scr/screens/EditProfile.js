@@ -5,8 +5,6 @@ import * as ImagePicker from "expo-image-picker";
 import { asyncPutUserProfile } from "../store/actions/actionCreator";
 
 export default function EditProfile({ navigation }) {
-  const [newUsername, setNewUsername] = useState("");
-
   const dispatch = useDispatch();
   const { user } = useSelector((state) => {
     return state.user;
@@ -93,7 +91,7 @@ export default function EditProfile({ navigation }) {
         {/* Edit Profile Image */}
         <Text style={styles.textTitle}>Profile Image</Text>
         <TouchableOpacity style={styles.buttonContainer} onPress={selectImage}>
-          <Text style={{ textAlign: "center" }}>Choose Image</Text>
+          <Text style={{ textAlign: "center", color: "white" }}>Choose Image</Text>
         </TouchableOpacity>
 
         {/* Edit Username */}
@@ -104,17 +102,13 @@ export default function EditProfile({ navigation }) {
         <Text style={styles.textTitle}>Email</Text>
         <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newEmail: text })} placeholder={user.email} value={formData.newEmail} />
 
-        {/* Edit Pasword */}
-        <Text style={styles.textTitle}>Password</Text>
-        <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newPassword: text })} placeholder="**********" value={formData.newPassword} secureTextEntry={true} />
-
         {/* Edit Phone Number */}
         <Text style={styles.textTitle}>Phone Number</Text>
         <TextInput style={styles.textContainer} onChangeText={(text) => setFormData({ ...formData, newPhoneNumber: text })} placeholder={user.phoneNumber} value={formData.newPhoneNumber} />
 
         {/* Save Button */}
         <TouchableOpacity style={styles.buttonContainer} onPress={handleSaveProfile}>
-          <Text style={{ textAlign: "center" }}>Save Changes</Text>
+          <Text style={{ textAlign: "center", color: 'white' }}>Save Changes</Text>
         </TouchableOpacity>
 
         {/* Delete My Account */}
@@ -131,29 +125,33 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "white"
   },
   textContainer: {
     fontSize: 18,
     marginBottom: 10,
+    borderRadius: 30,
+    padding: 10,
     fontWeight: "bold",
     textAlign: "center",
-    backgroundColor: "#9C8F8E",
-    padding: 10,
     borderRadius: 30,
-    width: 300,
+    borderWidth: 1,
+    borderColor: 'black',
+    width: 300
   },
   textTitle: {
     alignItems: "center",
     justifyContent: "center",
     fontSize: 24,
+    paddingTop: 10,
   },
   buttonContainer: {
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
-    backgroundColor: "#279EFF",
+    backgroundColor: "#3AAACF",
     marginTop: 10,
-    padding: 10,
+    padding: 15,
     borderRadius: 30,
   },
   buttonDelete: {
@@ -161,8 +159,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     backgroundColor: "red",
-    marginTop: 10,
-    padding: 10,
+    marginTop: 15,
+    padding: 15,
     borderRadius: 30,
+    marginBottom: 50
   },
 });

@@ -22,64 +22,21 @@ export default function MyActivityStack() {
         name="MyActivity"
         component={MyActivty}
         options={{
-          headerShown: false,
-        //   title: "My Activity",
-        //   headerTitleAlign: "center",
-        //   headerTitleAllowFontScaling: true,
-        //   headerTitleStyle: {
-        //     fontWeight: "bold",
-        //     fontSize: 30,
-        //   },
         }}
       />
       <Stack.Screen name="MyRequest" component={MyRequest} options={{
-        headerShown: true,
-        headerTitleStyle: { color: 'white' },
-        headerStyle: {
-          backgroundColor: '#175d8c'
-        },
         title: 'My Request',
-        headerStatusBarHeight: 25
       }} />
       <Stack.Screen name="AddRequest" component={AddRequest} options={{
         headerShown: true,
-        headerTitleStyle: { color: 'white' },
-        headerStyle: {
-          backgroundColor: '#175d8c',
-
-        },
-        title: '',
-        headerStatusBarHeight: 25
       }} />
       <Stack.Screen name="ActivityDetail" component={MyActivityDetails} options={{
-        headerShown: true,
-        headerTitleStyle: { color: 'white' },
-        headerStyle: {
-          backgroundColor: '#175d8c',
-
-        },
-        title:'',
-        headerStatusBarHeight:25
+        title: "Activity Detail"
       }} />
        <Stack.Screen name="EditRequest" component={EditRequest} options={{
-        headerShown:true,
-        headerTitleStyle:{color:'white'},
-        headerStyle:{
-            backgroundColor:'#175d8c',
-            
-        },
-        title:'',
-        headerStatusBarHeight:25
+        title: "Edit Request"
       }} />
        <Stack.Screen name="Monitor" component={Monitor} options={{
-        headerShown:true,
-        headerTitleStyle:{color:'white'},
-        headerStyle:{
-            backgroundColor:'#175d8c',
-            
-        },
-        title:'',
-        headerStatusBarHeight:25
       }} />
       <Stack.Screen name="ChatScreen" component={ChatScreen} options={{
         headerShown: false,

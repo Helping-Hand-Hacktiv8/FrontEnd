@@ -1,10 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../screens/HomePage";
-import Register from "../screens/RegisterPage";
-import Login from "../screens/LoginPage";
-import { setStatusBarBackgroundColor } from "expo-status-bar";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
 import HomeActivityDetails from "../screens/HomeActivityDetails";
 
 export default function HomeStack() {
@@ -17,10 +13,7 @@ export default function HomeStack() {
       }}
     >
       <Stack.Screen name="Home" component={Home} options={{
-        headerShown:true,
-        headerStyle:{
-            backgroundColor:'#5FB0CB'
-        },
+        headerShown: false,
       }}/>
       <Stack.Screen name="HomeActivityDetail" component={HomeActivityDetails} options={{
         headerShown:true,

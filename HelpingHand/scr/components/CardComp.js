@@ -57,8 +57,6 @@ export default function CardComp({data, UserActId}) {
             <FontAwesome name="star" size={16} color="gold" />
           </View>
         </View>
-    
-       
 
         {/* Description */}
         <Text style={styles.descriptionText} numberOfLines={3}>
@@ -117,8 +115,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 16,
     borderRadius: 12,
-    backgroundColor: "#FFF",
-    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,

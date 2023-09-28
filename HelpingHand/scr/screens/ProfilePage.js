@@ -84,7 +84,7 @@ export default function ProfilePage({ navigation }) {
           </View>
 
           <View style={styles.bracketContainer}>
-            <Text></Text>
+            <Text>Feature</Text>
           </View>
 
           <View style={styles.contentContainer}>
@@ -178,8 +178,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     fontWeight: "500",
     color: "black",
-    backgroundColor: '#279EFF',
-    padding: 10,
+    padding: 5,
     borderRadius: 20,
   },
 
@@ -188,8 +187,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     fontWeight: "500",
     color: "black",
-    backgroundColor: '#279EFF',
-    padding: 10,
+    padding: 5,
     borderRadius: 20,
     marginTop: 10
   },
@@ -199,8 +197,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     fontWeight: "500",
     color: "black",
-    backgroundColor: '#279EFF',
-    padding: 10,
+    padding: 5,
     borderRadius: 20,
     marginTop: 10
   },

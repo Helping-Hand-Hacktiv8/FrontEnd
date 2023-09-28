@@ -59,7 +59,7 @@ export default function Reward() {
     );
   } else
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.mainContainer}>
         <ScrollView>
           <Text style={styles.totalPoints}>Total Points</Text>
 
@@ -93,6 +93,11 @@ export default function Reward() {
 }
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
+
   totalPoints: {
     textAlign: "center",
     fontWeight: "800",

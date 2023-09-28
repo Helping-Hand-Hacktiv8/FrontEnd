@@ -172,18 +172,7 @@ export default function AddRequest() {
     <ScrollView>
 
     <View style={{ flex: 1 }}>
-      <Text
-        style={{
-          textAlign: "center",
-          fontStyle: "italic",
-          fontWeight: "800",
-          fontSize: 25,
-          padding: 10,
-        }}
-      >
-        Add Request
-      </Text>
-      <View style={{ alignItems: "center" }}>
+      <View style={{ alignItems: "center", padding: 10 }}>
         <Text>Title</Text>
         <TextInput
           placeholder={"title"}

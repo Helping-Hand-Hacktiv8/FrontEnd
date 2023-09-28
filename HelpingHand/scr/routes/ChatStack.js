@@ -10,14 +10,10 @@ export default function ChatStack() {
         <Stack.Navigator>
             <Stack.Screen name="ChatList" component={ChatListScreen} options={{
                 headerShown: true,
-                headerStyle: {
-                    backgroundColor: '#3AAACF'
-                },
                 title: 'Chat List',
             }} />
             <Stack.Screen name="ChatScreen" component={ChatScreen} options={{
                 headerShown: false,
-                headerStatusBarHeight: 25
             }} />
         </Stack.Navigator>
     );

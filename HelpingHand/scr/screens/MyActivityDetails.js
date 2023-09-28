@@ -59,7 +59,7 @@ export default function MyActivityDetails({ route, navigation }) {
     );
   } else {
     return (
-      <View>
+      <View style={styles.mainContainer}>
         <Text
           style={{
             textAlign: "center",
@@ -72,13 +72,18 @@ export default function MyActivityDetails({ route, navigation }) {
         </Text>
         <View
           style={{
-            width: 350,
-            height: 500,
-            elevation: 5,
+            padding: 20,
             borderRadius: 10,
-            backgroundColor: "#175D8C",
+            backgroundColor: "white",
             alignSelf: "center",
             marginVertical: 15,
+            elevation: 5,
+            borderRadius: 10,
+            shadowColor: 'black',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.2,
+            shadowRadius: 4,
+            borderRadius: 10,
           }}
         >
           <View style={{ flexDirection: "row" }}>
@@ -109,7 +114,6 @@ export default function MyActivityDetails({ route, navigation }) {
                   fontSize: 30,
                   textAlign: "center",
                   alignSelf: "center",
-                  color: "white",
                   fontWeight: "bold",
                 }}
               >
@@ -120,7 +124,7 @@ export default function MyActivityDetails({ route, navigation }) {
           <View style={{ flexDirection: "row" }}>
             <View
               style={{
-                backgroundColor: "#279EFF",
+                backgroundColor: "#5FB0CB",
                 marginTop: 10,
                 marginLeft: 10,
                 padding: 10,
@@ -135,20 +139,20 @@ export default function MyActivityDetails({ route, navigation }) {
           {/* =============TOPSECTION======== */}
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
           <View style={{ padding: 10 }}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>Description:</Text>
-            <Text style={{ color: "white", paddingTop: 5, textAlign: 'justify' }}>{activity.description}</Text>
+            <Text style={{ fontWeight: "bold" }}>Description:</Text>
+            <Text style={{ paddingTop: 5, textAlign: 'justify' }}>{activity.description}</Text>
           </View>
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
           <View style={{ padding: 10 }}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>Place/Destination:</Text>
-            <Text style={{ color: "white", paddingTop: 5, textAlign: 'justify' }}>{activity.location}</Text>
+            <Text style={{ fontWeight: "bold" }}>Place/Destination:</Text>
+            <Text style={{ paddingTop: 5, textAlign: 'justify' }}>{activity.location}</Text>
           </View>
           {/* =============MIDSECTION======== */}
           <Divider width={2} color="black" style={{ marginTop: 10 }} />
           <View style={{ flexDirection: "row" }}>
             <View
               style={{
-                backgroundColor: "#279EFF",
+                backgroundColor: "#5FB0CB",
                 marginTop: 10,
                 marginLeft: 10,
                 alignSelf: "center",
@@ -166,10 +170,10 @@ export default function MyActivityDetails({ route, navigation }) {
                 paddingLeft: 30,
               }}
             >
-              <Text style={{ textAlign: "center", color: "white" }}>Rewards:</Text>
+              <Text style={{ textAlign: "center" }}>Rewards:</Text>
             </View>
             <View style={{ marginTop: 10, alignSelf: "center", marginLeft: 8, flexDirection: "row", alignItems: "center" }}>
-              <Text style={{ textAlign: "center", color: "white" }}>{activity.reward}</Text>
+              <Text style={{ textAlign: "center" }}>{activity.reward}</Text>
               <FontAwesome name="star" size={24} color="yellow" style={{ marginLeft: 5 }} />
             </View>
           </View>
@@ -223,7 +227,7 @@ const styles = StyleSheet.create({
 
   pointsButtons: {
     marginTop: 20,
-    backgroundColor: "blue",
+    backgroundColor: "#5FB0CB",
     padding: 10,
     borderRadius: 20,
     width: 100,
@@ -234,4 +238,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
   },
+  mainContainer: {
+    flex: 1,
+    backgroundColor: 'white'
+  }
 });
