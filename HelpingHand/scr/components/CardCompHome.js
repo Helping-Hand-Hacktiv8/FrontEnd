@@ -9,61 +9,59 @@ export default function CardCompHome({ data }) {
   };
   return (
     <TouchableOpacity style={styles.cardContainer} onPress={toDetails}>
-      <TouchableOpacity style={styles.containerLogo} onPress={toDetails}>
-        <Image
-          source={{ uri: data.photoAct }}
-          resizeMode="contain"
-          style={{
-            width: "100%",
-            borderRadius: 10,
-            height: "100%",
-          }}
-        />
-      </TouchableOpacity>
-
-      <View
-        style={styles.viewCardContainer}
-      >
-        <View style={styles.topRow}>
-          {/* Title */}
-          <View
+        <TouchableOpacity style={styles.containerLogo} onPress={toDetails}>
+          <Image
+            source={{ uri: data.photoAct }}
+            resizeMode="contain"
             style={{
-              flex: 4,
+              width: "100%",
+              borderRadius: 10,
+              height: "100%",
             }}
-          >
-            <Text style={styles.cardTittle} numberOfLines={1}>
-              {data.name}
-            </Text>
-          </View>
+          />
+        </TouchableOpacity>
 
-          <View style={styles.rewardContainer}>
-            <Text style={styles.rewardText}>reward:</Text>
-            <Text style={styles.rewardValue}>{data.reward}</Text>
-            <FontAwesome name="star" size={16} color="gold" />
-          </View>
-        </View>
-
-        {/* Description */}
-        <Text style={styles.descriptionText} numberOfLines={3}>
-          {data.description}
-        </Text>
-
-        {/* Location */}
-        <Text style={styles.locationText} numberOfLines={1}>
-          {data.location}
-        </Text>
-
-        <View style={styles.bottomRow}>
-          <Text style={styles.clickForDetail}>Click For Details</Text>
-          {/* Participant */}
-          <View style={styles.participantRow}>
-            <View style={styles.participantContainer}>
-              <Text style={styles.participantText}>Participant</Text>
+        <View style={styles.viewCardContainer}>
+          <View style={styles.topRow}>
+            {/* Title */}
+            <View
+              style={{
+                flex: 4,
+              }}
+            >
+              <Text style={styles.cardTittle} numberOfLines={1}>
+                {data.name}
+              </Text>
             </View>
-            <Text style={styles.participantValue}>{data.participant}/6</Text>
+
+            <View style={styles.rewardContainer}>
+              <Text style={styles.rewardText}>reward:</Text>
+              <Text style={styles.rewardValue}>{data.reward}</Text>
+              <FontAwesome name="star" size={16} color="gold" />
+            </View>
+          </View>
+
+          {/* Description */}
+          <Text style={styles.descriptionText} numberOfLines={3}>
+            {data.description}
+          </Text>
+
+          {/* Location */}
+          <Text style={styles.locationText} numberOfLines={1}>
+            {data.location}
+          </Text>
+
+          <View style={styles.bottomRow}>
+            <Text style={styles.clickForDetail}>Click For Details</Text>
+            {/* Participant */}
+            <View style={styles.participantRow}>
+              <View style={styles.participantContainer}>
+                <Text style={styles.participantText}>Participant</Text>
+              </View>
+              <Text style={styles.participantValue}>{data.participant}/6</Text>
+            </View>
           </View>
         </View>
-      </View>
     </TouchableOpacity>
   );
 }
@@ -76,7 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E9F2F3",
     padding: 20,
   },
-  
+
   cardTittle: {
     fontWeight: "bold",
     fontSize: 16,
@@ -107,7 +105,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     padding: 16,
-    borderRadius: 12,
+    // borderRadius: 12,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -115,8 +113,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 5.84,
-    elevation: 5,
-
+    elevation: 4,
   },
 
   containerLogo: {

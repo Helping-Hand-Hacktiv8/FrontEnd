@@ -16,7 +16,6 @@ export default function FrontStack() {
       activeColor="#5FB0CB"
       barStyle={{
         backgroundColor: "white",
-        height: 70,
       }}
       screenOptions={{
         headerShown: false,
